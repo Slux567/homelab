@@ -1,0 +1,8 @@
+---
+- name: Runs the odin role
+  hosts: odin
+  become: true
+
+  roles:
+    - odin
+

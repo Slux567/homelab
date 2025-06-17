@@ -6,6 +6,7 @@
     - name: Update apt package list
       apt:
         update_cache: yes
+        cache_valid_time: 3600  # makes sure that ansible doesnt show the "changed" status for an hour
 
     - name: Upgrade all packages to the latest version
       apt:
