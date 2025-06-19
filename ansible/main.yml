@@ -1,0 +1,9 @@
+---
+- name: Run proxmox roles on corresponding hosts
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Configure Proxmox nodes
+      include_role:
+        name: proxmox

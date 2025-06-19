@@ -1,3 +1,0 @@
----
-- name: Include Docker install tasks
-  import_tasks: docker_install.yml

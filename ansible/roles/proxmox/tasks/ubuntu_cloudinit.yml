@@ -1,0 +1,68 @@
+- name: Define VMID map
+  set_fact:
+    vmid_map:
+      asgard: 9000
+      midgard: 9001
+      muspelheim: 9002
+
+- name: Set VM ID for this node
+  set_fact:
+    vmid: "{{ vmid_map[inventory_hostname] }}"
+
+- name: Download Debian 12 cloud-init image
+  ansible.builtin.get_url:
+    url: https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2
+    dest: /root/debian-12-genericcloud-amd64.qcow2
+    mode: '0644'
+
+- name: Check if VM exists
+  command: qm status "{{ vmid }}"
+  register: vm_status
+  ignore_errors: true
+  changed_when: false
+
+- name: Create VM for cloud-init template if not exists
+  command: qm create "{{ vmid }}" --name debian12-cloudinit
+  when: vm_status.rc != 0
+
+- name: Check if VM has scsi0 disk assigned
+  command: qm config "{{ vmid }}"
+  register: vm_config
+  changed_when: false
+
+- name: Import cloud-init image into VM disk
+  command: qm set "{{ vmid }}" --scsi0 storage:0,import-from=/root/debian-12-genericcloud-amd64.qcow2
+  when: "'scsi0' not in vm_config.stdout"
+
+- name: Check VM config for template status
+  command: qm config "{{ vmid }}"
+  register: vm_config
+  changed_when: false
+  failed_when: false
+
+- name: Convert VM to template
+  command: qm template "{{ vmid }}"
+  when: "'template: 1' not in vm_config.stdout"
+
+- name: Ensure snippet directory exists
+  ansible.builtin.file:
+    path: /var/lib/vz/snippets
+    state: directory
+    mode: '0755'
+
+- name: Check if qemu-guest-agent snippet exists
+  ansible.builtin.stat:
+    path: /var/lib/vz/snippets/qemu-guest-agent.yml
+  register: snippet_stat
+
+- name: Create qemu-guest-agent cloud-init snippet
+  ansible.builtin.copy:
+    dest: /var/lib/vz/snippets/qemu-guest-agent.yml
+    content: |
+      #cloud-config
+      runcmd:
+        - apt update
+        - apt install -y qemu-guest-agent
+        - systemctl start qemu-guest-agent
+    mode: '0644'
+  when: not snippet_stat.stat.exists
