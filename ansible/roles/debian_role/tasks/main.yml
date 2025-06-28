@@ -1,0 +1,2 @@
+---
+- import_tasks: upgrade_all.yml

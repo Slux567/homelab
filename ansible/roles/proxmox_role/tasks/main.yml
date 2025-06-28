@@ -1,3 +1,2 @@
 ---
-- import_tasks: upgrade_all.yml
 - import_tasks: ubuntu_cloudinit.yml

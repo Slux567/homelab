@@ -1,9 +1,13 @@
 ---
-- name: Run proxmox roles on corresponding hosts
-  hosts: all
+- hosts: proxmox_nodes
   become: true
+  roles:
+    - { role: debian_role, tags: ['debian'] }
+    - { role: proxmox_role, tags: ['proxmox'] }
 
-  tasks:
-    - name: Configure Proxmox nodes
-      include_role:
-        name: proxmox
+- hosts: infra_nodes
+  become: true
+  roles:
+    - { role: debian_role, tags: ['debian'] }
+    - { role: infra_role, tags: ['infra'] }
+
