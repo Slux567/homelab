@@ -3,6 +3,8 @@
 
 **/.envrc
 **/.env
+**/vars/
+
 
 **/.terraform
 **/.terraform.lock.hcl
@@ -18,3 +20,4 @@
 **/user-data
 
 **/inventory.ini
+**/group_vars/
