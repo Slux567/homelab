@@ -1,0 +1,29 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/data
+    networks:
+      - infra-net
+    labels:
+        # Enable Traefik
+        - "traefik.enable=true"
+        
+        # Enable HTTP (will be redirected by traefik)
+        - "traefik.http.routers.whoami.rule=Host(`portainer.slux-solutions.com`)"
+        - "traefik.http.routers.whoami.entrypoints=web"
+
+        # Enable HTTPS
+        - "traefik.http.routers.whoami.rule=Host(`portainer.slux-solutions.com`)"
+        - "traefik.http.routers.whoami.entrypoints=websecure"
+        - "traefik.http.routers.whoami.tls=true"
+        - "traefik.http.routers.whoami.tls.certresolver=cloudflare"
+        - "traefik.http.services.whoami.loadbalancer.server.port=9000"
+
+networks:
+  infra-net:
+    external: true
+

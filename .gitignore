@@ -21,3 +21,5 @@
 
 **/inventory.ini
 **/group_vars/
+
+**.secret

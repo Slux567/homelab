@@ -1,0 +1,14 @@
+- name: Restart portainer
+  shell: "docker compose up -d --remove-orphans"
+  args:
+    chdir: /opt/portainer
+
+- name: Restart nginx-proxy-manager
+  command: docker compose down && docker compose up -d
+  args:
+    chdir: /opt/nginx-proxy-manager
+
+- name: Restart traefik
+  shell: "docker compose up -d --remove-orphans"
+  args:
+    chdir: /opt/traefik

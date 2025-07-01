@@ -2,3 +2,15 @@
 - name: Installs Docker on infra machine
   import_tasks: docker_install.yml
   tags: docker_install
+
+- name: Deploys Portainer
+  import_tasks: portainer_deploy.yml
+  tags: portainer_deploy
+
+- name: Deploys Traefik
+  import_tasks: traefik_deploy.yml
+  tags: traefik_deploy
+
+# - name: Deploys Nginx-proxy-manager
+#   import_tasks: npm_deploy.yml
+#   tags: npm_deploy
