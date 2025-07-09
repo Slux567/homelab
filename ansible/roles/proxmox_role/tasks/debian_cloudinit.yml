@@ -1,18 +1,18 @@
 - name: Define VMID map
   set_fact:
     vmid_map:
-      asgard: 8000
-      midgard: 8001
-      muspelheim: 8002
+      asgard: 9000
+      midgard: 9001
+      muspelheim: 9002
 
 - name: Set VM ID for this node
   set_fact:
     vmid: "{{ vmid_map[inventory_hostname] }}"
 
-- name: Download Ubuntu 24 cloud-init image
+- name: Download Debian 12 cloud-init image
   ansible.builtin.get_url:
-    url: https://cloud-images.ubuntu.com/releases/noble/release/ubuntu-24.04-server-cloudimg-amd64.img
-    dest: /root/ubuntu-24.04-server-cloudimg-amd64.img
+    url: https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2
+    dest: /root/debian-12-genericcloud-amd64.qcow2
     mode: '0644'
 
 - name: Check if VM exists
@@ -22,7 +22,7 @@
   changed_when: false
 
 - name: Create VM for cloud-init template if not exists
-  command: qm create "{{ vmid }}" --name ubuntu-24.04-cloudinit
+  command: qm create "{{ vmid }}" --name debian12-cloudinit
   when: vm_status.rc != 0
 
 - name: Check if VM has scsi0 disk assigned
@@ -31,7 +31,7 @@
   changed_when: false
 
 - name: Import cloud-init image into VM disk
-  command: qm set "{{ vmid }}" --scsi0 storage:0,import-from=/root/ubuntu-24.04-server-cloudimg-amd64.img
+  command: qm set "{{ vmid }}" --scsi0 storage:0,import-from=/root/debian-12-genericcloud-amd64.qcow2
   when: "'scsi0' not in vm_config.stdout"
 
 - name: Check VM config for template status

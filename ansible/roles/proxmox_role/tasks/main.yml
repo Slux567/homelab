@@ -1,2 +1,3 @@
 ---
 - import_tasks: ubuntu_cloudinit.yml
+- import_tasks: debian_cloudinit.yml

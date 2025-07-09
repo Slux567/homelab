@@ -24,7 +24,7 @@ resource "proxmox_vm_qemu" "local-services-1" {
   memory = 16384
 
   # -- Template Settings / Operating System
-  clone      = "debian12-cloudinit"  # Change to the desired template name
+  clone      = "ubuntu-24.04-cloudinit"  # Change to the desired template name
   full_clone = true                  # Optional: false for linked clone
 
   # -- Network Settings
