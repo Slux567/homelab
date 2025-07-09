@@ -1,33 +1,28 @@
 - name: Create /opt/traefik
-  become: true
   file:
     path: /opt/traefik
     state: directory
     mode: '0744'
 
 - name: Create /opt/traefik/data
-  become: true
   file:
     path: /opt/traefik/data
     state: directory
     mode: '0744'
 
 - name: Create /opt/traefik/data/conf
-  become: true
   file:
     path: /opt/traefik/data/conf
     state: directory
     mode: '0744'
 
 - name: Create /opt/traefik/data/certs
-  become: true
   file:
     path: /opt/traefik/data/certs
     state: directory
     mode: '0744'
 
 - name: Create traefik.yml
-  become: true
   template:
     src: traefik.yml.j2
     dest: /opt/traefik/data/traefik.yml
@@ -35,7 +30,6 @@
   # notify: Restart traefik
 
 - name: Create Traefik docker-compose.yml
-  become: true
   template:
     src: traefik-docker-compose.yml.j2
     dest: /opt/traefik/docker-compose.yml

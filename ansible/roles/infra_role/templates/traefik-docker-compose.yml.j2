@@ -1,6 +1,6 @@
 services:
   traefik:
-    image: traefik:v3.4
+    image: traefik:latest
     container_name: traefik
     restart: unless-stopped
     security_opt:
@@ -11,7 +11,7 @@ services:
       - infra-net
     ports:
       - 80:80 # HTTP entryPoints
-      - 443:443 # HTTPS entryPoints!!!!
+      - 443:443 # HTTPS entryPoints
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./data/traefik.yml:/etc/traefik/traefik.yml:ro

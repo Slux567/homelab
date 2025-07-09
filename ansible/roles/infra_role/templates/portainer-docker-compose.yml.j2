@@ -12,7 +12,7 @@ services:
         # Enable Traefik
         - "traefik.enable=true"
         
-        # Enable HTTP (will be redirected by traefik)!!!
+        # Enable HTTP (will be redirected by traefik)
         - "traefik.http.routers.whoami.rule=Host(`portainer.slux-solutions.com`)"
         - "traefik.http.routers.whoami.entrypoints=web"
 
