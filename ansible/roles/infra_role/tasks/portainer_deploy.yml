@@ -1,16 +1,19 @@
 - name: Create /opt/portainer
+  become: true
   file:
     path: /opt/portainer
     state: directory
     mode: '0755'
 
 - name: Create /opt/portainer/data
+  become: true
   file:
     path: /opt/portainer/data
     state: directory
     mode: '0755'
 
 - name: Deploy Portainer docker-compose.yml
+  become: true
   template:
     src: portainer-docker-compose.yml.j2
     dest: /opt/portainer/docker-compose.yml

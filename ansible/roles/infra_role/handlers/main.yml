@@ -1,14 +1,13 @@
-- name: Restart portainer
-  shell: "docker compose up -d --remove-orphans"
-  args:
-    chdir: /opt/portainer
+# roles/docker_compose_handlers/handlers/main.yml
 
-- name: Restart nginx-proxy-manager
-  command: docker compose down && docker compose up -d
-  args:
-    chdir: /opt/nginx-proxy-manager
+- name: Restart portainer
+  become: true
+  community.docker.docker_compose_v2:
+    project_src: /opt/portainer/
+    state: restarted
 
 - name: Restart traefik
-  shell: "docker compose up -d --remove-orphans"
-  args:
-    chdir: /opt/traefik
+  become: true
+  community.docker.docker_compose_v2:
+    project_src: /opt/traefik/
+    state: restarted
