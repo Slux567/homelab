@@ -13,15 +13,15 @@ services:
         - "traefik.enable=true"
         
         # Enable HTTP (will be redirected by traefik)
-        - "traefik.http.routers.whoami.rule=Host(`portainer.slux-solutions.com`)"
-        - "traefik.http.routers.whoami.entrypoints=web"
+        - "traefik.http.routers.portainer.rule=Host(`portainer.slux-solutions.com`)"
+        - "traefik.http.routers.portainer.entrypoints=web"
 
         # Enable HTTPS
-        - "traefik.http.routers.whoami.rule=Host(`portainer.slux-solutions.com`)"
-        - "traefik.http.routers.whoami.entrypoints=websecure"
-        - "traefik.http.routers.whoami.tls=true"
-        - "traefik.http.routers.whoami.tls.certresolver=cloudflare"
-        - "traefik.http.services.whoami.loadbalancer.server.port=9000"
+        - "traefik.http.routers.portainer.rule=Host(`portainer.slux-solutions.com`)"
+        - "traefik.http.routers.portainer.entrypoints=websecure"
+        - "traefik.http.routers.portainer.tls=true"
+        - "traefik.http.routers.portainer.tls.certresolver=cloudflare"
+        - "traefik.http.services.portainer.loadbalancer.server.port=9000"
 
 networks:
   infra-net:

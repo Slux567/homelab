@@ -11,6 +11,6 @@
   import_tasks: traefik_deploy.yml
   tags: traefik_deploy
 
-# - name: Deploys Nginx-proxy-manager
-#   import_tasks: npm_deploy.yml
-#   tags: npm_deploy
+- name: Deploys Authentik
+  import_tasks: authentik_deploy.yml
+  tags: authentik_deploy

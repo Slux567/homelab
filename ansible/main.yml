@@ -2,12 +2,12 @@
 - hosts: proxmox_nodes
   become: true
   roles:
-    - { role: debian_role, tags: ['debian'] }
-    - { role: proxmox_role, tags: ['proxmox'] }
+    - { role: debian_role, tags: ['debian_role'] }
+    - { role: proxmox_role, tags: ['proxmox_role'] }
 
 - hosts: infra_nodes
   become: true
   roles:
-    - { role: debian_role, tags: ['debian'] }
-    - { role: infra_role, tags: ['infra'] }
+    - { role: debian_role, tags: ['debian_role'] }
+    - { role: infra_role, tags: ['infra_role'] }
 

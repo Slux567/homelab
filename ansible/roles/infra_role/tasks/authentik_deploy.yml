@@ -1,0 +1,25 @@
+- name: Create /opt/authentik
+  file:
+    path: /opt/authentik
+    state: directory
+    mode: '0755'
+
+- name: Create all authentik volume directories with proper mode
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+    recurse: yes
+  loop:
+    - /opt/authentik/data/volumes/postgres
+    - /opt/authentik/data/volumes/redis
+    - /opt/authentik/data/volumes/authentik-server/custom-templates
+    - /opt/authentik/data/volumes/authentik-server/certs
+    - /opt/authentik/data/volumes/authentik-server/media
+
+- name: Deploy authentik docker-compose.yml
+  template:
+    src: authentik-docker-compose.yml.j2
+    dest: /opt/authentik/docker-compose.yml
+    mode: '0644'
+  notify: Restart authentik
