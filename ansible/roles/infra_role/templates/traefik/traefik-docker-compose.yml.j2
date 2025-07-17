@@ -17,6 +17,7 @@ services:
       - ./data/traefik.yml:/etc/traefik/traefik.yml:ro
       - ./data/conf/:/etc/traefik/conf/
       - ./data/certs/:/etc/traefik/certs/
+      - ./data/dynamic/:/etc/traefik/dynamic/
 
 networks:
   infra-net:

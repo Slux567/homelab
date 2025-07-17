@@ -1,0 +1,49 @@
+# Traefik configuration file
+# This file is used to configure Traefik, a modern reverse proxy and load balancer.
+# It is written in YAML format and includes settings for entry points, providers, and certificates resolvers.
+
+# api configuration
+api:
+  dashboard: false
+  insecure: false
+  debug: false
+
+# Entry points define how Traefik listens for incoming requests.
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+
+  websecure:
+    address: ":443"
+
+# certificatesResolvers define how Traefik should obtain TLS certificates.
+certificatesResolvers:
+  cloudflare:
+    acme:
+      email: "{{ CF_API_EMAIL }}"
+      storage: /etc/traefik/certs/cloudflare-acme.json
+      caServer: 'https://acme-v02.api.letsencrypt.org/directory' # prod (default)
+      keyType: EC256
+      dnsChallenge:
+        provider: cloudflare
+        resolvers: 
+          - "1.1.1.1:53"
+          - "8.8.8.8:53"
+
+# Providers define how Traefik discovers services to route traffic to.
+providers:
+  # Docker provider allows Traefik to discover services running in Docker containers.
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false # Do not expose all containers by default
+    watch: true
+  # File provider is used to load dynamic configuration from files.
+  # This is useful for defining custom routes, services, and middlewares.
+  file:
+    filename: /etc/traefik/dynamic/dynamic_conf.yml
+    watch: true

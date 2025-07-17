@@ -24,14 +24,19 @@
 
 - name: Create traefik.yml
   template:
-    src: traefik.yml.j2
+    src: traefik/traefik.yml.j2
     dest: /opt/traefik/data/traefik.yml
     mode: '0644'
-  # notify: Restart traefik
+
+- name: Create traefik.yml
+  template:
+    src: traefik/dynamic_conf.yml.j2
+    dest: /opt/traefik/dynamic/dynamic_conf.yml
+    mode: '0644'
 
 - name: Create Traefik docker-compose.yml
   template:
-    src: traefik-docker-compose.yml.j2
+    src: traefik/traefik-docker-compose.yml.j2
     dest: /opt/traefik/docker-compose.yml
     mode: '0644'
   notify: Restart traefik
