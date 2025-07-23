@@ -1,4 +1,10 @@
 ---
+
+- hosts: debian
+  become: true
+  roles:
+    - { role: debian_role, tags: ['debian_role'] }
+
 - hosts: proxmox_nodes
   become: true
   roles:

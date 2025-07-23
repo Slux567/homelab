@@ -12,3 +12,13 @@
   shell: docker compose down && docker compose up -d --remove-orphans
   args:
     chdir: /opt/authentik
+
+- name: Restart monitoring-stack
+  shell: docker compose down && docker compose up -d --remove-orphans
+  args:
+    chdir: /opt/monitoring-stack
+
+- name: Reload prometheus config
+  shell: docker exec prometheus kill -HUP 1
+  args:
+    chdir: /opt/monitoring-stack

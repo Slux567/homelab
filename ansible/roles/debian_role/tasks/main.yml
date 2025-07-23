@@ -1,2 +1,6 @@
 ---
 - import_tasks: upgrade_all.yml
+
+- name: Install node_exporter
+  import_tasks: node_exporter.yml
+  tags: node_exporter

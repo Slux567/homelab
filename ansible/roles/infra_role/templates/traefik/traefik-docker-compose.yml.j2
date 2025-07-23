@@ -1,5 +1,6 @@
 services:
   traefik:
+    user: 0:0
     image: traefik:latest
     container_name: traefik
     restart: unless-stopped

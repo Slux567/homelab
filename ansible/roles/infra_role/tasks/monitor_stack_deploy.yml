@@ -1,0 +1,35 @@
+- name: Create required directories
+  file:
+    path: "/opt/monitoring-stack/{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  loop:
+    - ""
+    - "prometheus"
+    - "prometheus/data"
+    - "prometheus/file_sd"
+    - "grafana"
+    - "grafana/data"
+
+- name: Copy prometheus.yml
+  template:
+    src: monitoring-stack/prometheus.yml.j2
+    dest: /opt/monitoring-stack/prometheus/prometheus.yml
+    mode: 0644
+  notify: Reload prometheus config
+
+- name: Copy prometheus file_sd targets
+  template:
+    src: monitoring-stack/hosts.yml.j2
+    dest: /opt/monitoring-stack/prometheus/file_sd/hosts.yml
+    mode: 0644
+  notify: Reload prometheus config
+
+- name: Copy docker-compose.yml
+  template:
+    src: monitoring-stack/docker-compose.yml.j2
+    dest: /opt/monitoring-stack/docker-compose.yml
+    mode: 0644
+  notify: Restart monitoring-stack

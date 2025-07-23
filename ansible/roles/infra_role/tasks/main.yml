@@ -14,3 +14,7 @@
 - name: Deploys Authentik
   import_tasks: authentik_deploy.yml
   tags: authentik_deploy
+
+- name: Deploys monitor_stack
+  import_tasks: monitor_stack_deploy.yml
+  tags: monitor_stack_deploy

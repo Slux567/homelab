@@ -1,6 +1,6 @@
 services:
   portainer:
-    image: portainer/portainer-ce:latest
+    image: portainer/portainer-ee:latest
     container_name: portainer
     restart: unless-stopped
     volumes:
@@ -17,11 +17,11 @@ services:
         - "traefik.http.routers.portainer.entrypoints=web"
 
         # Enable HTTPS
-        - "traefik.http.routers.portainer.rule=Host(`portainer.slux-solutions.com`)"
-        - "traefik.http.routers.portainer.entrypoints=websecure"
-        - "traefik.http.routers.portainer.tls=true"
-        - "traefik.http.routers.portainer.tls.certresolver=cloudflare"
-        - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+        - "traefik.http.routers.portainer-secure.rule=Host(`portainer.slux-solutions.com`)"
+        - "traefik.http.routers.portainer-secure.entrypoints=websecure"
+        - "traefik.http.routers.portainer-secure.tls=true"
+        - "traefik.http.routers.portainer-secure.tls.certresolver=cloudflare"
+        - "traefik.http.services.portainer-secure.loadbalancer.server.port=9000"
 
 networks:
   infra-net:
