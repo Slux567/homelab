@@ -21,6 +21,21 @@ entryPoints:
   websecure:
     address: ":443"
 
+  metrics:
+    address: ":8082"
+
+metrics:
+  prometheus:
+    entryPoint: metrics
+    addEntryPointsLabels: true
+    addRoutersLabels: true
+    addServicesLabels: true
+    buckets:
+      - 0.1
+      - 0.3
+      - 1.2
+      - 5.0
+
 # certificatesResolvers define how Traefik should obtain TLS certificates.
 certificatesResolvers:
   cloudflare:

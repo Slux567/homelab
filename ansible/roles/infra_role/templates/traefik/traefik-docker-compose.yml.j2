@@ -13,6 +13,7 @@ services:
     ports:
       - 80:80 # HTTP entryPoints
       - 443:443 # HTTPS entryPoints
+      - 8082:8082 # Metrics endpoint FOR DEBUGGING
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./data/traefik.yml:/etc/traefik/traefik.yml:ro

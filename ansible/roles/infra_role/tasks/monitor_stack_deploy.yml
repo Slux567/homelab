@@ -18,14 +18,14 @@
     src: monitoring-stack/prometheus.yml.j2
     dest: /opt/monitoring-stack/prometheus/prometheus.yml
     mode: 0644
-  notify: Reload prometheus config
+  notify: Restart monitoring-stack
 
 - name: Copy prometheus file_sd targets
   template:
     src: monitoring-stack/hosts.yml.j2
     dest: /opt/monitoring-stack/prometheus/file_sd/hosts.yml
     mode: 0644
-  notify: Reload prometheus config
+  notify: Restart monitoring-stack
 
 - name: Copy docker-compose.yml
   template:
