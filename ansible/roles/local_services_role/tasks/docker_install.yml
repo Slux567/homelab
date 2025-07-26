@@ -33,6 +33,13 @@
           - docker-ce-cli
           - containerd.io
         state: present
+
+    - name: Add user 'slux' to docker group
+      ansible.builtin.user:
+        name: slux
+        groups: docker
+        append: yes
+      become: true
   when:
     - ansible_facts['os_family'] == "Debian"
     - docker_check.rc != 0
