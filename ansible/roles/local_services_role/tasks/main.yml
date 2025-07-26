@@ -1,0 +1,9 @@
+---
+- name: Installs Docker
+  import_tasks: docker_install.yml
+  tags: docker_install
+
+- name: Deploys portainer agent on machines
+  import_tasks: portainer_agent_deploy.yml
+  tags: portainer_agent_deploy
+  when: inventory_hostname in ["local-services-1", "local-services-2"]

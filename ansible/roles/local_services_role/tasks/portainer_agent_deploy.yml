@@ -1,0 +1,14 @@
+- name: Create /opt/portainer-agent
+  file:
+    path: /opt/portainer-agent
+    state: directory
+    mode: '0755'
+  become: true
+
+- name: Deploy Portainer agent docker-compose.yml
+  template:
+    src: portainer-agent-docker-compose.yml.j2
+    dest: /opt/portainer-agent/docker-compose.yml
+    mode: '0644'
+  notify: Restart portainer-agent
+  become: true

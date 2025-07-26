@@ -16,3 +16,4 @@
   become: true
   roles:
     - { role: debian_role, tags: ['debian_role'] }
+    - { role: local_services_role, tags: ['local_services_role'] }

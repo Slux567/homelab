@@ -1,5 +1,5 @@
 ---
-- name: Installs Docker on infra machine
+- name: Installs Docker
   import_tasks: docker_install.yml
   tags: docker_install
 
