@@ -40,19 +40,11 @@ all:
         kubernetes-master-1:
           ansible_host: 10.30.65.44
 
-    kubernetes_worker_nodes:
-      hosts:
-        kubernetes-worker-1:
-          ansible_host: 10.30.24.231
-        kubernetes-worker-2:
-          ansible_host: 10.30.42.194
-
     debian:
       children:
         infra_nodes:
         local_services_nodes:
         kubernetes_master_nodes:
-        kubernetes_worker_nodes:
       vars:
         ansible_user: slux
         ansible_ssh_private_key_file: ~/.ssh/id_ed25519
