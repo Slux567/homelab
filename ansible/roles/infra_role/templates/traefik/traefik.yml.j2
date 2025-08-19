@@ -8,7 +8,10 @@ api:
   insecure: false
   debug: false
 
-# Entry points define how Traefik listens for incoming requests.
+# ==========================================================================================
+# EntryPoints Configuration
+# ==========================================================================================
+# Defines the network entry points into Traefik.
 entryPoints:
   web:
     address: ":80"
@@ -17,13 +20,14 @@ entryPoints:
         entryPoint:
           to: websecure
           scheme: https
-
   websecure:
     address: ":443"
-
   metrics:
     address: ":8082"
 
+# ==========================================================================================
+# Metrics Configuration (Prometheus)
+# ==========================================================================================
 metrics:
   prometheus:
     entryPoint: metrics
