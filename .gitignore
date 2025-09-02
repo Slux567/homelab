@@ -23,3 +23,5 @@
 **/group_vars/
 
 **.secret
+
+**/secret.yaml
