@@ -1,30 +1,30 @@
-resource "proxmox_vm_qemu" "infra-1" {
+resource "proxmox_vm_qemu" "k3s-worker-3" {
 
   # -- Basic VM Info
-  name        = "infra-1"
-  vmid        = 101
-  target_node = "asgard"
-  desc        = "This VM is used to host general infrastructure services."
+  name        = "k3s-worker-3"
+  vmid        = 302
+  target_node = "muspelheim"
+  desc        = "This VM is used to run local services for home automation and other tasks. Local only, no public access."
 
   # -- Cloud Init Settings
   ciuser      = var.vm_user                  # Change to your desired username
   sshkeys     = file(var.public_ssh_key)     # Optional: change to your public SSH key
   nameserver  = "1.1.1.1 1.0.0.1"
-  ipconfig0   = "ip=10.30.34.55/16,gw=10.30.0.1"  # Change IP as needed
+  ipconfig0   = "ip=10.30.2.3/16,gw=10.30.0.1"  # Change IP as needed
   skip_ipv6   = true
   cicustom    = "vendor=local:snippets/qemu-guest-agent.yml"
   ciupgrade   = true
 
   # -- Compute Resources
   cpu {
-      cores = 4
+      cores = 6
       sockets = 1
       type = "host"
   }
-  memory = 16384
+  memory = 28672
 
   # -- Template Settings / Operating System
-  clone      = "debian12-cloudinit"  # Change to the desired template name
+  clone      = "ubuntu-24.04-cloudinit"  # Change to the desired template name
   full_clone = true                  # Optional: false for linked clone
 
   # -- Network Settings
@@ -49,7 +49,7 @@ resource "proxmox_vm_qemu" "infra-1" {
       scsi0 {
         disk {
           storage   = "storage"
-          size      = "800G"
+          size      = "100G"
           iothread  = true
           replicate = false
         }
