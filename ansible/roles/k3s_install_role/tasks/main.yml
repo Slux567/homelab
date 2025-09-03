@@ -1,0 +1,23 @@
+- name: Include prerequisites tasks
+  include_tasks: prerequisites.yml
+
+- name: Include token generation tasks
+  include_tasks: generate-token.yml
+
+- name: Include first master setup tasks
+  include_tasks: setup-first-master.yml
+
+- name: Include additional masters setup tasks
+  include_tasks: setup-additional-masters.yml
+
+- name: Include worker nodes setup tasks
+  include_tasks: setup-workers.yml
+
+- name: Include services configuration tasks
+  include_tasks: configure-services.yml
+
+- name: Include kubeconfig setup tasks
+  include_tasks: setup-kubeconfig.yml
+
+- name: Include cluster verification tasks
+  include_tasks: verify-cluster.yml

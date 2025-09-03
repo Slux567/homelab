@@ -1,5 +1,0 @@
-- name: Restart portainer-agent
-  shell: docker compose down && docker compose up -d --remove-orphans
-  args:
-    chdir: /opt/portainer-agent
-  become: true

@@ -1,0 +1,20 @@
+- name: Wait for masters to be ready before joining workers
+  pause:
+    seconds: 10
+  when: inventory_hostname in groups['workers']
+
+- name: Install K3s on worker nodes
+  shell: |
+    curl -sfL https://get.k3s.io | K3S_URL=https://{{ hostvars[groups['controlplane'][0]]['ansible_host'] }}:6443 \
+    K3S_TOKEN={{ k3s_cluster_token }} sh -s - {{ k3s_agent_args | default('') }}
+  args:
+    creates: /usr/local/bin/k3s
+  become: true
+  when: 
+    - inventory_hostname in groups['workers']
+    - not k3s_installed
+
+- name: Wait for worker nodes to be ready
+  pause:
+    seconds: 5
+  when: inventory_hostname in groups['workers']

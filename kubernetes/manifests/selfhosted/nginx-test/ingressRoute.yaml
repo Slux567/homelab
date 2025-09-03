@@ -16,3 +16,21 @@ spec:
       services: # A service must be defined, but it won't be reached
         - name: nginx-test-service
           port: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nginx-test-https-ingress
+  namespace: default
+
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule 
+      match: Host(`test.slux-solutions.com`)
+      services:
+        - name: nginx-test-service
+          port: 80
+  tls:
+    secretName: slux-solutions-wildcard-cert

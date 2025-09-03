@@ -1,0 +1,31 @@
+- name: Enable and start k3s service on master nodes
+  systemd:
+    name: k3s
+    enabled: yes
+    state: started
+    daemon_reload: yes
+  become: true
+  when: inventory_hostname in groups['controlplane']
+
+- name: Enable and start k3s-agent service on worker nodes
+  systemd:
+    name: k3s-agent
+    enabled: yes
+    state: started
+    daemon_reload: yes
+  become: true
+  when: inventory_hostname in groups['workers']
+
+- name: Ensure k3s service is running on masters
+  systemd:
+    name: k3s
+    state: started
+  become: true
+  when: inventory_hostname in groups['controlplane']
+
+- name: Ensure k3s-agent service is running on workers
+  systemd:
+    name: k3s-agent
+    state: started
+  become: true
+  when: inventory_hostname in groups['workers']

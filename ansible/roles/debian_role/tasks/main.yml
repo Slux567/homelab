@@ -1,6 +1,3 @@
----
-- import_tasks: upgrade_all.yml
-
-- name: Install node_exporter
-  import_tasks: node_exporter.yml
-  tags: node_exporter
+- name: patch_DNS.yml
+  import_tasks: patch_DNS.yml
+  tags: patch_DNS

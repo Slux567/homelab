@@ -1,0 +1,38 @@
+- name: Wait for first master to be fully ready before joining additional masters
+  pause:
+    seconds: 15
+  when: 
+    - inventory_hostname in groups['controlplane']
+    - inventory_hostname != groups['controlplane'][0]
+
+- name: Install K3s on additional master nodes
+  shell: |
+    curl -sfL https://get.k3s.io | sh -s - server \
+      --server https://{{ hostvars[groups['controlplane'][0]]['ansible_host'] }}:6443 \
+      --token={{ k3s_cluster_token }} \
+      --tls-san={{ hostvars[inventory_hostname]['ansible_host'] }} \
+      --tls-san={{ inventory_hostname }} \
+      {% for master in groups['controlplane'] %}
+      --tls-san={{ hostvars[master]['ansible_host'] }} \
+      --tls-san={{ master }} \
+      {% endfor %}
+      --node-taint CriticalAddonsOnly=true:NoExecute \
+      --disable=traefik \
+      {{ k3s_server_args | default('') }}
+  args:
+    creates: /usr/local/bin/k3s
+  become: true
+  when: 
+    - inventory_hostname in groups['controlplane']
+    - inventory_hostname != groups['controlplane'][0]
+    - not k3s_installed
+
+- name: Wait for additional masters to be ready
+  wait_for:
+    port: 6443
+    host: "{{ hostvars[inventory_hostname]['ansible_host'] }}"
+    delay: 10
+    timeout: 300
+  when: 
+    - inventory_hostname in groups['controlplane']
+    - inventory_hostname != groups['controlplane'][0]

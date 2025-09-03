@@ -1,0 +1,22 @@
+# K3s version (leave empty for latest)
+k3s_version: ""
+
+# K3s token (will be auto-generated if not provided)
+k3s_token: ""
+
+# Additional K3s server arguments
+k3s_server_args: ""
+
+# Additional K3s agent arguments  
+k3s_agent_args: ""
+
+# Disable components (traefik is disabled by default)
+k3s_disable_components:
+  - traefik
+
+# Cluster network settings
+cluster_cidr: "10.42.0.0/16"
+service_cidr: "10.43.0.0/16"
+
+# Node configuration
+master_node_taint: "CriticalAddonsOnly=true:NoExecute"

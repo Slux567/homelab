@@ -5,21 +5,22 @@
   roles:
     - { role: proxmox_role, tags: ['proxmox_role'] }
 
-- hosts: infra_nodes
-  become: true
+- hosts: k3s_nodes
+  gather_facts: yes
+  become: yes
   roles:
-    # - { role: debian_role, tags: ['debian_role'] }
-    - { role: infra_role, tags: ['infra_role'] }
-
-- hosts: local_services_nodes
-  become: true
-  roles:
+    - { role: k3s_install_role, tags: ['k3s_install_role'] }
     - { role: debian_role, tags: ['debian_role'] }
-    - { role: local_services_role, tags: ['local_services_role'] }
-    - { role: kubernetes_install_role, tags: ['kubernetes_install_role'] }
 
-- hosts: kubernetes_master_nodes
-  become: true
-  roles:
-    - { role: debian_role, tags: ['debian_role'] }
-    - { role: kubernetes_install_role, tags: ['kubernetes_install_role'] }
+# - hosts: local_services_nodes
+#   become: true
+#   roles:
+#     - { role: debian_role, tags: ['debian_role'] }
+#     - { role: local_services_role, tags: ['local_services_role'] }
+#     - { role: kubernetes_install_role, tags: ['kubernetes_install_role'] }
+
+# - hosts: kubernetes_master_nodes
+#   become: true
+#   roles:
+#     - { role: debian_role, tags: ['debian_role'] }
+#     - { role: kubernetes_install_role, tags: ['kubernetes_install_role'] }

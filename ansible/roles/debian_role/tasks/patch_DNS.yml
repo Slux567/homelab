@@ -1,0 +1,52 @@
+- name: Ensure systemd-resolved config exists
+  file:
+    path: /etc/systemd/resolved.conf
+    state: touch
+
+- name: Remove DNS search domains completely
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: '^Domains='
+    line: 'Domains='
+    create: yes
+    state: present
+
+- name: Ensure DNS servers are set to public DNS
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: '^DNS='
+    line: 'DNS=1.1.1.1 8.8.8.8'
+    create: yes
+    state: present
+
+- name: Disable LLMNR to prevent local resolution issues
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: '^LLMNR='
+    line: 'LLMNR=no'
+    create: yes
+    state: present
+
+- name: Clear DNS domain for all interfaces
+  shell: |
+    for iface in $(ip -o link show | awk -F': ' '{print $2}' | grep -v lo); do
+      resolvectl domain "$iface" "" || true
+    done
+  ignore_errors: true
+
+- name: Restart systemd-resolved
+  systemd:
+    name: systemd-resolved
+    state: restarted
+    
+- name: Wait for DNS to stabilize
+  pause:
+    seconds: 5
+    
+- name: Verify Let's Encrypt is resolvable
+  shell: nslookup acme-v02.api.letsencrypt.org
+  register: dns_test
+  
+- name: Show DNS test result
+  debug:
+    var: dns_test.stdout
