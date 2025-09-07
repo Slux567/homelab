@@ -1,0 +1,39 @@
+# HTTPS IngressRoute
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: truenas-https-ingress
+  namespace: truenas
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`truenas.slux-solutions.com`)
+      kind: Rule
+      services:
+        - name: truenas-endpoint    # <-- Use the new service name
+          port: 443          # <-- Use the correct port
+          scheme: https
+          passHostHeader: true
+          serversTransport: truenas-transport
+  tls:
+    secretName: slux-solutions-wildcard-cert
+---
+# HTTP Redirect IngressRoute
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: truenas-http-ingress
+  namespace: truenas
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`truenas.slux-solutions.com`)
+      kind: Rule
+      middlewares:
+        - name: https-redirect
+          namespace: traefik # Make sure your middleware is in this namespace
+      services:
+        - name: truenas-endpoint    # <-- Use the new service name
+          port: 80

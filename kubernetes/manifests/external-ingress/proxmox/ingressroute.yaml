@@ -1,0 +1,39 @@
+# HTTPS IngressRoute
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: proxmox-https-ingress
+  namespace: proxmox
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`proxmox.slux-solutions.com`)
+      kind: Rule
+      services:
+        - name: proxmox-endpoint
+          port: 8006
+          scheme: https
+          passHostHeader: true
+          serversTransport: proxmox-transport
+  tls:
+    secretName: slux-solutions-wildcard-cert
+---
+# HTTP Redirect IngressRoute
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: proxmox-http-ingress
+  namespace: proxmox
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`proxmox.slux-solutions.com`)
+      kind: Rule
+      middlewares:
+        - name: https-redirect
+          namespace: traefik
+      services:
+        - name: proxmox-endpoint
+          port: 80

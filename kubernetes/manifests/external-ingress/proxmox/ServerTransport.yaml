@@ -1,0 +1,9 @@
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: proxmox-transport
+  namespace: proxmox
+spec:
+  # This tells Traefik to accept the self-signed certificate from proxmox
+  insecureSkipVerify: true
+  serverName: "10.40.10.10"

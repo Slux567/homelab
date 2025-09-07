@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxmox-endpoint
+  namespace: proxmox
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  - name: https
+    port: 8006
+    targetPort: 8006
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: proxmox-endpoint
+  namespace: proxmox
+subsets:
+  - addresses:
+      - ip: 192.168.20.10
+    ports:
+      - name: http
+        port: 80
+      - name: https
+        port: 8006
