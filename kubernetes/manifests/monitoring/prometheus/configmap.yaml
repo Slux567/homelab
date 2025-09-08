@@ -9,6 +9,6 @@ data:
       scrape_interval: 15s
 
     scrape_configs:
-      - job_name: 'prometheus'
+      - job_name: 'node_exporter_proxmox'
         static_configs:
-          - targets: ['localhost:9090']
+          - targets: ['192.168.20.10:9100', '192.168.20.20:9100', '192.168.20.30:9100']

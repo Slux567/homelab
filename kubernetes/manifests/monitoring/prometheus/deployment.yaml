@@ -18,6 +18,9 @@ spec:
         image: prom/prometheus:latest
         ports:
         - containerPort: 9090
+        args:
+        - "--config.file=/etc/prometheus/prometheus.yml"
+        - "--storage.tsdb.path=/prometheus/"
         volumeMounts:
         - name: prometheus-config-volume
           mountPath: /etc/prometheus/
