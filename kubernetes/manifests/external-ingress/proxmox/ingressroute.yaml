@@ -3,7 +3,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: proxmox-https-ingress
-  namespace: proxmox
+  namespace: external-ingress
 spec:
   entryPoints:
     - websecure
@@ -24,7 +24,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: proxmox-http-ingress
-  namespace: proxmox
+  namespace: external-ingress
 spec:
   entryPoints:
     - web
@@ -33,7 +33,7 @@ spec:
       kind: Rule
       middlewares:
         - name: https-redirect
-          namespace: traefik
+          namespace: external-ingress
       services:
         - name: proxmox-endpoint
           port: 80

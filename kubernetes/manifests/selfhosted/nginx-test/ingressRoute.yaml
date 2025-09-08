@@ -10,7 +10,7 @@ spec:
   routes:
     - match: Host(`test.slux-solutions.com`)
       kind: Rule
-      middlewares: # Apply the middleware here
+      middlewares: # http 2 https middleware
         - name: https-redirect
           namespace: default
       services: # A service must be defined, but it won't be reached
@@ -22,13 +22,12 @@ kind: IngressRoute
 metadata:
   name: nginx-test-https-ingress
   namespace: default
-
 spec:
   entryPoints:
-    - websecure
+    - websecure # This is Traefik's default entrypoint for HTTPS traffic (port 443)
   routes:
-    - kind: Rule 
-      match: Host(`test.slux-solutions.com`)
+    - match: Host(`test.slux-solutions.com`)
+      kind: Rule
       services:
         - name: nginx-test-service
           port: 80

@@ -3,7 +3,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: truenas-https-ingress
-  namespace: truenas
+  namespace: external-ingress
 spec:
   entryPoints:
     - websecure
@@ -11,8 +11,8 @@ spec:
     - match: Host(`truenas.slux-solutions.com`)
       kind: Rule
       services:
-        - name: truenas-endpoint    # <-- Use the new service name
-          port: 443          # <-- Use the correct port
+        - name: truenas-endpoint
+          port: 443
           scheme: https
           passHostHeader: true
           serversTransport: truenas-transport
@@ -24,7 +24,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: truenas-http-ingress
-  namespace: truenas
+  namespace: external-ingress
 spec:
   entryPoints:
     - web
@@ -33,7 +33,9 @@ spec:
       kind: Rule
       middlewares:
         - name: https-redirect
-          namespace: traefik # Make sure your middleware is in this namespace
+          namespace: external-ingress
       services:
-        - name: truenas-endpoint    # <-- Use the new service name
-          port: 80
+        - name: truenas-endpoint
+          port: 443
+          scheme: http
+          passHostHeader: true
