@@ -1,0 +1,4 @@
+- name: Clear DNS domain for all interfaces
+  shell: |
+    apt install nfs-common -y
+    done
