@@ -13,10 +13,6 @@ spec:
       labels:
         app: prometheus
     spec:
-      securityContext:
-        runAsUser: 65534
-        runAsGroup: 65534
-        fsGroup: 65534
       containers:
       - name: prometheus
         image: prom/prometheus:latest
