@@ -36,6 +36,6 @@ spec:
           namespace: external-ingress
       services:
         - name: truenas-endpoint
-          port: 443
+          port: 80
           scheme: http
           passHostHeader: true
