@@ -9,6 +9,23 @@ data:
       scrape_interval: 15s
 
     scrape_configs:
+      # Static targets for Proxmox nodes
       - job_name: 'node_exporter_proxmox'
         static_configs:
-          - targets: ['192.168.20.10:9100', '192.168.20.20:9100', '192.168.20.30:9100']
+          - targets: 
+              - '192.168.20.10:9100'
+              - '192.168.20.20:9100'
+              - '192.168.20.30:9100'
+
+      # Kubernetes Node Exporter DaemonSet in monitoring namespace
+      - job_name: 'node_exporter_k3s'
+        kubernetes_sd_configs:
+          - role: endpoints
+            namespaces:
+              names:
+                - monitoring
+        relabel_configs:
+          # Keep only endpoints named node-exporter
+          - source_labels: [__meta_kubernetes_endpoints_name]
+            regex: node-exporter
+            action: keep
