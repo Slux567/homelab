@@ -11,16 +11,3 @@
   roles:
     - { role: k3s_install_role, tags: ['k3s_install_role'] }
     - { role: debian_role, tags: ['debian_role'] }
-
-# - hosts: local_services_nodes
-#   become: true
-#   roles:
-#     - { role: debian_role, tags: ['debian_role'] }
-#     - { role: local_services_role, tags: ['local_services_role'] }
-#     - { role: kubernetes_install_role, tags: ['kubernetes_install_role'] }
-
-# - hosts: kubernetes_master_nodes
-#   become: true
-#   roles:
-#     - { role: debian_role, tags: ['debian_role'] }
-#     - { role: kubernetes_install_role, tags: ['kubernetes_install_role'] }

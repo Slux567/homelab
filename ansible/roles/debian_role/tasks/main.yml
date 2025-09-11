@@ -5,3 +5,7 @@
 - name: Install chrony
   import_tasks: chrony.yml
   tags: chrony
+
+- name: nfs-common
+  import_tasks: nfs-common.yml
+  tags: nfs-common
