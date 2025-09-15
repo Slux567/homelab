@@ -1,0 +1,18 @@
+# Storage Class for Redis
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: redis-nfs-storage-class
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain
+---
+# Storage Class for Authentik Media
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: authentik-media-nfs-storage-class
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Retain
+---
