@@ -1,0 +1,41 @@
+# HTTPS IngressRoute
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: opnsense-https-ingress
+  namespace: external-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`opnsense.slux-solutions.com`)
+      kind: Rule
+      services:
+        - name: opnsense-endpoint
+          port: 443
+          scheme: https
+          passHostHeader: true
+          serversTransport: opnsense-transport
+  tls:
+    secretName: slux-solutions-wildcard-cert
+---
+# HTTP Redirect IngressRoute
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: opnsense-http-ingress
+  namespace: external-ingress
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`opnsense.slux-solutions.com`)
+      kind: Rule
+      middlewares:
+        - name: https-redirect
+          namespace: external-ingress
+      services:
+        - name: opnsense-endpoint
+          port: 80
+          scheme: http
+          passHostHeader: true
