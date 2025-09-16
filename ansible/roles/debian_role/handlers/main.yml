@@ -8,3 +8,9 @@
   systemd:
     name: node_exporter
     state: restarted
+
+- name: Restart networking
+  service:
+    name: networking
+    state: restarted
+  ignore_errors: true
