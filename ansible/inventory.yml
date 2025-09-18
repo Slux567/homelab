@@ -31,6 +31,8 @@ all:
               ansible_host: 10.30.1.1
             k3s-master-2:
               ansible_host: 10.30.1.2
+            k3s-master-3:
+              ansible_host: 10.30.1.3
         workers:
           hosts:
             k3s-worker-1:

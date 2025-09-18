@@ -1,23 +1,23 @@
-resource "proxmox_vm_qemu" "kubernetes-master-1" {
+resource "proxmox_vm_qemu" "k3s-master-3" {
 
   # -- Basic VM Info
-  name        = "kubernetes-master-1"
-  vmid        = 200
-  target_node = "midgard"
-  desc        = "This VM is the master node in the Kubernetes cluster."
+  name        = "k3s-master-3"
+  vmid        = 301
+  target_node = "muspelheim"
+  desc        = "This VM is the master node in the k3s cluster."
   
   # -- Cloud Init Settings
   ciuser      = var.vm_user                  # Change to your desired username
   sshkeys     = file(var.public_ssh_key)     # Optional: change to your public SSH key
   nameserver  = "1.1.1.1 1.0.0.1"
-  ipconfig0   = "ip=10.30.65.44/16,gw=10.30.0.1"  # Change IP as needed
+  ipconfig0   = "ip=10.30.1.3/16,gw=10.30.0.1"  # Change IP as needed
   skip_ipv6   = true
   cicustom    = "vendor=local:snippets/qemu-guest-agent.yml"
   ciupgrade   = true
 
   # -- Compute Resources
   cpu {
-      cores = 2
+      cores = 1
       sockets = 1
       type = "host"
   }

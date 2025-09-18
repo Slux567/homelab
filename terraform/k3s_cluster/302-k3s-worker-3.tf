@@ -17,11 +17,11 @@ resource "proxmox_vm_qemu" "k3s-worker-3" {
 
   # -- Compute Resources
   cpu {
-      cores = 6
+      cores = 5
       sockets = 1
       type = "host"
   }
-  memory = 28672
+  memory = 20480
 
   # -- Template Settings / Operating System
   clone      = "ubuntu-24.04-cloudinit"  # Change to the desired template name
