@@ -1,0 +1,4 @@
+resources:
+  - opnsense
+  - proxmox
+  - truenas

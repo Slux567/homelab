@@ -1,0 +1,10 @@
+resources:
+  - configmap.yaml
+  - storage-class.yaml
+  - persistent-volume.yaml
+  - persistent-volume-claim.yaml
+  - rbac.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingressroute.yaml
+  - exporters/node-exporter

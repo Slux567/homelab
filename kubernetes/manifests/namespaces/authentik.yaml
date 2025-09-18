@@ -14,10 +14,3 @@ spec:
   redirectScheme:
     scheme: https
     permanent: true
----
-# Namespace
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: bitwarden
----

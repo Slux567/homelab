@@ -1,0 +1,8 @@
+resources:
+  - bwsecret.yaml
+  - storage-class.yaml
+  - persistent-volume.yaml
+  - persistent-volume-claim.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingressroute.yaml

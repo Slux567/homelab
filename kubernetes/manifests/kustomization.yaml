@@ -1,0 +1,5 @@
+resources:
+  - namespaces
+  - external-ingress
+  - monitoring
+  - selfhosted
