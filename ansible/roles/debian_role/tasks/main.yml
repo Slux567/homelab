@@ -1,7 +1,3 @@
-- name: patch_DNS.yml
-  import_tasks: patch_DNS.yml
-  tags: patch_DNS
-
 - name: Install chrony
   import_tasks: chrony.yml
   tags: chrony
