@@ -3,9 +3,27 @@ csiDriver:
   name: "nfs"
 
 storageClasses:
-- name: nfs
+- name: nfs-delete
   defaultClass: false
   reclaimPolicy: Delete
+  volumeBindingMode: Immediate
+  allowVolumeExpansion: true
+  parameters:
+    fsType: nfs
+    detachedVolumesFromSnapshots: "false"
+  mountOptions:
+  - noatime
+  - nfsvers=4
+  secrets:
+    provisioner-secret:
+    controller-publish-secret:
+    node-stage-secret:
+    node-publish-secret:
+    controller-expand-secret:
+
+- name: nfs-retain
+  defaultClass: false
+  reclaimPolicy: Retain
   volumeBindingMode: Immediate
   allowVolumeExpansion: true
   parameters:
@@ -31,7 +49,7 @@ driver:
       host: 10.40.10.10
       port: 80
       username: democratic
-      apiKey: API_KEY_HERE
+      apiKey: 3-I1v9FUd5GqpHrpQpZ3QSvqAs8o74gKkJMx8XmCngRQb9xSLlS0CDGy0u8IYwXUrj
       allowInsecure: true
     zfs:  
       datasetParentName: tank/k3s/volumes

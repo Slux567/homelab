@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: test-claim-nfs
 spec:
-  storageClassName: nfs
+  storageClassName: nfs-retain
   accessModes:
     - ReadWriteOnce
   resources:
