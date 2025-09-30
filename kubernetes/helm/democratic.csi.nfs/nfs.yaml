@@ -69,8 +69,8 @@ driver:
       shareAllowedNetworks: []
       shareMaprootUser: ""
       shareMaprootGroup: ""
-      shareMapallUser: ""
-      shareMapallGroup: ""
+      shareMapallUser: "1000"
+      shareMapallGroup: "1000"
 
 controller:
   driver:

@@ -1,0 +1,16 @@
+# Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: devtools
+---
+# HTTPS Redirect Middleware
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: https-redirect
+  namespace: devtools
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
