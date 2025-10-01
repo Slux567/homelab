@@ -1,8 +1,6 @@
 resources:
   - bwsecret.yaml
   - configmap.yaml
-  - storage-class.yaml
-  - persistent-volume.yaml
   - persistent-volume-claim.yaml
   - deployment.yaml
   - service.yaml
