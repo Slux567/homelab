@@ -5,3 +5,4 @@ resources:
   - monitoring.yaml
   - nextcloud.yaml
   - storage.yaml
+  - immich.yaml
