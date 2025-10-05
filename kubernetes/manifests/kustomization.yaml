@@ -1,6 +1,0 @@
-resources:
-  - namespaces
-  - requirements
-  - external-ingress
-  - monitoring
-  - selfhosted
