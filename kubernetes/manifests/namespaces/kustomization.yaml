@@ -4,3 +4,4 @@ resources:
   - external-ingress.yaml
   - monitoring.yaml
   - devtools.yaml
+  - nextcloud.yaml

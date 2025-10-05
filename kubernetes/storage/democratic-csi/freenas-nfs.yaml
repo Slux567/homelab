@@ -1,0 +1,58 @@
+csiDriver:
+  name: "nfs"
+storageClasses:
+- name: nfs
+  defaultClass: true
+  reclaimPolicy: Retain
+  volumeBindingMode: Immediate
+  allowVolumeExpansion: true
+  parameters:
+    fsType: nfs
+    detachedVolumesFromSnapshots: "false"
+  mountOptions:
+  - noatime
+  - nfsvers=4
+  secrets:
+    provisioner-secret:
+    controller-publish-secret:
+    node-stage-secret:
+    node-publish-secret:
+    controller-expand-secret:
+# volumeSnapshotClasses:
+# - name: nfs
+#   parameters:
+#     detachedSnapshots: "true"
+driver:
+  config:
+    driver: freenas-api-nfs
+    instance_id:
+    httpConnection:
+      protocol: http
+      host: 10.40.10.10
+      port: 80
+      apiKey:
+      allowInsecure: true
+    zfs:
+      datasetParentName: tank/k3s-nfs
+      detachedSnapshotsDatasetParentName: tank/k3s-nfs-snapshots
+      datasetEnableQuotas: true
+      datasetEnableReservation: false
+      datasetPermissionsMode: "0777"
+      datasetPermissionsUser: 0
+      datasetPermissionsGroup: 0
+      datasetProperties:
+       "org.freenas:description": "{{ parameters.[csi.storage.k8s.io/pvc/namespace] }}/{{ parameters.[csi.storage.k8s.io/pvc/name] }}"
+    nfs:
+      shareCommentTemplate: "{{ parameters.[csi.storage.k8s.io/pvc/namespace] }}-{{ parameters.[csi.storage.k8s.io/pvc/name] }}"
+      shareHost: 10.40.10.10
+      shareAlldirs: false
+      shareAllowedHosts: []
+      shareAllowedNetworks: [10.30.0.0/16]
+      shareMaprootUser: root
+      shareMaprootGroup: wheel
+      shareMapallUser: ""
+      shareMapallGroup: ""
+controller:
+  driver:
+    image:
+      tag: next
