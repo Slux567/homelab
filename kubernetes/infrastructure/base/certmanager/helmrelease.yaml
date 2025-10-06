@@ -15,4 +15,4 @@ spec:
         namespace: cert-manager
       interval: 15m
   values:
-    # Default values are fine for now
+    installCRDs: true
