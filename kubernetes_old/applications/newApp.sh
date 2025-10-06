@@ -103,7 +103,7 @@ spec:
               memory: "256Mi"
           ports:
             - containerPort: 80
-          envFrom:./
+          envFrom:
             - configMapRef:
                 name: ${SERVICE}-config
             - secretRef:
