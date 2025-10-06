@@ -1,6 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - sources/external-secrets.yaml
-  - external-secrets/
-  # Add more infrastructure components here as you build them
+  - sources/
+  - metallb/

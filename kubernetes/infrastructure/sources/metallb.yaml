@@ -1,7 +1,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: external-secrets
+  name: metallb
   namespace: flux-system
 spec:
-  url: https://charts.external-secrets.io
+  interval: 24h
+  url: https://metallb.github.io/metallb
