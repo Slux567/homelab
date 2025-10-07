@@ -16,4 +16,4 @@ spec:
             key: api-token
       selector:
         dnsZones:
-        - "slux-solutions.com"
+        - "sluxcloud.com"
