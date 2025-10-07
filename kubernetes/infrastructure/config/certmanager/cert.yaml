@@ -1,10 +1,10 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: slux-cloud-wildcard
+  name: sluxcloud.com
   namespace: cert-manager
 spec:
-  secretName: slux-cloud-wildcard-cert
+  secretName: sluxcloud-wildcard-cert
   issuerRef:
     name: letsencrypt-prod-cloudflare
     kind: ClusterIssuer
