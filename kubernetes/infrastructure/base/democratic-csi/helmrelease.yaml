@@ -43,9 +43,10 @@ spec:
           host: 10.40.10.10
           port: 80
           apiKey:
-            secretKeyRef:
-              name: democratic-csi
-              key: apiKey
+            valueFrom:
+              secretKeyRef:
+                name: democratic-csi
+                key: apiKey
           allowInsecure: true
         zfs:
           datasetParentName: tank/k3s-nfs
