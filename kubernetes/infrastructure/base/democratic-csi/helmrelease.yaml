@@ -7,7 +7,7 @@ spec:
   chart:
     spec:
       chart: democratic-csi
-      version: "latest"
+      version: "v1.9.x"
       sourceRef:
         kind: HelmRepository
         name: democratic-csi
@@ -42,7 +42,10 @@ spec:
           protocol: http
           host: 10.40.10.10
           port: 80
-          apiKey: ""
+          apiKey:
+            secretKeyRef:
+              name: democratic-csi
+              key: apiKey
           allowInsecure: true
         zfs:
           datasetParentName: tank/k3s-nfs
