@@ -72,3 +72,8 @@ spec:
       driver:
         image:
           tag: next
+  valuesFrom:
+    - kind: Secret
+      name: democratic-csi   # the SOPS-decrypted Secret
+      valuesKey: apiKey      # key inside the Secret
+      targetPath: driver.config.httpConnection.apiKey
