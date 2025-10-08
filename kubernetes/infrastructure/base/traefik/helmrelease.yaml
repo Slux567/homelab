@@ -29,5 +29,5 @@ spec:
     ingressRoute:
       dashboard:
         enabled: false
-        matchRule: Host(`traefik.slux-solutions.com`)  # CHANGE THIS
+        matchRule: Host(`traefik.sluxcloud.com`)  # CHANGE THIS
         entryPoints: ["websecure"]

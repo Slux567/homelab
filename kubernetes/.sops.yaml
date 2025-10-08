@@ -1,4 +1,5 @@
 creation_rules:
-  - path_regex: .*.yaml
-    encrypted_regex: '^(stringData|data)$'
-    pgp: "710CA0F145A7191773CF2271C78D486F05CCD667"
+  - path_regex: .*.yaml            # applies to all YAML files
+    age:                           # Age recipients
+      - age1e37dddpcd83kdc45xsle36a9dxc492t0xnpsakyk7478zlga5agsrqjdad
+    encrypted_regex: '^(data|stringData)$'  # encrypt only data/stringData
