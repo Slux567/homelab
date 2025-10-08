@@ -52,7 +52,7 @@ data:
       initialDelaySeconds: 10
       periodSeconds: 20
       timeoutSeconds: 5
-      failureThreshold: 30
+      failureThreshold: 60
       successThreshold: 1
 
    
