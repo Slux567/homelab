@@ -49,8 +49,8 @@ data:
 
     startupProbe:
       enabled: true
-      initialDelaySeconds: 30
-      periodSeconds: 10
+      initialDelaySeconds: 10
+      periodSeconds: 20
       timeoutSeconds: 5
       failureThreshold: 30
       successThreshold: 1
