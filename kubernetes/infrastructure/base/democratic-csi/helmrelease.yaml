@@ -64,8 +64,8 @@ spec:
           shareAlldirs: false
           shareAllowedHosts: []
           shareAllowedNetworks: [10.30.0.0/16]
-          shareMaprootUser: 1000
-          shareMaprootGroup: 1000
+          shareMaprootUser: "slux"
+          shareMaprootGroup: "slux"
           shareMapallUser: ""
           shareMapallGroup: ""
     controller:
