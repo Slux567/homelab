@@ -53,9 +53,9 @@ spec:
           detachedSnapshotsDatasetParentName: tank/k3s-nfs-snapshots
           datasetEnableQuotas: true
           datasetEnableReservation: false
-          datasetPermissionsMode: "0777"
-          datasetPermissionsUser: 0
-          datasetPermissionsGroup: 0
+          datasetPermissionsMode: "0750"
+          datasetPermissionsUser: 1000
+          datasetPermissionsGroup: 1000
           datasetProperties:
           "org.freenas:description": "{{ parameters.[csi.storage.k8s.io/pvc/namespace] }}/{{ parameters.[csi.storage.k8s.io/pvc/name] }}"
         nfs:
@@ -64,8 +64,8 @@ spec:
           shareAlldirs: false
           shareAllowedHosts: []
           shareAllowedNetworks: [10.30.0.0/16]
-          shareMaprootUser: root
-          shareMaprootGroup: wheel
+          shareMaprootUser: 1000
+          shareMaprootGroup: 1000
           shareMapallUser: ""
           shareMapallGroup: ""
     controller:
