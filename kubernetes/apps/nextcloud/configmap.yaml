@@ -45,13 +45,14 @@ data:
       storageClass: "nfs"
       accessMode: ReadWriteOnce
       size: 1000Gi
+      fsGroup: 1000
 
     startupProbe:
-      enabled: true
-      initialDelaySeconds: 30
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 30
-      successThreshold: 1
+      enabled: false
+      # initialDelaySeconds: 30
+      # periodSeconds: 10
+      # timeoutSeconds: 5
+      # failureThreshold: 30
+      # successThreshold: 1
 
    
