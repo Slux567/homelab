@@ -1,7 +1,0 @@
-resources:
-  - bwsecret.yaml
-  - configmap.yaml
-  - volumes.yaml
-  - deployment.yaml
-  - service.yaml
-  - ingressroute.yaml

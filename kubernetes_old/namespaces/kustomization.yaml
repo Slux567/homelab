@@ -1,8 +1,0 @@
-resources:
-  - authentik.yaml
-  - bitwarden.yaml
-  - external-ingress.yaml
-  - monitoring.yaml
-  - nextcloud.yaml
-  - storage.yaml
-  - immich.yaml

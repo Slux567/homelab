@@ -1,7 +1,0 @@
-resources:
-  - bwsecret.yaml
-  - configmap.yaml
-  - persistent-volume-claim.yaml
-  - deployment.yaml
-  - service.yaml
-  - ingressroute.yaml
