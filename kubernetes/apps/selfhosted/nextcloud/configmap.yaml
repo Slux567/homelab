@@ -39,12 +39,17 @@ data:
     internalDatabase:
       enabled: false
 
-    persistence:
-      enabled: true
-      annotations: {}
-      storageClass: "nfs"
-      accessMode: ReadWriteOnce
-      size: 1000Gi
+persistence:
+  enabled: true
+  existingClaim: nextcloud-app-pvc
+  accessMode: ReadWriteOnce
+  size: 20Gi
+
+  nextcloudData:
+    enabled: true
+    existingClaim: nextcloud-data-pvc
+    accessMode: ReadWriteOnce
+    size: 1000Gi
 
     livenessProbe:
       enabled: false
