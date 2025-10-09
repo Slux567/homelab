@@ -29,8 +29,12 @@ spec:
       websecure:
         port: 443
         exposedPort: 443
+    tlsStore:
+      default:
+        defaultCertificate:
+          secretName: sluxcloud-wildcard-cert
     ingressRoute:
       dashboard:
-        enabled: false
+        enabled: true
         matchRule: Host(`traefik.sluxcloud.com`)  # CHANGE THIS
         entryPoints: ["websecure"]
