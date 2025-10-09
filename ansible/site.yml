@@ -10,4 +10,3 @@
   become: true
   roles:
     - { role: k3s_install_role, tags: ['k3s_install_role'] }
-    - { role: debian_role, tags: ['debian_role'] }

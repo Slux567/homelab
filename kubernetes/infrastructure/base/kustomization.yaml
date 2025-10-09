@@ -5,3 +5,4 @@ resources:
   - traefik
   - certmanager
   - democratic-csi
+  - external-ingress
