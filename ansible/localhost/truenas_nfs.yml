@@ -1,0 +1,178 @@
+---
+# Interactive playbook for creating NFS datasets on TrueNAS
+# Usage: ansible-playbook truenas_nfs.yml
+
+- name: Create NFS Dataset on TrueNAS
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - secret.yml
+  vars:
+    truenas_host: "https://truenas.sluxcloud.com"
+    # truenas_api_key: IMPORTED BY secret.yml
+    pool_name: "tank"
+    nfs_network: "10.30.2.0/24"
+    owner_user: "slux"
+    owner_group: "slux"
+    owner_uid: 1000
+    owner_gid: 1000
+
+  tasks:
+      - name: Prompt for dataset name
+        pause:
+          prompt: "Enter the share/dataset name (e.g., my_share)"
+        register: dataset_input
+
+      - name: Prompt for quota size
+        pause:
+          prompt: "Enter allocated space with unit (e.g., 100G, 1T, 500M) or leave empty for no quota"
+        register: quota_input
+
+      - name: Set dataset name variable
+        set_fact:
+          dataset_name: "{{ dataset_input.user_input | trim }}"
+
+      - name: Set quota variable
+        set_fact:
+          dataset_quota: "{{ quota_input.user_input | trim }}"
+
+      - name: Convert quota to bytes
+        set_fact:
+          quota_bytes: >-
+            {%- if dataset_quota == "" -%}
+            0
+            {%- else -%}
+            {%- set size = dataset_quota[:-1] | int -%}
+            {%- set unit = dataset_quota[-1] | upper -%}
+            {%- if unit == 'K' -%}
+            {{ size * 1024 }}
+            {%- elif unit == 'M' -%}
+            {{ size * 1024 * 1024 }}
+            {%- elif unit == 'G' -%}
+            {{ size * 1024 * 1024 * 1024 }}
+            {%- elif unit == 'T' -%}
+            {{ size * 1024 * 1024 * 1024 * 1024 }}
+            {%- else -%}
+            {{ dataset_quota }}
+            {%- endif -%}
+            {%- endif -%}
+        when: dataset_quota != ""
+
+      - name: Validate dataset name
+        fail:
+          msg: "Dataset name cannot be empty!"
+        when: dataset_name == ""
+
+      - name: Parse dataset path into parent datasets
+        set_fact:
+          dataset_parts: "{{ dataset_name.split('/') }}"
+
+      - name: Create parent datasets recursively
+        uri:
+          url: "{{ truenas_host }}/api/v2.0/pool/dataset"
+          method: POST
+          headers:
+            Authorization: "Bearer {{ truenas_api_key }}"
+            Content-Type: "application/json"
+          body_format: json
+          body:
+            name: "{{ pool_name }}/{{ dataset_parts[:item|int+1] | join('/') }}"
+            type: "FILESYSTEM"
+          validate_certs: no
+          status_code: [200, 409, 422]  # 409 = already exists as dataset, 422 = already exists as path
+        loop: "{{ range(0, dataset_parts|length)|list }}"
+        register: parent_results
+        failed_when: 
+          - parent_results.status == 422
+          - "'already exists' not in (parent_results.json | string)"
+
+      - name: Set quota on dataset
+        uri:
+          url: "{{ truenas_host }}/api/v2.0/pool/dataset/id/{{ pool_name }}%2F{{ dataset_name | replace('/', '%2F') }}"
+          method: PUT
+          headers:
+            Authorization: "Bearer {{ truenas_api_key }}"
+            Content-Type: "application/json"
+          body_format: json
+          body:
+            quota: "{{ quota_bytes | int }}"
+          validate_certs: no
+        when: dataset_quota != ""
+
+      - name: Set dataset permissions
+        uri:
+          url: "{{ truenas_host }}/api/v2.0/filesystem/setperm"
+          method: POST
+          headers:
+            Authorization: "Bearer {{ truenas_api_key }}"
+            Content-Type: "application/json"
+          body_format: json
+          body:
+            path: "/mnt/{{ pool_name }}/{{ dataset_name }}"
+            mode: "755"
+            uid: "{{ owner_uid }}"
+            gid: "{{ owner_gid }}"
+            options:
+              recursive: true
+              traverse: false
+          validate_certs: no
+        when: parent_results is succeeded
+
+      - name: Create NFS share
+        uri:
+          url: "{{ truenas_host }}/api/v2.0/sharing/nfs"
+          method: POST
+          headers:
+            Authorization: "Bearer {{ truenas_api_key }}"
+            Content-Type: "application/json"
+          body_format: json
+          body:
+            path: "/mnt/{{ pool_name }}/{{ dataset_name }}"
+            comment: "NFS share for {{ dataset_name }}"
+            networks:
+              - "{{ nfs_network }}"
+            hosts: []
+            maproot_user: ""
+            maproot_group: ""
+            mapall_user: "{{ owner_user }}"
+            mapall_group: "{{ owner_group }}"
+            security: []
+          validate_certs: no
+          status_code: [200, 409, 422]
+        register: nfs_result
+        failed_when:
+          - nfs_result.status == 422
+          - "'already exports' not in (nfs_result.json | string)"
+
+      - name: Enable NFS service
+        uri:
+          url: "{{ truenas_host }}/api/v2.0/service/id/nfs"
+          method: PUT
+          headers:
+            Authorization: "Bearer {{ truenas_api_key }}"
+            Content-Type: "application/json"
+          body_format: json
+          body:
+            enable: true
+          validate_certs: no
+
+      - name: Start NFS service
+        uri:
+          url: "{{ truenas_host }}/api/v2.0/service/start"
+          method: POST
+          headers:
+            Authorization: "Bearer {{ truenas_api_key }}"
+            Content-Type: "application/json"
+          body_format: json
+          body:
+            service: "nfs"
+          validate_certs: no
+          status_code: [200, 422]  # 422 means already running
+
+      - name: Display results
+        debug:
+          msg: 
+            - "Dataset created: /mnt/{{ pool_name }}/{{ dataset_name }}"
+            - "Quota: {{ dataset_quota if dataset_quota != '' else 'No quota set' }}"
+            - "NFS share accessible from: {{ nfs_network }}"
+            - "Owner: {{ owner_user }}:{{ owner_group }} ({{ owner_uid }}:{{ owner_gid }})"
