@@ -51,28 +51,13 @@ persistence:
     accessMode: ReadWriteOnce
     size: 1000Gi
 
-livenessProbe:
-  enabled: false
-  initialDelaySeconds: 120
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 3
-  successThreshold: 1
-
-readinessProbe:
-  enabled: false
-  initialDelaySeconds: 120
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 3
-  successThreshold: 1
 
 startupProbe:
-  enabled: false
+  enabled: true
   initialDelaySeconds: 30
   periodSeconds: 10
   timeoutSeconds: 5
-  failureThreshold: 30
+  failureThreshold: 300
   successThreshold: 1
 
    
