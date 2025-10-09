@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`proxmox.slux-solutions.com`)
+    - match: Host(`proxmox.sluxcloud.com`)
       kind: Rule
       services:
         - name: proxmox-endpoint
@@ -17,7 +17,7 @@ spec:
           passHostHeader: true
           serversTransport: proxmox-transport
   tls:
-    secretName: slux-solutions-wildcard-cert
+    secretName: sluxcloud-wildcard-cert
 ---
 # HTTP Redirect IngressRoute
 apiVersion: traefik.io/v1alpha1
@@ -29,7 +29,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`proxmox.slux-solutions.com`)
+    - match: Host(`proxmox.sluxcloud.com`)
       kind: Rule
       middlewares:
         - name: https-redirect
