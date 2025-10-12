@@ -9,7 +9,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   nfs:
-    server: truenas.sluxcloud.com
+    server: 10.40.10.10
     path: /mnt/tank/selfhosted/nextcloud/nextcloud-app
   mountOptions:
     - nfsvers=4.2
@@ -40,7 +40,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: truenas.sluxcloud.com
+    server: 10.40.10.10
     path: /mnt/tank/selfhosted/nextcloud/nextcloud-data
   mountOptions:
     - nfsvers=4.2
