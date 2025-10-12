@@ -52,6 +52,12 @@ persistence:
     size: 1000Gi
 
 
+readinessProbe:
+  enabled: false
+
+livenessProbe:
+  enabled: false
+
 startupProbe:
   enabled: true
   initialDelaySeconds: 30
