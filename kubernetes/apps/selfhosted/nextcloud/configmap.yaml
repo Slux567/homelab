@@ -52,18 +52,9 @@ persistence:
     size: 1000Gi
 
 
-readinessProbe:
-  enabled: false
-
 livenessProbe:
   enabled: false
-
-startupProbe:
-  enabled: true
-  initialDelaySeconds: 30
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 300
-  successThreshold: 1
+readinessProbe:
+  enabled: false
 
    
