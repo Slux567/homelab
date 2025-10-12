@@ -5,6 +5,7 @@ metadata:
   namespace: nextcloud
 data:
   values.yaml: |
+
     image:
       repository: nextcloud
       flavor: apache
@@ -20,7 +21,7 @@ data:
         kubernetes.io/ingress.class: traefik
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
         traefik.ingress.kubernetes.io/router.tls: "true"
-  
+
     nextcloud:
       host: next.sluxcloud.com
       username: admin
@@ -38,22 +39,22 @@ data:
     internalDatabase:
       enabled: false
 
-persistence:
-  enabled: true
-  existingClaim: nextcloud-app-pvc
-  accessMode: ReadWriteOnce
-  size: 20Gi
+    persistence:
+      enabled: true
+      existingClaim: nextcloud-app-pvc
+      accessMode: ReadWriteOnce
+      size: 20Gi
 
-  nextcloudData:
-    enabled: true
-    existingClaim: nextcloud-data-pvc
-    accessMode: ReadWriteOnce
-    size: 1000Gi
+      nextcloudData:
+        enabled: true
+        existingClaim: nextcloud-data-pvc
+        accessMode: ReadWriteOnce
+        size: 1000Gi
 
 
-livenessProbe:
-  enabled: false
-readinessProbe:
-  enabled: false
+    livenessProbe:
+      enabled: false
+    readinessProbe:
+      enabled: false
 
    
