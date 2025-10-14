@@ -1,9 +1,0 @@
-apiVersion: traefik.io/v1alpha1
-kind: ServersTransport
-metadata:
-  name: opnsense-transport
-  namespace: external-ingress
-spec:
-  # This tells Traefik to accept the self-signed certificate from opnsense
-  insecureSkipVerify: true
-  serverName: "192.168.20.1"
