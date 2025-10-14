@@ -22,7 +22,7 @@ metadata:
   namespace: external-ingress
 subsets:
   - addresses:
-      - ip: 192.168.20.10
+      - ip: 192.168.1.41
     ports:
       - name: http
         port: 80

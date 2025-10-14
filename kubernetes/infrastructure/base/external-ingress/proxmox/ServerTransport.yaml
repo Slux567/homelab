@@ -6,4 +6,4 @@ metadata:
 spec:
   # This tells Traefik to accept the self-signed certificate from proxmox
   insecureSkipVerify: true
-  serverName: "192.168.20.10"
+  serverName: "192.168.1.41"
