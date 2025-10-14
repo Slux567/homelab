@@ -10,7 +10,7 @@ resource "proxmox_vm_qemu" "k3s-master-2" {
   ciuser      = var.vm_user                  # Change to your desired username
   sshkeys     = file(var.public_ssh_key)     # Optional: change to your public SSH key
   nameserver  = "1.1.1.1 1.0.0.1"
-  ipconfig0   = "ip=10.30.1.2/16,gw=10.30.0.1"  # Change IP as needed
+  ipconfig0   = "ip=192.168.1.11/16,gw=192.168.1.254"
   skip_ipv6   = true
   cicustom    = "vendor=local:snippets/qemu-guest-agent.yml"
   ciupgrade   = true
@@ -32,7 +32,6 @@ resource "proxmox_vm_qemu" "k3s-master-2" {
     id       = 0
     bridge   = "vmbr0"
     model    = "virtio"
-    tag      = 30
   }
 
   # -- Disk Settings

@@ -7,10 +7,10 @@ resource "proxmox_vm_qemu" "k3s-master-1" {
   desc        = "This VM is the master node in the Kubernetes cluster."
   
   # -- Cloud Init Settings
-  ciuser      = var.vm_user                  # Change to your desired username
-  sshkeys     = file(var.public_ssh_key)     # Optional: change to your public SSH key
+  ciuser      = var.vm_user
+  sshkeys     = file(var.public_ssh_key)
   nameserver  = "1.1.1.1 1.0.0.1"
-  ipconfig0   = "ip=10.30.1.1/16,gw=10.30.0.1"  # Change IP as needed
+  ipconfig0   = "ip=192.168.1.10/16,gw=192.168.1.254"
   skip_ipv6   = true
   cicustom    = "vendor=local:snippets/qemu-guest-agent.yml"
   ciupgrade   = true
@@ -24,19 +24,18 @@ resource "proxmox_vm_qemu" "k3s-master-1" {
   memory = 8192
 
   # -- Template Settings / Operating System
-  clone      = "ubuntu-24.04-cloudinit"  # Change to the desired template name
-  full_clone = true                  # Optional: false for linked clone
+  clone      = "ubuntu-24.04-cloudinit"
+  full_clone = true
 
   # -- Network Settings
   network {
     id       = 0
     bridge   = "vmbr0"
     model    = "virtio"
-    tag      = 30
   }
 
   # -- Disk Settings
-  scsihw = "virtio-scsi-pci"  # Use VirtIO SCSI controller
+  scsihw = "virtio-scsi-pci"
   disks {
     ide {
       ide0 {
@@ -58,7 +57,7 @@ resource "proxmox_vm_qemu" "k3s-master-1" {
   }
 
   # -- Boot and Runtime Behavior
-  agent             = 1                    # Enable QEMU Guest Agent
+  agent             = 1
   boot              = "order=scsi0"
   onboot            = true
   vm_state          = "running"
