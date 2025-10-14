@@ -4,3 +4,6 @@ resources:
   - namespace.yaml
   - repository.yaml
   - helmrelease.yaml
+  - secret.yaml
+  - clusterIssuer.yaml
+  - cert.yaml
