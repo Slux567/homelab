@@ -6,11 +6,11 @@ all:
     proxmox_nodes:
       hosts:
         asgard:
-          ansible_host: 192.168.20.10
+          ansible_host: 192.168.1.41
         midgard:
-          ansible_host: 192.168.20.20
+          ansible_host: 192.168.1.42
         muspelheim:
-          ansible_host: 192.168.20.30
+          ansible_host: 192.168.1.43
       vars:
         ansible_user: root
         ansible_ssh_private_key_file: ~/.ssh/id_ed25519
@@ -28,19 +28,19 @@ all:
         controlplane:
           hosts:
             k3s-master-1:
-              ansible_host: 10.30.1.1
+              ansible_host: 192.168.1.10
             k3s-master-2:
-              ansible_host: 10.30.1.2
+              ansible_host: 192.168.1.11
             k3s-master-3:
-              ansible_host: 10.30.1.3
+              ansible_host: 192.168.1.12
         workers:
           hosts:
             k3s-worker-1:
-              ansible_host: 10.30.2.1
+              ansible_host: 192.168.1.20
             k3s-worker-2:
-              ansible_host: 10.30.2.2
+              ansible_host: 192.168.1.21
             k3s-worker-3:
-              ansible_host: 10.30.2.3
+              ansible_host: 192.168.1.22
 
 
     # local_services_nodes:
