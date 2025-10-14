@@ -4,5 +4,4 @@ resources:
   - metallb
   - traefik
   - certmanager
-  - democratic-csi
   - external-ingress
