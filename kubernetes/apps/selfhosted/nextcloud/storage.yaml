@@ -9,7 +9,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   nfs:
-    server: 10.40.10.10
+    server: 192.168.1.50
     path: /mnt/tank/selfhosted/nextcloud/nextcloud-app
   mountOptions:
     - nfsvers=4.2
@@ -41,7 +41,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: 10.40.10.10
+    server: 192.168.1.50
     path: /mnt/tank/selfhosted/nextcloud/nextcloud-data
   mountOptions:
     - nfsvers=4.2

@@ -41,17 +41,3 @@ all:
               ansible_host: 192.168.1.21
             k3s-worker-3:
               ansible_host: 192.168.1.22
-
-
-    # local_services_nodes:
-    #   hosts:
-    #     local-services-1:
-    #       ansible_host: 10.30.72.169
-    #     local-services-2:
-    #       ansible_host: 10.30.54.112
-
-    # kubernetes_master_nodes:
-    #   hosts:
-    #     kubernetes-master-1:
-    #       ansible_host: 10.30.65.44
-
