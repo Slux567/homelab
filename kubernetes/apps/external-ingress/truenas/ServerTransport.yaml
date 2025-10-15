@@ -6,4 +6,4 @@ metadata:
 spec:
   # This tells Traefik to accept the self-signed certificate from TrueNAS
   insecureSkipVerify: true
-  serverName: "10.40.10.10"
+  serverName: "192.168.1.50"
