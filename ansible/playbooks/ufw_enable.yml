@@ -1,0 +1,104 @@
+- name: Configure UFW rules on all nodes
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Ensure UFW is installed
+      ansible.builtin.package:
+        name: ufw
+        state: present
+
+    - name: Set default policies
+      ansible.builtin.ufw:
+        state: enabled
+        direction: incoming
+        policy: deny
+
+    - name: Allow all outgoing connections
+      ansible.builtin.ufw:
+        state: enabled
+        direction: outgoing
+        policy: allow
+
+    - name: Allow traffic from phone, PC, and Pi
+      ansible.builtin.ufw:
+        rule: allow
+        from_ip: "{{ item }}"
+      loop:
+        - 192.168.1.97
+        - 192.168.1.98
+        - 192.168.1.110
+
+- name: Configure UFW rules on Proxmox nodes
+  hosts: proxmox_nodes
+  become: true
+  tasks:
+    - name: Allow Proxmox node access
+      ansible.builtin.ufw:
+        rule: allow
+        from_ip: "{{ item }}"
+      loop:
+        - 192.168.1.41
+        - 192.168.1.42
+        - 192.168.1.43
+
+    - name: Allow incoming traffic on vmbr0
+      ansible.builtin.command: ufw route allow in on vmbr0
+
+    - name: Allow outgoing traffic on vmbr0
+      ansible.builtin.command: ufw route allow out on vmbr0
+
+- name: Configure UFW rules on K3s nodes
+  hosts: k3s_nodes
+  become: true
+  tasks:
+    - name: Allow K3s node IPs
+      ansible.builtin.ufw:
+        rule: allow
+        from_ip: "{{ item }}"
+      loop:
+        - 192.168.1.10
+        - 192.168.1.11
+        - 192.168.1.12
+        - 192.168.1.20
+        - 192.168.1.21
+        - 192.168.1.22
+
+    - name: Allow HTTP and HTTPS from K3s subnet
+      ansible.builtin.ufw:
+        rule: allow
+        proto: tcp
+        from_ip: 192.168.1.0/24
+        port: 80,443
+
+- name: Configure UFW rules on Raspberry Pi
+  hosts: pi_nodes
+  become: true
+  tasks:
+    - name: Allow Pi-hole DNS (UDP/TCP 53) from LAN
+      ansible.builtin.ufw:
+        rule: allow
+        port: 53
+        proto: udp
+        from_ip: 192.168.1.0/24
+
+    - name: Allow Pi-hole DNS TCP (53) from LAN
+      ansible.builtin.ufw:
+        rule: allow
+        port: 53
+        proto: tcp
+        from_ip: 192.168.1.0/24
+
+    - name: Allow UDP port 41641
+      ansible.builtin.ufw:
+        rule: allow
+        port: 41641
+        proto: udp
+
+- name: Enable UFW safely
+  hosts: all
+  become: true
+  tasks:
+    - name: Enable UFW
+      ufw:
+        state: enabled

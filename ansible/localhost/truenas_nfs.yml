@@ -1,6 +1,6 @@
 ---
 # Interactive playbook for creating NFS datasets on TrueNAS
-# Usage: ansible-playbook truenas_nfs.yml
+# Usage: ansible-playbook truenas_nfs.yml --ask-vault-pass
 
 - name: Create NFS Dataset on TrueNAS
   hosts: localhost
@@ -11,7 +11,7 @@
     truenas_host: "https://truenas.sluxcloud.com"
     # truenas_api_key: IMPORTED BY secret.yml
     pool_name: "tank"
-    nfs_network: "10.30.2.0/24"
+    nfs_host_range: "{{ range(20, 30) | map('regex_replace', '^(.*)$', '192.168.1.\\1') | list }}"
     owner_user: "slux"
     owner_group: "slux"
     owner_uid: 1000
@@ -129,9 +129,8 @@
           body:
             path: "/mnt/{{ pool_name }}/{{ dataset_name }}"
             comment: "NFS share for {{ dataset_name }}"
-            networks:
-              - "{{ nfs_network }}"
-            hosts: []
+            networks: []
+            hosts: "{{ nfs_host_range }}"
             maproot_user: ""
             maproot_group: ""
             mapall_user: "{{ owner_user }}"
@@ -174,5 +173,5 @@
           msg: 
             - "Dataset created: /mnt/{{ pool_name }}/{{ dataset_name }}"
             - "Quota: {{ dataset_quota if dataset_quota != '' else 'No quota set' }}"
-            - "NFS share accessible from: {{ nfs_network }}"
+            - "NFS share accessible from: {{ nfs_host_range }}"
             - "Owner: {{ owner_user }}:{{ owner_group }} ({{ owner_uid }}:{{ owner_gid }})"
