@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: immich
+  namespace: immich
+spec:
+  interval: 10m
+  url: oci://ghcr.io/immich-app/immich-charts/immich
+  ref:
+    semver: ">=0.10.0 <0.11.0"
