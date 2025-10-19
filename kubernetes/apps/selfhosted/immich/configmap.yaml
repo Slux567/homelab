@@ -11,8 +11,6 @@ data:
         containers:
           main:
             image:
-              repository: ghcr.io/immich-app/immich-server
-              pullPolicy: IfNotPresent
               tag: v2.0.1
             securityContext:
               runAsUser: 1000
@@ -33,14 +31,30 @@ data:
 
     valkey:
       enabled: true
-
+      controllers:
+        main:
+          containers:
+            main:
+              image:
+                repository: docker.io/valkey/valkey
+                tag: 8.1-alpine@sha256:e706d1213aaba6896c162bb6a3a9e1894e1a435f28f8f856d14fab2e10aa098b
+                pullPolicy: IfNotPresent
       persistence:
         data:
           enabled: true
+          size: 2Gi
           existingClaim: immich-valkey-pvc
+          accessMode: ReadWriteOnce
 
     server:
       enabled: true
+      controllers:
+        main:
+          containers:
+            main:
+              image:
+                repository: ghcr.io/immich-app/immich-server
+                pullPolicy: IfNotPresent
       ingress:
         main:
           enabled: true
@@ -54,7 +68,8 @@ data:
             - host: immich.sluxcloud.com
               paths:
                 - path: "/"
-                  pathType: Prefix
+                  service:
+                    identifier: main
 
     machine-learning:
       enabled: true
@@ -70,5 +85,6 @@ data:
       persistence:
         cache:
           enabled: true
+          size: 20Gi
           existingClaim: immich-ml-pvc
           accessMode: ReadWriteMany
