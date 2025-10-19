@@ -5,55 +5,40 @@ metadata:
   namespace: immich
 data:
   values.yaml: |
-
-    controllers:
-      main:
-        containers:
-          main:
-            image:
-              tag: v2.0.1
-            securityContext:
-              runAsUser: 1000
-              runAsGroup: 1000
-              runAsNonRoot: true
-            env:
-              REDIS_HOSTNAME: '{{ printf "%s-valkey" .Release.Name }}'
-              IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
+    valkey:
+      enabled: true
 
     immich:
       metrics:
         enabled: true
       persistence:
         library:
-          enabled: true
           existingClaim: immich-library-pvc
 
-    valkey:
-      enabled: true
-      controllers:
-        main:
-          containers:
-            main:
-              image:
-                repository: docker.io/valkey/valkey
-                tag: 8.1-alpine@sha256:e706d1213aaba6896c162bb6a3a9e1894e1a435f28f8f856d14fab2e10aa098b
-                pullPolicy: IfNotPresent
-      persistence:
-        data:
-          enabled: true
-          size: 2Gi
-          existingClaim: immich-valkey-pvc
-          accessMode: ReadWriteOnce
+    controllers:
+      main:
+        containers:
+          main:
+            env:
+              MACHINE_LEARNING_PRELOAD__CLIP: "ViT-H-14-378-quickgelu__dfn5b"
+              LOG_LEVEL: verbose
+              TZ: Europe/Amsterdam
+            image:
+              tag: "v2.1.0"
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
 
     server:
-      enabled: true
       controllers:
         main:
           containers:
             main:
-              image:
-                repository: ghcr.io/immich-app/immich-server
-                pullPolicy: IfNotPresent
+              resources:
+                requests:
+                  cpu: 1500m
+                  memory: 2048M
       ingress:
         main:
           enabled: true
@@ -71,19 +56,16 @@ data:
                     identifier: main
 
     machine-learning:
-      enabled: true
       controllers:
         main:
+          strategy: Recreate
           containers:
             main:
-              image:
-                repository: ghcr.io/immich-app/immich-machine-learning
-                pullPolicy: IfNotPresent
-              env:
-                TRANSFORMERS_CACHE: /cache
+              resources:
+                requests:
+                  cpu: 500m
+                  memory: 4096M
       persistence:
         cache:
-          enabled: true
-          size: 20Gi
-          existingClaim: immich-ml-pvc
-          accessMode: ReadWriteMany
+          type: persistentVolumeClaim
+          existingClaim: immich-machine-learning-cache
