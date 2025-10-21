@@ -68,4 +68,4 @@ data:
       persistence:
         cache:
           type: persistentVolumeClaim
-          existingClaim: immich-machine-learning-cache
+          existingClaim: immich-ml-pv
