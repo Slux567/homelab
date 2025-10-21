@@ -22,13 +22,13 @@ data:
             env:
               LOG_LEVEL: verbose
               TZ: Europe/Amsterdam
-              MACHINE_LEARNING_CACHE_FOLDER: /usr/src/cache
+              MACHINE_LEARNING_CACHE_FOLDER: /cache
             image:
               tag: "v2.1.0"
             securityContext:
               runAsUser: 1000
               runAsGroup: 1000
-              runAsNonRoot: false
+              runAsNonRoot: true
 
     server:
       controllers:
@@ -65,6 +65,14 @@ data:
                 requests:
                   cpu: 500m
                   memory: 4096M
+              env:
+                TRANSFORMERS_CACHE: /cache
+                HF_XET_CACHE: /cache/huggingface-xet
+                MPLCONFIGDIR: /cache/matplotlib-config
+              securityContext:
+                runAsUser: 1000
+                runAsGroup: 1000
+                runAsNonRoot: true
       persistence:
         cache:
           type: persistentVolumeClaim
