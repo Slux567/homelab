@@ -66,6 +66,6 @@ data:
                   memory: 4096M
       persistence:
         cache:
-          enabled: false
+          enabled: true
           type: persistentVolumeClaim
           existingClaim: immich-ml-pvc-encrypted
