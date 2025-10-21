@@ -28,7 +28,7 @@ data:
             securityContext:
               runAsUser: 1000
               runAsGroup: 1000
-              runAsNonRoot: true
+              runAsNonRoot: false
 
     server:
       controllers:
@@ -65,10 +65,7 @@ data:
                 requests:
                   cpu: 500m
                   memory: 4096M
-              env:
-                MPLCONFIGDIR=/usr/src/app/matplotlib
       persistence:
         cache:
-          enabled: true
           type: persistentVolumeClaim
           existingClaim: immich-ml-pvc-encrypted
