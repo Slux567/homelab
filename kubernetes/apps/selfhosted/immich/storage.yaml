@@ -10,7 +10,7 @@ spec:
     - ReadWriteOnce
   nfs:
     server: 192.168.1.50
-    path: /mnt/tank/selfhosted/immich/immich-library
+    path: /mnt/tank/selfhosted/immich/immich-library-encrypted
   mountOptions:
     - nfsvers=4.2
     - hard
@@ -42,7 +42,7 @@ spec:
     - ReadWriteMany
   nfs:
     server: 192.168.1.50
-    path: /mnt/tank/selfhosted/immich/immich-ml
+    path: /mnt/tank/selfhosted/immich/immich-ml-encrypted
   mountOptions:
     - nfsvers=4.2
     - hard
