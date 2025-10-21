@@ -22,6 +22,7 @@ data:
             env:
               LOG_LEVEL: verbose
               TZ: Europe/Amsterdam
+              MACHINE_LEARNING_CACHE_FOLDER: /usr/src/cache
             image:
               tag: "v2.1.0"
             securityContext:
@@ -64,6 +65,8 @@ data:
                 requests:
                   cpu: 500m
                   memory: 4096M
+              env:
+                MPLCONFIGDIR=/usr/src/app/matplotlib
       persistence:
         cache:
           enabled: true
