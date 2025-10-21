@@ -20,7 +20,7 @@ data:
         containers:
           main:
             env:
-              MACHINE_LEARNING_PRELOAD__CLIP: "ViT-H-14-378-quickgelu__dfn5b"
+              MACHINE_LEARNING_PRELOAD__CLIP: "ViT-B-16-SigLIP-384_webli"
               LOG_LEVEL: verbose
               TZ: Europe/Amsterdam
             image:
