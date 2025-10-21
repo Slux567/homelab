@@ -13,7 +13,7 @@ data:
         enabled: false
       persistence:
         library:
-          existingClaim: immich-library-pvc
+          existingClaim: immich-library-pvc-encrypted
 
     controllers:
       main:
@@ -67,4 +67,4 @@ data:
       persistence:
         cache:
           type: persistentVolumeClaim
-          existingClaim: immich-ml-pvc
+          existingClaim: immich-ml-pvc-encrypted
