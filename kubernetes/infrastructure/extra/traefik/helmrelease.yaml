@@ -33,3 +33,14 @@ spec:
       default:
         defaultCertificate:
           secretName: sluxcloud-wildcard-cert
+    additionalArguments:
+      # Increase timeouts for large uploads
+      - "--entryPoints.websecure.transport.respondingTimeouts.readTimeout=600s"
+      - "--entryPoints.websecure.transport.respondingTimeouts.writeTimeout=600s"
+      - "--entryPoints.websecure.transport.respondingTimeouts.idleTimeout=600s"
+      - "--entryPoints.websecure.transport.lifeCycle.requestAcceptGraceTimeout=60s"
+      - "--entryPoints.websecure.transport.lifeCycle.graceTimeOut=60s"
+      
+      # Optionally disable buffering (useful for streaming uploads)
+      - "--serverstransport.forwardingTimeouts.dialTimeout=60s"
+      - "--serverstransport.forwardingTimeouts.responseHeaderTimeout=600s"
