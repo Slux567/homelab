@@ -22,7 +22,7 @@ spec:
 
     timezone: "Europe/Amsterdam"
     
-    existingEncryptionKeySecret: "934c35a9253da74cd3bb896728fc10a8"
+    existingEncryptionKeySecret: "n8n-encryption-key"
 
     log:
       level: warn
