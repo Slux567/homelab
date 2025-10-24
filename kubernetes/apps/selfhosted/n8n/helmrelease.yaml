@@ -49,17 +49,11 @@ spec:
       extraEnvVars:
         N8N_LISTEN_ADDRESS: "0.0.0.0"
       livenessProbe:
-        httpGet:
-          path: /healthz
-          port: "5678"
         initialDelaySeconds: 30
         periodSeconds: 20
         timeoutSeconds: 10
         failureThreshold: 6
       readinessProbe:
-        httpGet:
-          path: /healthz/readiness
-          port: "5678"
         initialDelaySeconds: 30
         periodSeconds: 20
         timeoutSeconds: 10
