@@ -5,5 +5,4 @@ resources:
   - storage.yaml
   - configmap.yaml
   - secret.yaml
-  - repository.yaml
   - helmrelease.yaml
