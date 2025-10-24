@@ -30,20 +30,18 @@ spec:
       # Rest of database configured in secret
 
     ingress:
-      main:
-        enabled: true
-        className: traefik
-        annotations:
-          kubernetes.io/ingress.class: traefik
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.tls: "true"
-          traefik.ingress.kubernetes.io/proxy-body-size: "0"
-        hosts:
-          - host: n8n.sluxcloud.com
-            paths:
-              - path: "/"
-                service:
-                  identifier: main
+      enabled: true
+      className: traefik
+      annotations:
+        kubernetes.io/ingress.class: traefik
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.tls: "true"
+        traefik.ingress.kubernetes.io/proxy-body-size: "0"
+      hosts:
+        - host: n8n.sluxcloud.com
+          paths:
+            - path: /
+              pathType: Prefix
 
     main:
       resources:
