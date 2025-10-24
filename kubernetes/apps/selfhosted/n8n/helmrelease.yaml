@@ -46,6 +46,9 @@ spec:
               pathType: Prefix
 
     main:
+      extraEnvVars:
+        - name: N8N_LISTEN_ADDRESS
+          value: "0.0.0.0"
       resources:
         requests:
           cpu: 50m
