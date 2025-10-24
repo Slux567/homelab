@@ -1,0 +1,65 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: n8n
+  namespace: n8n
+spec:
+  interval: 5m
+  releaseName: n8n
+  chart:
+    spec:
+      chart: n8n
+      version: 1.15.17
+      sourceRef:
+        kind: HelmRepository
+        name: community-charts
+        namespace: flux-system
+      interval: 1h
+
+  values:
+    image:
+        tag: "1.116.2" 
+
+    timezone: "Europe/Amsterdam"
+
+    log:
+      level: warn
+
+    db:
+      type: postgresdb
+      # Rest of database configured in secret
+
+    ingress:
+      main:
+        enabled: true
+        className: traefik
+        annotations:
+          kubernetes.io/ingress.class: traefik
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.tls: "true"
+          traefik.ingress.kubernetes.io/proxy-body-size: "0"
+        hosts:
+          - host: n8n.sluxcloud.com
+            paths:
+              - path: "/"
+                service:
+                  identifier: main
+
+    main:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 256Mi
+        limits:
+          cpu: 250m
+          memory: 512Mi
+      persistence:
+        enabled: true
+        existingClaim: "n8n-data-pvc"
+        size: 8Gi
+
+
+  valuesFrom:
+    - kind: Secret
+      name: n8n-secrets
+      valuesKey: values.yaml
