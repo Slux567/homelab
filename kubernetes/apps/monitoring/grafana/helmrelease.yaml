@@ -29,3 +29,7 @@ spec:
       enabled: true
       existingClaim: grafana-data-pvc
       size: 10Gi
+
+    securityContext:
+      runAsUser: 1000
+      fsGroup: 1000
