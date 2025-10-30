@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - community-charts.yaml
   - immich-charts.yaml
+  - grafana-charts.yaml
