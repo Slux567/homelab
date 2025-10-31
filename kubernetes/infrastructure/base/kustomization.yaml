@@ -5,3 +5,4 @@ resources:
   - certmanager
   - traefik
   - helm-repositories/
+  - ext-postgres-operator/
