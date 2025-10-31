@@ -17,5 +17,5 @@ spec:
 
   valuesFrom:
     - kind: Secret
-      name: ext-postgres-operator-secrets
+      name: ext-postgres-operator
       valuesKey: values.yaml
