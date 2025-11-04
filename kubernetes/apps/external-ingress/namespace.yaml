@@ -3,21 +3,3 @@ kind: Namespace
 metadata:
   name: external-ingress
 ---
-apiVersion: db.movetokube.com/v1alpha1
-kind: Postgres
-metadata:
-  name: test-db
-  namespace: external-ingress
-spec:
-  database: test-db
----
-apiVersion: db.movetokube.com/v1alpha1
-kind: PostgresUser
-metadata:
-  name: test-db-user
-  namespace: external-ingress
-spec:
-  role: test-db-role
-  database: test-db
-  secretName: test-db-postgres
-  privileges: OWNER
