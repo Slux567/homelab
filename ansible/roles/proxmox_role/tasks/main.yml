@@ -1,7 +1,0 @@
----
-- import_tasks: ubuntu_cloudinit.yml
-- import_tasks: debian_cloudinit.yml
-
-- name: Install node_exporter
-  import_tasks: node_exporter.yml
-  tags: node_exporter

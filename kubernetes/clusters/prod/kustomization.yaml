@@ -27,7 +27,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: homelab
+    name: flux-system
   path: ./kubernetes/clusters/prod/00-crds
   decryption:
     provider: sops
@@ -52,7 +52,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: homelab
+    name: flux-system
   path: ./kubernetes/clusters/prod/01-sources
   decryption:
     provider: sops
@@ -77,7 +77,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: homelab
+    name: flux-system
   path: ./kubernetes/clusters/prod/02-infra
   decryption:
     provider: sops
@@ -102,7 +102,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: homelab
+    name: flux-system
   path: ./kubernetes/clusters/prod/03-core
   decryption:
     provider: sops
@@ -127,7 +127,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: homelab
+    name: flux-system
   path: ./kubernetes/clusters/prod/04-apps
   decryption:
     provider: sops
