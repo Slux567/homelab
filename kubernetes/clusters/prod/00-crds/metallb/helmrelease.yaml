@@ -14,5 +14,7 @@ spec:
         name: metallb
         namespace: metallb-system
       interval: 15m
+  install:
+    createNamespace: true
   values:
     # Default values are fine for now

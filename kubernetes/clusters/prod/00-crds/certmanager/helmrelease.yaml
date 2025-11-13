@@ -14,5 +14,7 @@ spec:
         name: cert-manager
         namespace: cert-manager
       interval: 15m
+  install:
+    createNamespace: true
   values:
     installCRDs: true

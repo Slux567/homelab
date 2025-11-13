@@ -14,7 +14,8 @@ spec:
         name: ext-postgres-operator
         namespace: flux-system
       interval: 1m
-
+  install:
+    createNamespace: true
   valuesFrom:
     - kind: Secret
       name: ext-postgres-operator
