@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: crds
+  name: 01-crds
   namespace: flux-system
 spec:
   interval: 1h
@@ -26,7 +26,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: sources
+  name: 01-sources
   namespace: flux-system
 spec:
   dependsOn:
@@ -51,7 +51,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infra
+  name: 02-infra
   namespace: flux-system
 spec:
   dependsOn:
@@ -76,7 +76,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: core
+  name: 03-core
   namespace: flux-system
 spec:
   dependsOn:
@@ -101,7 +101,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps
+  name: 04-apps
   namespace: flux-system
 spec:
   dependsOn:
