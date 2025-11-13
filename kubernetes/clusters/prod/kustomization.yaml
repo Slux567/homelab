@@ -1,17 +1,3 @@
-
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: cluster
-  namespace: flux-system
-spec:
-  interval: 10m
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./kubernetes/clusters/prod
-
 ---
 # ─── 00: CRDs Layer ──────────────────────────
 apiVersion: kustomize.toolkit.fluxcd.io/v1
