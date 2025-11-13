@@ -30,7 +30,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: crds
+    - name: 00-crds
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -55,7 +55,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: sources
+    - name: 01-sources
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -80,7 +80,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: infra
+    - name: 02-infra
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -105,7 +105,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: core
+    - name: 03-core
   interval: 1h
   retryInterval: 1m
   timeout: 5m
