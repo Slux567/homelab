@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - nextcloud/
   - immich/
-  - n8n/
+  # - n8n/
