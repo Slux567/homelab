@@ -5,3 +5,4 @@ resources:
   - immich-charts.yaml
   - grafana-charts.yaml
   - traefik-chart.yaml
+  - prometheus-community.yaml
