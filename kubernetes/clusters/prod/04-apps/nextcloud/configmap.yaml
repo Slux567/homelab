@@ -8,7 +8,7 @@ data:
 
     image:
       tag: 32.0.1-apache
-      pullPolicy: always
+      pullPolicy: Always
 
     ingress:
       enabled: true
