@@ -16,29 +16,30 @@ spec:
   install:
     createNamespace: true
   values:
-    ingress:
-      enabled: true
-      ingressClassName: traefik
-      annotations:
-        kubernetes.io/ingress.class: traefik
-        traefik.ingress.kubernetes.io/router.entrypoints: websecure
-        traefik.ingress.kubernetes.io/router.tls: "true"
-        traefik.ingress.kubernetes.io/proxy-body-size: "0"
-      hosts:
-        - prometheus.sluxcloud.com
-
-    persistence:
-      enabled: true
-      existingClaim: prometheus-data-pvc
-      size: 50Gi
-
-    securityContext:
-      runAsNonRoot: true
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
 
     server:
+      ingress:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          kubernetes.io/ingress.class: traefik
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.tls: "true"
+          traefik.ingress.kubernetes.io/proxy-body-size: "0"
+        hosts:
+          - prometheus.sluxcloud.com
+
+      persistentVolume:
+        enabled: true
+        existingClaim: prometheus-data-pvc
+
+
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+
       resources:
         limits:
           cpu: 1
