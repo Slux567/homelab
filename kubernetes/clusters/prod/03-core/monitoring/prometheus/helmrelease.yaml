@@ -11,7 +11,7 @@ spec:
       version: 27.45.0
       sourceRef:
         kind: HelmRepository
-        name: prometheus-repo
+        name: prometheus-community
         namespace: flux-system
   install:
     createNamespace: true
