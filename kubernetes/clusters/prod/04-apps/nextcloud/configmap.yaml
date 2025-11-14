@@ -7,10 +7,8 @@ data:
   values.yaml: |
 
     image:
-      repository: nextcloud
-      flavor: apache
-      tag: latest
-      pullPolicy: IfNotPresent
+      tag: 32.0.1-apache
+      pullPolicy: always
 
     ingress:
       enabled: true
