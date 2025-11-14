@@ -1,0 +1,62 @@
+---
+- name: Install Node Exporter on controlplane and proxmox nodes
+  hosts: 
+    - controlplane
+    - proxmox_nodes
+  become: true
+  tasks:
+    - name: Download latest Node Exporter release
+      ansible.builtin.get_url:
+        url: "https://github.com/prometheus/node_exporter/releases/download/v1.10.2/node_exporter-1.10.2.linux-amd64.tar.gz"
+        dest: /tmp/node_exporter.tar.gz
+        mode: '0644'
+
+    - name: Extract Node Exporter
+      ansible.builtin.unarchive:
+        src: /tmp/node_exporter.tar.gz
+        dest: /usr/local/bin/
+        remote_src: yes
+        extra_opts: [--strip-components=1]
+
+    - name: Create node_exporter user
+      ansible.builtin.user:
+        name: node_exporter
+        shell: /usr/sbin/nologin
+        system: yes
+        createhome: no
+
+    - name: Set ownership of node_exporter binary
+      ansible.builtin.file:
+        path: /usr/local/bin/node_exporter
+        owner: node_exporter
+        group: node_exporter
+        mode: '0755'
+
+    - name: Create systemd service for Node Exporter
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/node_exporter.service
+        content: |
+          [Unit]
+          Description=Node Exporter
+          Wants=network-online.target
+          After=network-online.target
+
+          [Service]
+          User=node_exporter
+          Group=node_exporter
+          Type=simple
+          ExecStart=/usr/local/bin/node_exporter
+
+          [Install]
+          WantedBy=default.target
+        mode: '0644'
+
+    - name: Reload systemd daemon
+      ansible.builtin.systemd:
+        daemon_reload: yes
+
+    - name: Enable and start Node Exporter service
+      ansible.builtin.systemd:
+        name: node_exporter
+        enabled: yes
+        state: started
