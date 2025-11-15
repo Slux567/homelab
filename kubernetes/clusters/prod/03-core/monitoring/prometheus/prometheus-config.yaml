@@ -44,19 +44,19 @@ data:
             labels:
               cluster: k3s
               role: master
-              hostname: k3s-master-01
+              hostname: k3s-master-1
           - targets:
               - '192.168.1.11:9100'
             labels:
               cluster: k3s
               role: master
-              hostname: k3s-master-02
+              hostname: k3s-master-2
           - targets:
               - '192.168.1.12:9100'
             labels:
               cluster: k3s
               role: master
-              hostname: k3s-master-03
+              hostname: k3s-master-3
           
           # ----------------------------------------------------
           # K3s Workers
@@ -66,16 +66,16 @@ data:
             labels:
               cluster: k3s
               role: worker
-              hostname: k3s-worker-01
+              hostname: k3s-worker-1
           - targets:
               - '192.168.1.21:9100'
             labels:
               cluster: k3s
               role: worker
-              hostname: k3s-worker-02
+              hostname: k3s-worker-2
           - targets:
               - '192.168.1.22:9100'
             labels:
               cluster: k3s
               role: worker
-              hostname: k3s-worker-03
+              hostname: k3s-worker-3
