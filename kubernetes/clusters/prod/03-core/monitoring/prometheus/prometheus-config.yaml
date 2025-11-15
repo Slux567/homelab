@@ -4,7 +4,8 @@ metadata:
   name: prometheus-prometheus-config
   namespace: monitoring
 data:
-  prometheus.yml: |
+  prometheus.yml: |-
+
     global:
       scrape_interval: 15s
 
@@ -12,36 +13,68 @@ data:
       - job_name: 'node_exporter'
         scrape_interval: 15s
 
-        static_configs:
           # ----------------------------------------------------
           # Proxmox Nodes
           # ----------------------------------------------------
           - targets:
               - '192.168.1.41:9100'
+            labels:
+              cluster: proxmox
+              role: proxmox
+              hostname: asgard
+          - targets:
               - '192.168.1.42:9100'
+            labels:
+              cluster: proxmox
+              role: proxmox
+              hostname: midgard
+          - targets:
               - '192.168.1.43:9100'
             labels:
               cluster: proxmox
               role: proxmox
+              hostname: muspelheim
 
           # ----------------------------------------------------
           # K3s Masters
           # ----------------------------------------------------
           - targets:
               - '192.168.1.10:9100'
+            labels:
+              cluster: k3s
+              role: master
+              hostname: k3s-master-01
+          - targets:
               - '192.168.1.11:9100'
+            labels:
+              cluster: k3s
+              role: master
+              hostname: k3s-master-02
+          - targets:
               - '192.168.1.12:9100'
             labels:
               cluster: k3s
               role: master
-
+              hostname: k3s-master-03
+          
           # ----------------------------------------------------
           # K3s Workers
           # ----------------------------------------------------
           - targets:
               - '192.168.1.20:9100'
+            labels:
+              cluster: k3s
+              role: worker
+              hostname: k3s-worker-01
+          - targets:
               - '192.168.1.21:9100'
+            labels:
+              cluster: k3s
+              role: worker
+              hostname: k3s-worker-02
+          - targets:
               - '192.168.1.22:9100'
             labels:
               cluster: k3s
               role: worker
+              hostname: k3s-worker-03
