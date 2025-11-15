@@ -78,3 +78,9 @@ data:
               cluster: k3s
               role: worker
               hostname: k3s-worker-3
+
+      - job_name: 'kube-state-metrics'
+        scrape_interval: 15s
+        static_configs:
+          - targets:
+              - 'prometheus-kube-state-metrics.monitoring.svc:8080'
