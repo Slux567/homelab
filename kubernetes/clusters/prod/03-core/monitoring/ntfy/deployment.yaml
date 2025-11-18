@@ -32,6 +32,8 @@ spec:
               value: INFO
             - name: NTFY_BASE_URL
               value: https://ntfy.sluxcloud.com
+            - name: NTFY_BEHIND_PROXY
+              value: "true"
           ports: 
             - containerPort: 80
               name: http-ntfy
