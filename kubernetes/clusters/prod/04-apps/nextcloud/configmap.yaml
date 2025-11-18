@@ -22,8 +22,6 @@ data:
 
     nextcloud:
       host: next.sluxcloud.com
-      username: admin
-      password: changeme
       update: 0
       containerPort: 80
       datadir: /var/www/html/data
