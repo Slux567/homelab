@@ -54,12 +54,29 @@ spec:
       configMapOverrideName: prometheus-config
 
       extraConfigmapMounts:
-        - name: alertmanager-config
-          mountPath: /etc/prometheus/
-          configMap: alertmanager-config
-          readOnly: true
-
         - name: prometheus-alert-rules
           mountPath: /etc/prometheus/rules/alerts/
           configMap: prometheus-alert-rules
           readOnly: true
+
+    alertmanager:
+      config:
+        global:
+          resolve_timeout: 5m
+
+        route:
+          receiver: 'ntfy-default'
+          group_by: ['alertname', 'cluster']
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 3h
+
+        receivers:
+        - name: 'ntfy-default'
+          webhook_configs:
+          - url: http://alertmanager-ntfy.monitoring.svc.cluster.local:8000/hook
+            http_config:
+              basic_auth:
+                username: alertmanager
+                password: verysecure
+
