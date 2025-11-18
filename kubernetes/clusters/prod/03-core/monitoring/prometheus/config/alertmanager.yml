@@ -11,6 +11,8 @@ route:
 receivers:
 - name: 'ntfy-default'
   webhook_configs:
-  - url: 'http://ntfy-svc.monitoring.svc.cluster.local:80/prometheus' # ⬅️ Replace with your ntfy URL
-    send_resolved: true
-    max_alerts: 0
+  - url: http://alertmanager-ntfy.monitoring.svc.cluster.local:8000/hook
+    http_config:
+      basic_auth:
+        username: alertmanager
+        password: verysecure
