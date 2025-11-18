@@ -1,7 +1,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: alertmanager-ntfy
+  name: monitoring-alertmanager-ntfy
   namespace: flux-system
 spec:
   interval: 15m
