@@ -84,3 +84,11 @@ data:
         static_configs:
           - targets:
               - 'prometheus-kube-state-metrics.monitoring.svc:8080'
+
+      - job_name: 'kubelets'
+        scheme: https
+        tls_config:
+          insecure_skip_verify: true
+        kubernetes_sd_configs:
+          - role: node
+        metrics_path: /metrics/cadvisor
