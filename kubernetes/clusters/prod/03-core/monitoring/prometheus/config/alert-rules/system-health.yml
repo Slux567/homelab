@@ -2,7 +2,7 @@ groups:
   - name: system-health.rules
     rules:
       - alert: InstanceDown
-        expr: up == 0
+        expr: up{job="node_exporter"} == 0
         for: 5m
         labels:
           severity: critical
@@ -10,7 +10,7 @@ groups:
           summary: "Instance {{ $labels.hostname }} is down"
           
       - alert: HighCPUUsage
-        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 90
+        expr: 100 - (avg by(hostname) (rate(node_cpu_seconds_total{job="node_exporter", mode="idle"}[5m])) * 100) > 90
         for: 10m
         labels:
           severity: warning
