@@ -9,5 +9,15 @@ configMapGenerator:
   - name: prometheus-prometheus-config
     files: 
       - config/prometheus.yml
+
+  - name: alertmanager-config
+    files:
+      - config/alertmanager.yml
+
+  - name: prometheus-alert-rules
+    files:
+      - config/alert-rules/system-health.yml
+      # add more like above
+
 generatorOptions:
   disableNameSuffixHash: true

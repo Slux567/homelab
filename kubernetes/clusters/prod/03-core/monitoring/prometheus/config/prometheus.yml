@@ -1,0 +1,106 @@
+global:
+  scrape_interval: 15s
+
+rule_files:
+  - "/etc/prometheus/rules/alerts/*.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+      - targets:
+        - 'prometheus-alertmanager.monitoring.svc.cluster.local:9093'
+
+scrape_configs:
+  - job_name: 'node_exporter'
+    scrape_interval: 15s
+    static_configs:
+
+      # ----------------------------------------------------
+      # Proxmox Nodes
+      # ----------------------------------------------------
+      - targets:
+          - '192.168.1.41:9100'
+        labels:
+          cluster: proxmox
+          role: proxmox
+          hostname: asgard
+      - targets:
+          - '192.168.1.42:9100'
+        labels:
+          cluster: proxmox
+          role: proxmox
+          hostname: midgard
+      - targets:
+          - '192.168.1.43:9100'
+        labels:
+          cluster: proxmox
+          role: proxmox
+          hostname: muspelheim
+
+      # ----------------------------------------------------
+      # K3s Masters
+      # ----------------------------------------------------
+      - targets:
+          - '192.168.1.10:9100'
+        labels:
+          cluster: k3s
+          role: master
+          hostname: k3s-master-1
+      - targets:
+          - '192.168.1.11:9100'
+        labels:
+          cluster: k3s
+          role: master
+          hostname: k3s-master-2
+      - targets:
+          - '192.168.1.12:9100'
+        labels:
+          cluster: k3s
+          role: master
+          hostname: k3s-master-3
+      
+      # ----------------------------------------------------
+      # K3s Workers
+      # ----------------------------------------------------
+      - targets:
+          - '192.168.1.20:9100'
+        labels:
+          cluster: k3s
+          role: worker
+          hostname: k3s-worker-1
+      - targets:
+          - '192.168.1.21:9100'
+        labels:
+          cluster: k3s
+          role: worker
+          hostname: k3s-worker-2
+      - targets:
+          - '192.168.1.22:9100'
+        labels:
+          cluster: k3s
+          role: worker
+          hostname: k3s-worker-3
+
+  - job_name: 'kube-state-metrics'
+    scrape_interval: 15s
+    static_configs:
+      - targets:
+          - 'prometheus-kube-state-metrics.monitoring.svc:8080'
+
+  - job_name: 'k3s-kubelet'
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true
+    kubernetes_sd_configs:
+      - role: node
+    metrics_path: /metrics/resource
+    bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+
+  - job_name: 'k3s-nodes'
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true
+    kubernetes_sd_configs:
+      - role: node
+    metrics_path: /metrics
+    bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token

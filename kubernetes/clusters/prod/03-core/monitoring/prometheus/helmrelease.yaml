@@ -18,6 +18,9 @@ spec:
   values:
 
     server:
+      image:
+        tag: v3.7.3
+
       ingress:
         enabled: true
         ingressClassName: traefik
@@ -49,3 +52,14 @@ spec:
           memory: 1Gi
       
       configMapOverrideName: prometheus-config
+
+      extraConfigmapMounts:
+        - name: alertmanager-config
+          mountPath: /etc/prometheus/
+          configMap: alertmanager-config
+          readOnly: true
+
+        - name: prometheus-alert-rules
+          mountPath: /etc/prometheus/rules/alerts/
+          configMap: prometheus-alert-rules
+          readOnly: true
