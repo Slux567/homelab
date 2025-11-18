@@ -85,10 +85,11 @@ data:
           - targets:
               - 'prometheus-kube-state-metrics.monitoring.svc:8080'
 
-      - job_name: 'kubelets'
+      - job_name: 'k3s-kubelet'
         scheme: https
         tls_config:
           insecure_skip_verify: true
         kubernetes_sd_configs:
           - role: node
-        metrics_path: /metrics/cadvisor
+        metrics_path: /metrics/resource
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
