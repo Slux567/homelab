@@ -27,13 +27,13 @@ spec:
             - name: TZ
               value: "Europe/Amsterdam"
             - name: NTFY_DEBUG
-              value: "false"
-            - name: NTFY_LOG_LEVEL
-              value: INFO
+              value: "true"
             - name: NTFY_BASE_URL
-              value: https://ntfy.sluxcloud.com
+              value: "https://ntfy.sluxcloud.com"
             - name: NTFY_BEHIND_PROXY
               value: "true"
+            - name: NTFY_UPSTREAM_BASE_URL
+              value: "https://ntfy.sh"
           ports: 
             - containerPort: 80
               name: http-ntfy
