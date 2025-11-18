@@ -1,0 +1,51 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: alertmanager-ntfy
+  namespace: monitoring
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: alertmanager-ntfy
+      version: 0.1.2
+      sourceRef:
+        kind: HelmRepository
+        name: alertmanager-ntfy
+        namespace: flux-system
+  install:
+    createNamespace: true
+  values:
+    image:
+      tag: 1.0.2
+
+    config:
+      http:
+        addr: :8000
+        auth:
+          username: "alertmanager"
+          password: "verysecure"
+      ntfy:
+        baseurl: 'http://ntfy-svc.monitoring.svc.cluster.local:80'
+        notification:
+          # The topic can either be a hardcoded string or a gval expression that evaluates to a string
+          topic: prometheus
+          # Priority reference: https://docs.ntfy.sh/publish/#message-priority
+          # Can either be a hardcoded string or a gval expression that evaluates to a string
+          priority: |
+            status == "firing" ? "urgent" : "default"
+          tags:
+            # Tags with no condition are always included
+            # Emoji shortcode reference: https://docs.ntfy.sh/emojis/
+            - tag: "+1"
+              condition: status == "resolved"
+            - tag: rotating_light
+              condition: status == "firing"
+          templates:
+            title: |
+              {{ if eq .Status "resolved" }}Resolved: {{ end }}{{ index .Annotations "summary" }}
+            description: |
+              {{ index .Annotations "description" }}
+            headers:
+              X-Click: |
+                {{ .GeneratorURL }}
