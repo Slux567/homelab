@@ -6,3 +6,5 @@ resources:
   - grafana-charts.yaml
   - traefik-chart.yaml
   - prometheus-community.yaml
+  - authentik-chart.yaml
+  - alertmanager-ntfy.yaml
