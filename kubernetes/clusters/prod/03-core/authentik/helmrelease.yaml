@@ -4,7 +4,6 @@ metadata:
   name: authentik
   namespace: authentik
 spec:
-  timeout: 15m0s 
   interval: 5m
   chart:
     spec:
@@ -18,9 +17,6 @@ spec:
     createNamespace: true
   values:
     authentik:
-      secret_key: "PleaseGenerateASecureKey"
-      # This sends anonymous usage-data, stack traces on errors and
-      # performance data to sentry.io, and is fully opt-in
       error_reporting:
           enabled: false
       postgresql:
