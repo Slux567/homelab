@@ -27,6 +27,9 @@ spec:
       hosts:
         - grafana.sluxcloud.com
 
+    env:
+      GF_SERVER_ROOT_URL: "https://grafana.sluxcloud.com"
+
     persistence:
       enabled: true
       existingClaim: grafana-data-pvc
