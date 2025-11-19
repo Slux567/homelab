@@ -4,6 +4,7 @@ metadata:
   name: authentik
   namespace: authentik
 spec:
+  timeout: 15m0s 
   interval: 5m
   chart:
     spec:
