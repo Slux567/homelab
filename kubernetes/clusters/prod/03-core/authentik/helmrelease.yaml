@@ -57,7 +57,7 @@ spec:
           mountPath: /postgres-creds
           readOnly: true
   valuesFrom:
-   - kind: Secret
-     name: authentik-secrets
-     valuesKey: values.yaml
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: values.yaml
 

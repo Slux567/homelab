@@ -42,6 +42,6 @@ spec:
       fsGroup: 1000
 
   valuesFrom:
-   - kind: Secret
-     name: grafana-secrets
-     valuesKey: values.yaml
+    - kind: Secret
+      name: grafana-secrets
+      valuesKey: values.yaml
