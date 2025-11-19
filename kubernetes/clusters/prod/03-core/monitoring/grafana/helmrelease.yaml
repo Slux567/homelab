@@ -41,7 +41,19 @@ spec:
       runAsGroup: 1000
       fsGroup: 1000
 
-  valuesFrom:
-    - kind: Secret
-      name: grafana-secrets
-      valuesKey: values.yaml
+    grafana.ini:
+      auth:
+        signout_redirect_url: "https://auth.sluxcloud.com/application/o/grafana/end-session/"
+        oauth_auto_login: true
+      auth.generic_oauth:
+        name: authentik
+        enabled: true
+        client_id: "DGGqwjptxPxg6fNoW19baa2IkMdPC1Y9sxYsB8Ou"
+        client_secret:
+          secretName: grafana-secrets
+          key: client_secret
+        scopes: "openid profile email"
+        auth_url: "https://auth.sluxcloud.com/application/o/authorize/"
+        token_url: "https://auth.sluxcloud.com/application/o/token/"
+        api_url: "https://auth.sluxcloud.com/application/o/userinfo/"
+        role_attribute_path: contains(groups, 'Grafana Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'
