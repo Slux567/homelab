@@ -4,4 +4,5 @@ resources:
   - namespace.yaml
   - secret.yaml
   - database.yaml
+  - middleware.yaml
   - helmrelease.yaml
