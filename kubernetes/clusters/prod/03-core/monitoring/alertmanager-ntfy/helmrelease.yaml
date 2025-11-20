@@ -22,21 +22,14 @@ spec:
     config:
       http:
         addr: :8000
-        auth:
-          username: "alertmanager"
-          password: "verysecure"
+
       ntfy:
         baseurl: 'http://ntfy-svc.monitoring.svc.cluster.local:80'
         notification:
-          # The topic can either be a hardcoded string or a gval expression that evaluates to a string
           topic: prometheus
-          # Priority reference: https://docs.ntfy.sh/publish/#message-priority
-          # Can either be a hardcoded string or a gval expression that evaluates to a string
           priority: |
             status == "firing" ? "urgent" : "default"
           tags:
-            # Tags with no condition are always included
-            # Emoji shortcode reference: https://docs.ntfy.sh/emojis/
             - tag: "+1"
               condition: status == "resolved"
             - tag: rotating_light
@@ -49,3 +42,7 @@ spec:
             headers:
               X-Click: |
                 {{ .GeneratorURL }}
+  valuesFrom:
+    - kind: Secret
+      name: prometheus-secrets
+      valuesKey: values.yaml

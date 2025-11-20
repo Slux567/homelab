@@ -72,12 +72,9 @@ spec:
           group_interval: 5m
           repeat_interval: 3h
 
-        receivers:
-        - name: 'ntfy-default'
-          webhook_configs:
-          - url: http://alertmanager-ntfy.monitoring.svc.cluster.local:8000/hook
-            http_config:
-              basic_auth:
-                username: alertmanager
-                password: verysecure
+  # alert manager receiver
+  valuesFrom:
+    - kind: Secret
+      name: prometheus-secrets
+      valuesKey: values.yaml
 

@@ -2,6 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: monitoring
 resources:
+  - secret.yaml
   - storage.yaml
   - helmrelease.yaml
 
@@ -9,10 +10,6 @@ configMapGenerator:
   - name: prometheus-prometheus-config
     files: 
       - config/prometheus.yml
-
-  - name: alertmanager-config
-    files:
-      - config/alertmanager.yml
 
   - name: prometheus-alert-rules
     files:
