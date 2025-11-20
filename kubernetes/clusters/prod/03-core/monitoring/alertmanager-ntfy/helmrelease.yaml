@@ -44,5 +44,5 @@ spec:
                 {{ .GeneratorURL }}
   valuesFrom:
     - kind: Secret
-      name: prometheus-secrets
+      name: alertmanager-ntfy-secrets
       valuesKey: values.yaml
