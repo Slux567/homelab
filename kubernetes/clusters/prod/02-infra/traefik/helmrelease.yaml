@@ -35,6 +35,10 @@ spec:
       default:
         defaultCertificate:
           secretName: sluxcloud-wildcard-cert
+    providers:
+      kubernetesCRD:
+        allowCrossNamespace: true
+    
     additionalArguments:
       # Increase timeouts for large uploads
       - "--entryPoints.websecure.transport.respondingTimeouts.readTimeout=600s"
