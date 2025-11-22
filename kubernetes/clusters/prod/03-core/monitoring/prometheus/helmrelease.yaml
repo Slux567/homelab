@@ -59,11 +59,6 @@ spec:
           configMap: prometheus-alert-rules
           readOnly: true
 
-    alertmanager:
-      config:
-        global:
-          resolve_timeout: 5m
-
   valuesFrom:
     - kind: Secret
       name: prometheus-secrets
