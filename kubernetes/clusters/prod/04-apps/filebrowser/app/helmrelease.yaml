@@ -53,6 +53,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.tls: "true"
           traefik.ingress.kubernetes.io/proxy-body-size: "0"
+          traefik.http.middlewares.filebrowser-buffering.buffering.maxRequestBodyBytes: "10737418240"
         hosts:
           - host: files.sluxcloud.com
             paths:

@@ -50,3 +50,5 @@ spec:
       # Optionally disable buffering (useful for streaming uploads)
       - "--serverstransport.forwardingTimeouts.dialTimeout=60s"
       - "--serverstransport.forwardingTimeouts.responseHeaderTimeout=600s"
+
+      - "--providers.kubernetescrd.allowCrossNamespace=true"
