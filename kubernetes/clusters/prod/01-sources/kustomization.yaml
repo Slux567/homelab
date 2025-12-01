@@ -8,3 +8,4 @@ resources:
   - prometheus-community.yaml
   - authentik-chart.yaml
   - alertmanager-ntfy.yaml
+  - bjw-s.yaml
