@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - ./nextcloud/
   - ./immich/
-  - ./filebrowser/ks.yaml
+  # - ./filebrowser/ks.yaml
   # - n8n/

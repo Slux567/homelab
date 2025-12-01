@@ -63,7 +63,7 @@ spec:
                 pathType: Prefix
 
     persistence:
-      srv:
+      files:
         type: persistentVolumeClaim
         existingClaim: filebrowser-files-pvc
         globalMounts:
