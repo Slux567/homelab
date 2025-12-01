@@ -71,7 +71,7 @@ spec:
           - path: /files
       config:
         type: configMap
-        configMapName: filebrowser-config
+        name: filebrowser-config
         globalMounts:
           - path: /config
       database:
