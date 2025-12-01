@@ -33,7 +33,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: filebrowser-srv-pv
+  name: filebrowser-files-pv
 spec:
   capacity:
     storage: 4000Gi
@@ -41,7 +41,7 @@ spec:
     - ReadWriteOnce
   nfs:
     server: 192.168.1.50
-    path: /mnt/tank/selfhosted/filebrowser/srv
+    path: /mnt/tank/selfhosted/filebrowser/files
   mountOptions:
     - nfsvers=4.2
     - hard
@@ -50,7 +50,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: filebrowser-srv-pvc
+  name: filebrowser-files-pvc
   namespace: filebrowser
 spec:
   storageClassName: ""
@@ -59,35 +59,4 @@ spec:
   resources:
     requests:
       storage: 4000Gi
-  volumeName: filebrowser-srv-pv
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: filebrowser-config-pv
-spec:
-  capacity:
-    storage: 5Gi
-  accessModes:
-    - ReadWriteOnce
-  nfs:
-    server: 192.168.1.50
-    path: /mnt/tank/selfhosted/filebrowser/config
-  mountOptions:
-    - nfsvers=4.2
-    - hard
-    - noatime
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: filebrowser-config-pvc
-  namespace: filebrowser
-spec:
-  storageClassName: ""
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
-  volumeName: filebrowser-config-pv
+  volumeName: filebrowser-files-pv

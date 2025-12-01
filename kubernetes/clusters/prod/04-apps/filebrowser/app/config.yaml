@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: filebrowser-config
+  namespace: filebrowser
+data:
+  config.yaml: |
+    server:
+      sources:
+        - path: "/files"
+          config:
+            defaultEnabled: true
+    auth:
+      methods:
+        oidc:
+          enabled: true
+          issuerUrl: "https://auth.sluxcloud.com/application/o/filebrowser/"
+          adminGroup: "authentik Admins"
