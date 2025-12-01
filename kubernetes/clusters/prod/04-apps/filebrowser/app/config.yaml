@@ -12,6 +12,9 @@ data:
             defaultEnabled: true
     auth:
       methods:
+        noauth: false
+        password:
+          enabled: false
         oidc:
           enabled: true
           issuerUrl: "https://auth.sluxcloud.com/application/o/filebrowser/"
