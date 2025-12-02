@@ -19,7 +19,7 @@ spec:
 
     server:
       image:
-        tag: v3.7.3
+        tag: v3.8.0
 
       ingress:
         enabled: true
