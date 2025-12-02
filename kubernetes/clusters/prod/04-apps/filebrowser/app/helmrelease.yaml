@@ -70,9 +70,10 @@ spec:
           - path: /files
       config:
         type: configMap
-        name: filebrowser-config
+        name: filebrowser
         globalMounts:
-          - path: /config
+          - path: /config/config.yaml
+            subPath: config.yaml
       database:
         type: persistentVolumeClaim
         existingClaim: filebrowser-database-pvc
