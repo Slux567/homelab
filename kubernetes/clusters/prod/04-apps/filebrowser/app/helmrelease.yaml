@@ -87,7 +87,7 @@ spec:
               externalUrl: "https://files.sluxcloud.com"
               logging:
                 - levels: "info|warning|error"
-              database: /home/filebrowser/database
+              database: /home/filebrowser/database/filebrowser.db
               sources:
                 - name: Files
                   path: /files
