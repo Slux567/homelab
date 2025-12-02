@@ -46,7 +46,7 @@ spec:
         controller: main
         ports:
           http:
-            port: 80
+            port: 8080
 
     ingress:
       main:
@@ -78,3 +78,27 @@ spec:
         existingClaim: filebrowser-database-pvc
         globalMounts:
           - path: /database
+    configMaps:
+      config:
+        data:
+          config.yaml: |
+            server:
+              port: 8080
+              baseURL:  "/"
+              logging:
+                - levels: "info|warning|error"
+              sources:
+                - path: "/files"
+                  config:
+                    defaultEnabled: true
+            auth:
+              methods:
+                noauth: false
+                password:
+                  enabled: false
+                oidc:
+                  enabled: true
+                  issuerUrl: "https://auth.sluxcloud.com/application/o/filebrowser/"
+                  scopes: "email openid profile"
+                  adminGroup: "authentik Admins"
+                  createUser: true
