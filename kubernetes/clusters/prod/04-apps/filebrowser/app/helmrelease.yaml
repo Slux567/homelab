@@ -46,7 +46,7 @@ spec:
         controller: main
         ports:
           http:
-            port: 8080
+            port: 80
 
     ingress:
       main:
@@ -64,7 +64,6 @@ spec:
 
     persistence:
       files:
-        type: persistentVolumeClaim
         existingClaim: filebrowser-files-pvc
         globalMounts:
           - path: /files
@@ -72,24 +71,26 @@ spec:
         type: configMap
         name: filebrowser
         globalMounts:
-          - path: /config/config.yaml
+          - path: /home/filebrowser/config.yaml
             subPath: config.yaml
       database:
-        type: persistentVolumeClaim
         existingClaim: filebrowser-database-pvc
         globalMounts:
-          - path: /database
+          - path: /home/filebrowser/database
     configMaps:
       config:
         data:
           config.yaml: |
             server:
-              port: 8080
+              port: 80
               baseURL:  "/"
+              externalUrl: "https://files.sluxcloud.com"
               logging:
                 - levels: "info|warning|error"
+              database: /database
               sources:
-                - path: "/files"
+                - name: Files
+                  path: /files
                   config:
                     defaultEnabled: true
             auth:
@@ -99,7 +100,7 @@ spec:
                   enabled: false
                 oidc:
                   enabled: true
-                  issuerUrl: "https://auth.sluxcloud.com/application/o/filebrowser/"
+                  issuerUrl: https://auth.sluxcloud.com/application/o/filebrowser/
                   scopes: "email openid profile"
                   adminGroup: "authentik Admins"
                   createUser: true
