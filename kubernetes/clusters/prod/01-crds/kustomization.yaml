@@ -4,3 +4,4 @@ resources:
   - certmanager/
   - ext-postgres-operator/
   - metallb/
+  - cloudnativepg/

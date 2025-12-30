@@ -9,5 +9,4 @@ resources:
   - authentik-chart.yaml
   - alertmanager-ntfy.yaml
   - bjw-s.yaml
-  - bitnami.yaml
-  - bitnami-oci.yaml
+  - cnpg.yaml
