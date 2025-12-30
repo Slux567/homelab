@@ -10,3 +10,4 @@ resources:
   - alertmanager-ntfy.yaml
   - bjw-s.yaml
   - cnpg.yaml
+  - nfs-subdir-external-provisioner.yaml
