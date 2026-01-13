@@ -9,7 +9,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   nfs:
-    server: 192.168.1.50
+    server: 10.0.40.50
     path: /mnt/tank/monitoring/ntfy
   mountOptions:
     - nfsvers=4.2
