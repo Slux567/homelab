@@ -1,0 +1,121 @@
+---
+# ─── 00: Sources Layer ─────────────
+# Stores HelmRepository, GitRepository, OCIRepository objects.
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 00-sources
+  namespace: flux-system
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  wait: true
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./kubernetes/clusters/prod/00-sources
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+
+---
+# ─── 01: CRDs Layer ──────────────────────────
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 01-crds
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: 00-sources
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  wait: true
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./kubernetes/clusters/prod/01-crds
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+
+---
+# ─── 02: Infrastructure Layer ─────────────────
+# Cluster-level operators, controllers, and infra services.
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 02-infra
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: 01-crds
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  wait: true
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./kubernetes/clusters/prod/02-infra
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+
+---
+# ─── 03: Core Platform Layer ──────────────────
+# Ingress controllers, monitoring, identity, etc.
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 03-core
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: 02-infra
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  wait: true
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./kubernetes/clusters/prod/03-core
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+
+---
+# ─── 04: Application Layer ────────────────────
+# Self-hosted and workload applications.
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: 04-apps
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: 03-core
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  wait: true
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./kubernetes/clusters/prod/04-apps
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
