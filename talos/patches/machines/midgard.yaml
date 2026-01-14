@@ -1,0 +1,12 @@
+machine:
+  network:
+    interfaces:
+      - interface: enp2s0
+        dhcp: true
+  install:
+    disk: /dev/nvme0n1
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: midgard
+auto: off
