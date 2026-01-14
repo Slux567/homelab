@@ -1,4 +1,0 @@
-resources:
-  - endpoint.yaml
-  - ingressroute.yaml
-  - ServerTransport.yaml
