@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-vars
+data:
+  LB_IP_TRAEFIK_INGRESS_INTERNAL: 10.0.30.100

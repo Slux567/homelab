@@ -5,4 +5,4 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  - 10.0.30.100-100.0.30.100
+  - "${LB_IP_TRAEFIK_INGRESS_INTERNAL}/32"

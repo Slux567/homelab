@@ -31,6 +31,7 @@ metadata:
 spec:
   dependsOn:
     - name: 00-sources
+    - name: configs
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -44,6 +45,13 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  postBuild:
+    substitute: {}
+    substituteFrom:
+    - kind: ConfigMap
+      name: cluster-vars
+    - kind: Secret
+      name: cluster-secrets
 
 ---
 # ─── 02: Infrastructure Layer ─────────────────
@@ -56,6 +64,7 @@ metadata:
 spec:
   dependsOn:
     - name: 01-crds
+    - name: configs
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -69,6 +78,13 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  postBuild:
+    substitute: {}
+    substituteFrom:
+    - kind: ConfigMap
+      name: cluster-vars
+    - kind: Secret
+      name: cluster-secrets
 
 ---
 # ─── 03: Core Platform Layer ──────────────────
@@ -81,6 +97,7 @@ metadata:
 spec:
   dependsOn:
     - name: 02-infra
+    - name: configs
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -94,6 +111,13 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  postBuild:
+    substitute: {}
+    substituteFrom:
+    - kind: ConfigMap
+      name: cluster-vars
+    - kind: Secret
+      name: cluster-secrets
 
 ---
 # ─── 04: Application Layer ────────────────────
@@ -106,6 +130,7 @@ metadata:
 spec:
   dependsOn:
     - name: 03-core
+    - name: configs
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -119,3 +144,10 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  postBuild:
+    substitute: {}
+    substituteFrom:
+    - kind: ConfigMap
+      name: cluster-vars
+    - kind: Secret
+      name: cluster-secrets
