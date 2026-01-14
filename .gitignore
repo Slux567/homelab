@@ -23,3 +23,7 @@
 **/group_vars/
 
 **.secret
+
+**/talos/config/
+**/talos/secrets/
+
