@@ -5,7 +5,7 @@ metadata:
   name: configs
   namespace: flux-system
 spec:
-  path: ./configs/
+  path: ./kubernetes/configs/
   targetNamespace: flux-system
   interval: 10m
   prune: true
