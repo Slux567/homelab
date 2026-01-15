@@ -3,6 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: kube-prometheus-stack
+  namespace: flux-system
 spec:
   interval: 15m
   layerSelector:
@@ -16,10 +17,12 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: kube-prometheus-stack
+  namespace: monitoring
 spec:
   chartRef:
     kind: OCIRepository
     name: kube-prometheus-stack
+    namespace: flux-system
   interval: 1h
   values:
     kubeProxy:
@@ -40,41 +43,33 @@ spec:
         ingressClassName: traefik
         hosts:
           - prometheus.${SECRET_DOMAIN}
-
       prometheusSpec:
         externalUrl: https://prometheus.${SECRET_DOMAIN}
         retention: 14d
         retentionSize: 50GB
-
         resources:
           requests:
             cpu: 100m
           limits:
             memory: 4Gi
-
         storageSpec: {} # disable dynamic PVC creation
-
         volumes:
           - name: prometheus-data
             persistentVolumeClaim:
               claimName: prometheus-data-pvc
-
         volumeMounts:
           - name: prometheus-data
             mountPath: /prometheus
 
     grafana:
       enabled: true
-
       ingress:
         enabled: true
         ingressClassName: traefik
         hosts:
           - grafana.${SECRET_DOMAIN}
-
       env:
         GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN}
-
       persistence:
         enabled: true
         existingClaim: grafana-data-pvc
