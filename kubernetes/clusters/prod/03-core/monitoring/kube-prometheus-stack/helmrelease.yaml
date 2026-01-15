@@ -1,69 +1,80 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: kube-prometheus-stack
+spec:
+  interval: 15m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 80.14.4
+  url: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: kube-prometheus-stack
-  namespace: monitoring
 spec:
-  interval: 5m
-  chart:
-    spec:
-      chart: kube-prometheus-stack
-      version: 80.14.4
-      sourceRef:
-        kind: HelmRepository
-        name: prometheus-community
-        namespace: flux-system
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
+  chartRef:
+    kind: OCIRepository
+    name: kube-prometheus-stack
+  interval: 1h
   values:
+    kubeProxy:
+    enabled: false
 
-    server:
-      image:
-        tag: v3.8.0
+    alertmanager:
+      alertmanagerSpec:
+        storage:
+          volumeClaimTemplate:
+            spec:
+              resources:
+                requests:
+                  storage: 1Gi
+
+    prometheus:
+      ingress:
+        enabled: true
+        ingressClassName: traefik
+        hosts:
+          - prometheus.${SECRET_DOMAIN}
+
+      prometheusSpec:
+        externalUrl: https://prometheus.${SECRET_DOMAIN}
+        retention: 14d
+        retentionSize: 50GB
+
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            memory: 4Gi
+
+        storageSpec: {} # disable dynamic PVC creation
+
+        volumes:
+          - name: prometheus-data
+            persistentVolumeClaim:
+              claimName: prometheus-data-pvc
+
+        volumeMounts:
+          - name: prometheus-data
+            mountPath: /prometheus
+
+    grafana:
+      enabled: true
 
       ingress:
         enabled: true
         ingressClassName: traefik
-        annotations:
-          kubernetes.io/ingress.class: traefik
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.tls: "true"
-          traefik.ingress.kubernetes.io/proxy-body-size: "0"
-          traefik.ingress.kubernetes.io/router.middlewares: authentik-authentik@kubernetescrd
         hosts:
-          - prometheus.${SECRET_DOMAIN}
+          - grafana.${SECRET_DOMAIN}
 
-      persistentVolume:
+      env:
+        GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN}
+
+      persistence:
         enabled: true
-        existingClaim: prometheus-data-pvc
-
-
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-
-      resources:
-        limits:
-          cpu: 1
-          memory: 2Gi
-        requests:
-          cpu: 500m
-          memory: 1Gi
-      
-      configMapOverrideName: prometheus-config
-
-      extraConfigmapMounts:
-        - name: prometheus-alert-rules
-          mountPath: /etc/prometheus/rules/alerts/
-          configMap: prometheus-alert-rules
-          readOnly: true
-
-  valuesFrom:
-    - kind: Secret
-      name: prometheus-secrets
-      valuesKey: values.yaml
-
+        existingClaim: grafana-data-pvc
