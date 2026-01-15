@@ -68,6 +68,8 @@ spec:
           - grafana.${SECRET_DOMAIN}
       env:
         GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN}
+      initChownData:
+        enabled: false
       persistence:
         enabled: true
         existingClaim: grafana-data-pvc
