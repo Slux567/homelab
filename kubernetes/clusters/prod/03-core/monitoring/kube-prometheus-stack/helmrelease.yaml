@@ -25,8 +25,6 @@ spec:
     namespace: flux-system
   interval: 1h
   values:
-    kubeProxy:
-    enabled: false
 
     alertmanager:
       alertmanagerSpec:
