@@ -27,13 +27,13 @@ spec:
   values:
 
     alertmanager:
-      alertmanagerSpec:
-        storage:
-          volumeClaimTemplate:
-            spec:
-              resources:
-                requests:
-                  storage: 1Gi
+      volumeClaimTemplate:
+        spec:
+          storageClassName: local-path
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 2Gi
 
     prometheus:
       ingress:
