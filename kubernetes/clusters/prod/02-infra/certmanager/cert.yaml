@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: sluxcloud.com
+  name: ${SECRET_DOMAIN}
   namespace: traefik
 spec:
   secretName: sluxcloud-wildcard-cert
@@ -9,5 +9,5 @@ spec:
     name: letsencrypt-prod-cloudflare
     kind: ClusterIssuer
   dnsNames:
-  - "sluxcloud.com"
-  - "*.sluxcloud.com"
+  - "${SECRET_DOMAIN}"
+  - "*.${SECRET_DOMAIN}"

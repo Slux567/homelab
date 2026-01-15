@@ -57,7 +57,7 @@ spec:
           traefik.ingress.kubernetes.io/router.tls: "true"
           traefik.ingress.kubernetes.io/proxy-body-size: "0"
         hosts:
-          - host: files.sluxcloud.com
+          - host: files.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
@@ -84,7 +84,7 @@ spec:
             server:
               port: 80
               baseURL:  "/"
-              externalUrl: "https://files.sluxcloud.com"
+              externalUrl: "https://files.${SECRET_DOMAIN}"
               logging:
                 - levels: "info|warning|error"
               database: /home/filebrowser/database/filebrowser.db
@@ -100,7 +100,7 @@ spec:
                   enabled: false
                 oidc:
                   enabled: true
-                  issuerUrl: https://auth.sluxcloud.com/application/o/filebrowser/
+                  issuerUrl: https://auth.${SECRET_DOMAIN}/application/o/filebrowser/
                   scopes: "email openid profile"
                   adminGroup: "authentik Admins"
                   createUser: true

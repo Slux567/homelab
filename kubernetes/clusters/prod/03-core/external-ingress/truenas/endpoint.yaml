@@ -23,7 +23,7 @@ metadata:
   namespace: external-ingress
 subsets:
   - addresses:
-      - ip: 10.0.40.50
+      - ip: ${SECRET_STORAGE}
     ports:
       - name: http
         port: 80

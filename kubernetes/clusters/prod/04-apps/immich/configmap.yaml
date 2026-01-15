@@ -49,7 +49,7 @@ data:
             traefik.ingress.kubernetes.io/router.tls: "true"
             traefik.ingress.kubernetes.io/proxy-body-size: "0"
           hosts:
-            - host: immich.sluxcloud.com
+            - host: immich.${SECRET_DOMAIN}
               paths:
                 - path: "/"
                   service:

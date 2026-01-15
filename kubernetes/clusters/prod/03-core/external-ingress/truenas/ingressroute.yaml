@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`truenas.sluxcloud.com`)
+    - match: Host(`truenas.${SECRET_DOMAIN}`)
       kind: Rule
       services:
         - name: truenas-endpoint
@@ -29,7 +29,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`truenas.sluxcloud.com`)
+    - match: Host(`truenas.${SECRET_DOMAIN}`)
       kind: Rule
       middlewares:
         - name: https-redirect

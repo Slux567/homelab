@@ -16,4 +16,4 @@ spec:
             key: api-token
       selector:
         dnsZones:
-        - "sluxcloud.com"
+        - "${SECRET_DOMAIN}"

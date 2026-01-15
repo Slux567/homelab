@@ -25,10 +25,10 @@ spec:
         traefik.ingress.kubernetes.io/router.tls: "true"
         traefik.ingress.kubernetes.io/proxy-body-size: "0"
       hosts:
-        - grafana.sluxcloud.com
+        - grafana.${SECRET_DOMAIN}
 
     env:
-      GF_SERVER_ROOT_URL: "https://grafana.sluxcloud.com"
+      GF_SERVER_ROOT_URL: "https://grafana.${SECRET_DOMAIN}"
 
     persistence:
       enabled: true

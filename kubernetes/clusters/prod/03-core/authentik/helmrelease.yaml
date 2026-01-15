@@ -34,7 +34,7 @@ spec:
           traefik.ingress.kubernetes.io/router.tls: "true"
           traefik.ingress.kubernetes.io/proxy-body-size: "0"
         hosts:
-          - auth.sluxcloud.com
+          - auth.${SECRET_DOMAIN}
       volumes:
         - name: postgres-creds
           secret:

@@ -21,11 +21,11 @@ data:
         traefik.ingress.kubernetes.io/router.tls: "true"
 
     nextcloud:
-      host: next.sluxcloud.com
+      host: next.${SECRET_DOMAIN}
       update: 0
       containerPort: 80
       datadir: /var/www/html/data
-      trustedDomains: [next.sluxcloud.com]
+      trustedDomains: [next.${SECRET_DOMAIN}]
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000

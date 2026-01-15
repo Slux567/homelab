@@ -9,7 +9,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   nfs:
-    server: 10.0.40.50
+    server: ${SECRET_STORAGE}
     path: /mnt/tank/selfhosted/nextcloud/nextcloud-app
   mountOptions:
     - nfsvers=4.2
@@ -41,7 +41,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: 10.0.40.50
+    server: ${SECRET_STORAGE}
     path: /mnt/tank/selfhosted/nextcloud/nextcloud-data
   mountOptions:
     - nfsvers=4.2

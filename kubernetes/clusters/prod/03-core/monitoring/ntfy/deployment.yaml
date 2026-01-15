@@ -29,7 +29,7 @@ spec:
             - name: NTFY_DEBUG
               value: "true"
             - name: NTFY_BASE_URL
-              value: "https://ntfy.sluxcloud.com"
+              value: "https://ntfy.${SECRET_DOMAIN}"
             - name: NTFY_BEHIND_PROXY
               value: "true"
             - name: NTFY_UPSTREAM_BASE_URL
