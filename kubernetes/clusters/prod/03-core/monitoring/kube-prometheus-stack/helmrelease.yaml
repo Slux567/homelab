@@ -36,6 +36,7 @@ spec:
               storage: 2Gi
 
     prometheus:
+      enabled: true
       ingress:
         enabled: true
         ingressClassName: traefik
