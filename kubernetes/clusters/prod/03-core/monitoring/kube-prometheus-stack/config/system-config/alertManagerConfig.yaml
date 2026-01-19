@@ -1,11 +1,11 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: AlertmanagerConfig
 metadata:
-  name: telegram-alerts
+  name: alertmanager-config
   namespace: monitoring
   labels:
     release: kube-prometheus-stack
-    alertmanagerConfig: alertmanager-telegram
+    alertmanagerConfig: alertmanager-config
 spec:
   route:
     groupBy: ["alertname","job","namespace"] # it could be other labels to be grouped by
@@ -28,6 +28,7 @@ spec:
           key: token
         chatID: -5260415517
         parseMode: 'MarkdownV2'
-        disableNotifications: false
-        sendResolved: true
-
+        message: |
+          🚨 *Alert:* {{ .CommonAnnotations.summary }}
+          *Description:* {{ .CommonAnnotations.description }}
+          *Severity:* {{ .CommonLabels.severity }}
