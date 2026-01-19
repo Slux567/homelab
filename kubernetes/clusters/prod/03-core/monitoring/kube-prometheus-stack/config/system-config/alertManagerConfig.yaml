@@ -3,23 +3,32 @@ kind: AlertmanagerConfig
 metadata:
   name: telegram-alerts
   namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+    alertmanagerConfig: alertmanager-telegram
 spec:
   route:
-    receiver: telegram
-    groupBy: ["alertname", "namespace"]
+    groupBy: ["alertname","job","namespace"] # it could be other labels to be grouped by
     groupWait: 30s
     groupInterval: 5m
-    repeatInterval: 4h
+    repeatInterval: 1h
+    receiver: "telegram"
+    routes:
+    - receiver: "telegram"
+      matchers:
+        - name: severity
+          matchType: "=~"
+          value: "warning|critical"
 
   receivers:
   - name: telegram
     telegramConfigs:
-    - botToken:
-        name: telegram-bot-token
-        key: token
-      chatID: -5260415517
-      parseMode: Markdown
-      message: |
-        🚨 *Alert:* {{ .CommonAnnotations.summary }}
-        *Description:* {{ .CommonAnnotations.description }}
-        *Severity:* {{ .CommonLabels.severity }}
+      - botToken:
+          name: telegram-bot-token
+          key: token
+        chatID: -5260415517
+        parseMode: 'MarkdownV2'
+        message: |
+          🚨 *Alert:* {{ .CommonAnnotations.summary }}
+          *Description:* {{ .CommonAnnotations.description }}
+          *Severity:* {{ .CommonLabels.severity }}
