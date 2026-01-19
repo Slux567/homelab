@@ -36,7 +36,6 @@ spec:
               storage: 2Gi
 
     prometheus:
-      enabled: true
       ingress:
         enabled: true
         ingressClassName: traefik
@@ -51,14 +50,15 @@ spec:
             cpu: 100m
           limits:
             memory: 4Gi
-        storageSpec: {} # disable dynamic PVC creation
-        volumes:
-          - name: prometheus-data
-            persistentVolumeClaim:
-              claimName: prometheus-data-pvc
-        volumeMounts:
-          - name: prometheus-data
-            mountPath: /prometheus
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              selector:
+                matchLabels:
+                  app.kubernetes.io/name: prometheus-data-pv
+              resources:
+                requests:
+                  storage: 50Gi
 
     grafana:
       enabled: true
