@@ -38,7 +38,7 @@ spec:
 
         # RAM
         - alert: HighMemoryUsage
-          expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) > 0.10
+          expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) < 0.10
           for: 5m
           labels:
             severity: warning
