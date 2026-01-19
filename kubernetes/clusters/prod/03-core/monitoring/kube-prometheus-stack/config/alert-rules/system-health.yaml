@@ -12,7 +12,7 @@ spec:
 
         # Availability
         - alert: InstanceDown
-          expr: up{job="node_exporter"} == 0
+          expr: up{job="kube-prometheus-stack-prometheus-node-exporter"} == 0
           for: 0m
           labels:
             severity: critical
@@ -20,7 +20,7 @@ spec:
             summary: "Instance {{ $labels.hostname }} is down"
 
         - alert: InstanceFlapping
-          expr: changes(up{job="node_exporter"}[5m]) > 2
+          expr: changes(up{job="kube-prometheus-stack-prometheus-node-exporter"}[5m]) > 2
           for: 0m
           labels:
             severity: warning
@@ -29,7 +29,7 @@ spec:
         
         # CPU
         - alert: HighCPUUsage
-          expr: 100 - (avg by(hostname) (rate(node_cpu_seconds_total{job="node_exporter", mode="idle"}[5m])) * 100) > 90
+          expr: 100 - (avg by(hostname) (rate(node_cpu_seconds_total{job="kube-prometheus-stack-prometheus-node-exporter", mode="idle"}[5m])) * 100) < 90
           for: 10m
           labels:
             severity: warning
