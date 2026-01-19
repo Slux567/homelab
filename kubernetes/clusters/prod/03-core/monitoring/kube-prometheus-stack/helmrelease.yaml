@@ -45,42 +45,44 @@ spec:
       templateFiles:
         telegram.tmpl: |-
           {{ define "telegram.default.message" }}
+
           {{- if eq .Status "firing" -}}
-              {{- if eq .CommonLabels.severity "critical" -}}
-                  🔴 Alert: {{ .CommonLabels.alertname }}
-              {{- else if eq .CommonLabels.severity "warning" -}}
-                  🟠 Alert: {{ .CommonLabels.alertname }}
-              {{- else -}}
-                  ⚪️ Alert: {{ .CommonLabels.alertname }}
-              {{- end }}
+            {{- if eq .CommonLabels.severity "critical" -}}
+          🔴 Alert: {{ template "telegram.escape" .CommonLabels.alertname }}
+            {{- else if eq .CommonLabels.severity "warning" -}}
+          🟠 Alert: {{ template "telegram.escape" .CommonLabels.alertname }}
+            {{- else -}}
+          ⚪️ Alert: {{ template "telegram.escape" .CommonLabels.alertname }}
+            {{- end }}
           Status: 🔥 FIRING
-          Severity: {{ if eq .CommonLabels.severity "critical" }}🔴 {{ .CommonLabels.severity | title }}{{ else if eq .CommonLabels.severity "warning" }}🟠 {{ .CommonLabels.severity | title }}{{ else }}⚪️ {{ .CommonLabels.severity | title }}{{ end }}
+          Severity: {{ template "telegram.escape" (.CommonLabels.severity | title) }}
           {{- else if eq .Status "resolved" -}}
-              ⚪️ Alert: {{ .CommonLabels.alertname }}
+          ⚪️ Alert: {{ template "telegram.escape" .CommonLabels.alertname }}
           Status: ✅ RESOLVED
-          Severity: {{ if eq .CommonLabels.severity "critical" }}🟢 {{ .CommonLabels.severity | title }}{{ else if eq .CommonLabels.severity "warning" }}🟢 {{ .CommonLabels.severity | title }}{{ else }}⚪️ {{ .CommonLabels.severity | title }}{{ end }}
+          Severity: {{ template "telegram.escape" (.CommonLabels.severity | title) }}
           {{- end }}
 
-          {{- range .Alerts -}}
+          {{- range .Alerts }}
 
           {{- if .Labels.job }}
-          Job: `{{ .Labels.job }}`
+          Job: `{{ template "telegram.escape" .Labels.job }}`
           {{- end }}
 
           {{- if .Labels.namespace }}
-          Namespace: `{{ .Labels.namespace }}`
+          Namespace: `{{ template "telegram.escape" .Labels.namespace }}`
           {{- end }}
 
           {{- if .Labels.instance }}
-          Instance: `{{ .Labels.instance }}`
+          Instance: `{{ template "telegram.escape" .Labels.instance }}`
           {{- end }}
 
           {{- if .Annotations.runbook_url }}
-          [RunbookURL]({{ .Annotations.runbook_url }})
+          [RunbookURL]({{ template "telegram.escape" .Annotations.runbook_url }})
+          {{- end }}
 
           {{- end }}
-          {{- end }}
           {{ end }}
+
 
     prometheus:
       ingress:
