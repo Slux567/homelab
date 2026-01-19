@@ -17,7 +17,7 @@ spec:
     - botToken:
         name: telegram-bot-token
         key: token
-      chatID: 8107941059
+      chatID: -5260415517
       parseMode: Markdown
       message: |
         🚨 *Alert:* {{ .CommonAnnotations.summary }}
