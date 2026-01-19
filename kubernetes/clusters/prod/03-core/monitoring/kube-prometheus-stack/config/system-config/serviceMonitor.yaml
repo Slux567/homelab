@@ -15,7 +15,7 @@ spec:
     - port: http-metrics
       interval: 15s
       relabelings:
-        - sourceLabels: [__meta_kubernetes_node_name]
+        - sourceLabels: [__meta_kubernetes_endpoint_node_name]
           targetLabel: hostname
         - targetLabel: cluster
           replacement: talos
