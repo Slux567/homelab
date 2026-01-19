@@ -28,7 +28,6 @@ spec:
           key: token
         chatID: -5260415517
         parseMode: 'MarkdownV2'
-        message: |
-          🚨 *Alert:* {{ .CommonAnnotations.summary }}
-          *Description:* {{ .CommonAnnotations.description }}
-          *Severity:* {{ .CommonLabels.severity }}
+        disableNotifications: false
+        sendResolved: true
+
