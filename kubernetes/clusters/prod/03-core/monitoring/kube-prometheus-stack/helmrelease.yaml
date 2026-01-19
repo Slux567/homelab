@@ -22,7 +22,12 @@ spec:
     namespace: flux-system
   interval: 1h
   values:
-
+    crds:
+      enabled: true
+      upgradeJob:
+        enabled: true
+        forceConflicts: true
+    cleanPrometheusOperatorObjectNames: true
     alertmanager:
       ingress:
         enabled: true
@@ -83,7 +88,33 @@ spec:
               resources:
                 requests:
                   storage: 50Gi
-
+    prometheus-node-exporter:
+          fullnameOverride: node-exporter
+          prometheus:
+            monitor:
+              enabled: true
+              relabelings:
+                - action: replace
+                  regex: (.*)
+                  replacement: $1
+                  sourceLabels: ["__meta_kubernetes_pod_node_name"]
+                  targetLabel: hostname
+    kube-state-metrics:
+      fullnameOverride: kube-state-metrics
+      metricLabelsAllowlist:
+        - pods=[*]
+        - nodes=[*]
+        - deployments=[*]
+        - persistentvolumeclaims=[*]
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: hostname
     grafana:
       enabled: true
       ingress:
