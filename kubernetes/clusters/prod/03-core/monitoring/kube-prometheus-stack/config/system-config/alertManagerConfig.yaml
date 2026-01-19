@@ -24,6 +24,58 @@ spec:
           name: telegram-bot-token
           key: token
         chatID: -5260415517
-        parseMode: 'MarkdownV2'
+        parseMode: 'Markdown'
         disableNotifications: false
         sendResolved: true
+        message: |-
+          {{- define "tg.escape" -}}
+          {{- reReplaceAll "([_*\\[\\]()~`>#+\\-=|{}.!])" "\\\\${1}" . -}}
+          {{- end -}}
+
+          {{- if eq .Status "firing" -}}
+            {{- if eq .CommonLabels.severity "critical" -}}
+          🚨 *CRITICAL ALERT*
+            {{- else if eq .CommonLabels.severity "warning" -}}
+          ⚠️ *WARNING ALERT*
+            {{- else -}}
+          ℹ️ *ALERT*
+            {{- end -}}
+          {{- else -}}
+          ✅ *ALERT RESOLVED*
+          {{- end }}
+
+          *Alert:* {{ template "tg.escape" .CommonLabels.alertname }}
+          *Status:* {{ .Status | upper }}
+          *Severity:* {{ template "tg.escape" (.CommonLabels.severity | upper) }}
+
+          {{- range .Alerts }}
+
+          {{- if .Labels.job }}
+          *Job:* `{{ template "tg.escape" .Labels.job }}`
+          {{- end }}
+
+          {{- if .Labels.namespace }}
+          *Namespace:* `{{ template "tg.escape" .Labels.namespace }}`
+          {{- end }}
+
+          {{- if .Labels.instance }}
+          *Instance:* `{{ template "tg.escape" .Labels.instance }}`
+          {{- end }}
+
+          {{- if .Annotations.summary }}
+          *Summary:* {{ template "tg.escape" .Annotations.summary }}
+          {{- end }}
+
+          {{- if .Annotations.description }}
+          *Description:* {{ template "tg.escape" .Annotations.description }}
+          {{- end }}
+
+          {{- if .Annotations.runbook_url }}
+          [📘 Runbook]({{ template "tg.escape" .Annotations.runbook_url }})
+          {{- end }}
+
+          {{- end }}
+
+
+
+                  
