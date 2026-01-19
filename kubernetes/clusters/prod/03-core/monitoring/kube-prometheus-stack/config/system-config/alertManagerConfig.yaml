@@ -5,7 +5,7 @@ metadata:
   namespace: monitoring
 spec:
   route:
-    groupBy: ["alertname","job","namespace"] # it could be other labels to be grouped by
+    groupBy: ["alertname","job","namespace"]
     groupWait: 30s
     groupInterval: 5m
     repeatInterval: 1h
