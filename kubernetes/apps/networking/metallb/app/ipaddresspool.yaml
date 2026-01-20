@@ -1,0 +1,7 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: traefik-ip-pool
+spec:
+  addresses:
+  - "${LB_IP_TRAEFIK_INGRESS_INTERNAL}/32"
