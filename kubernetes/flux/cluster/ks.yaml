@@ -98,7 +98,6 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: configs
     - name: infra
   deletionPolicy: WaitForTermination
   interval: 1h
