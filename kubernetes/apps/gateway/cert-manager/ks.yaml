@@ -3,37 +3,28 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: traefik
+  name: cert-manager
   namespace: flux-system
 spec:
-  dependsOn:
-      - name: metallb-config
-      - name: cert-manager-config
-  interval: 1h
-  path: ./kubernetes/infra/gateway/traefik/app
+  interval: 10m
+  path: ./kubernetes/infra/gateway/cert-manager/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
-    namespace: flux-system
   targetNamespace: gateway
-  wait: true
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: traefik-config
+  name: cert-manager-config
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: traefik
-  interval: 1h
-  path: ./kubernetes/infra/gateway/traefik/config
+  interval: 10m
+  path: ./kubernetes/infra/gateway/cert-manager/config
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
-    namespace: flux-system
   targetNamespace: gateway
-  wait: true

@@ -3,34 +3,28 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: metallb
+  name: traefik
   namespace: flux-system
 spec:
-  interval: 1h
-  path: ./kubernetes/infra/networking/metallb/app
+  interval: 10m
+  path: ./kubernetes/apps/gateway/traefik/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
-    namespace: flux-system
-  targetNamespace: networking
-  wait: true
+  targetNamespace: gateway
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: metallb-config
+  name: traefik-config
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: metallb
-  interval: 1h
-  path: ./kubernetes/infra/networking/metallb/config
+  interval: 10m
+  path: ./kubernetes/apps/gateway/traefik/config
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
-    namespace: flux-system
-  targetNamespace: networking
-  wait: true
+  targetNamespace: gateway
