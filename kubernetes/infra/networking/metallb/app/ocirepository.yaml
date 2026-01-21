@@ -10,5 +10,5 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: v0.15.2
+    tag: v6.4.22
   url: oci://registry-1.docker.io/bitnamicharts/metallb
