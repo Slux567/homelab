@@ -13,18 +13,3 @@ spec:
     kind: GitRepository
     name: flux-system
   targetNamespace: gateway
----
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: traefik-config
-  namespace: flux-system
-spec:
-  interval: 10m
-  path: ./kubernetes/apps/gateway/traefik/config
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  targetNamespace: gateway
