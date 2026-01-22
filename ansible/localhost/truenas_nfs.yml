@@ -8,10 +8,9 @@
   vars_files:
     - secret.yml
   vars:
-    truenas_host: "https://truenas.${DOMAIN_01}"
+    truenas_host: "http://10.0.40.50"
     # truenas_api_key: IMPORTED BY secret.yml
     pool_name: "tank"
-    nfs_host_range: "{{ range(20, 30) | map('regex_replace', '^(.*)$', '192.168.1.\\1') | list }}"
     owner_user: "slux"
     owner_group: "slux"
     owner_uid: 1000
@@ -130,7 +129,7 @@
             path: "/mnt/{{ pool_name }}/{{ dataset_name }}"
             comment: "NFS share for {{ dataset_name }}"
             networks: []
-            hosts: "{{ nfs_host_range }}"
+            hosts: []
             maproot_user: ""
             maproot_group: ""
             mapall_user: "{{ owner_user }}"
@@ -173,5 +172,4 @@
           msg: 
             - "Dataset created: /mnt/{{ pool_name }}/{{ dataset_name }}"
             - "Quota: {{ dataset_quota if dataset_quota != '' else 'No quota set' }}"
-            - "NFS share accessible from: {{ nfs_host_range }}"
             - "Owner: {{ owner_user }}:{{ owner_group }} ({{ owner_uid }}:{{ owner_gid }})"
