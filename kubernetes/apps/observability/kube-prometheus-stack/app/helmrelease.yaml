@@ -34,7 +34,7 @@ spec:
       externalUrl: https://alertmanager.${DOMAIN_01}
       volumeClaimTemplate:
         spec:
-          storageClassName: local-path
+          storageClassName: k8s-nfs
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
