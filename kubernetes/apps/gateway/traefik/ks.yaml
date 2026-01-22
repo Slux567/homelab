@@ -19,7 +19,7 @@ spec:
   postBuild:
     substituteFrom:
       - kind: ConfigMap
-        name: cluster-vars
+        name: cluster-config
       - kind: Secret
         name: cluster-secrets
   targetNamespace: gateway
