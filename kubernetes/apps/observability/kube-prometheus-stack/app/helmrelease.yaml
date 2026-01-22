@@ -115,13 +115,13 @@ spec:
         main:
           enabled: true
           hostnames:
-            - grafana.${SECRET_DOMAIN}
+            - "grafana.${SECRET_DOMAIN}"
           parentRefs:
             - name: traefik
               namespace: gateway
               sectionName: websecure
       env:
-        GF_SERVER_ROOT_URL: "https://grafana.${SECRET_DOMAIN}"
+        GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN}
       initChownData:
         enabled: false
       persistence:
