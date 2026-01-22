@@ -18,8 +18,8 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - name: traefik-tls-secret
-            namespace: default
+          - name: public-wildcard-cert
+            namespace: gateway
       allowedRoutes:
         namespaces:
           from: All
