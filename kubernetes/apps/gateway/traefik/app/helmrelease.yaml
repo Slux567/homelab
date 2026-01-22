@@ -17,6 +17,12 @@ spec:
       # Enable the GatewayAPI provider
       kubernetesGateway:
         enabled: true
+
+    # Creates a gateway class
+    gatewayClass:
+      enabled: true
+
+
     # Allow the Gateway to expose HTTPRoute from all namespaces
     gateway:
       namespacePolicy: All
