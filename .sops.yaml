@@ -1,5 +1,0 @@
-creation_rules:
-  - path_regex: .*.yaml            # applies to all YAML files
-    age:                           # Age recipients
-      - age1e37dddpcd83kdc45xsle36a9dxc492t0xnpsakyk7478zlga5agsrqjdad
-    encrypted_regex: '^(data|stringData)$'  # encrypt only data/stringData
