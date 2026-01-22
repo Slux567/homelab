@@ -8,5 +8,5 @@ spec:
     name: letsencrypt-prod-cloudflare
     kind: ClusterIssuer
   dnsNames:
-  - "${SECRET_DOMAIN}"
-  - "*.${SECRET_DOMAIN}"
+  - "${DOMAIN_01}"
+  - "*.${DOMAIN_01}"

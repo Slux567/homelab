@@ -9,7 +9,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   nfs:
-    server: ${SECRET_STORAGE}
+    server: ${NAS_IP}
     path: /mnt/tank/observability/prometheus
   mountOptions:
     - nfsvers=4.2
@@ -39,7 +39,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   nfs:
-    server: ${SECRET_STORAGE}
+    server: ${NAS_IP}
     path: /mnt/tank/observability/grafana
   mountOptions:
     - nfsvers=4.2

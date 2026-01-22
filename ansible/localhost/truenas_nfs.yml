@@ -8,7 +8,7 @@
   vars_files:
     - secret.yml
   vars:
-    truenas_host: "https://truenas.${SECRET_DOMAIN}"
+    truenas_host: "https://truenas.${DOMAIN_01}"
     # truenas_api_key: IMPORTED BY secret.yml
     pool_name: "tank"
     nfs_host_range: "{{ range(20, 30) | map('regex_replace', '^(.*)$', '192.168.1.\\1') | list }}"

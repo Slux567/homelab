@@ -15,4 +15,4 @@ spec:
             key: api-token
       selector:
         dnsZones:
-        - "${SECRET_DOMAIN}"
+        - "${DOMAIN_01}"
