@@ -81,16 +81,18 @@ spec:
                 requests:
                   storage: 50Gi
     prometheus-node-exporter:
-          fullnameOverride: node-exporter
-          prometheus:
-            monitor:
-              enabled: true
-              relabelings:
-                - action: replace
-                  regex: (.*)
-                  replacement: $1
-                  sourceLabels: ["__meta_kubernetes_pod_node_name"]
-                  targetLabel: hostname
+      fullnameOverride: node-exporter
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: hostname
+    kubeStateMetrics:
+      enabled: true
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
       metricLabelsAllowlist:
