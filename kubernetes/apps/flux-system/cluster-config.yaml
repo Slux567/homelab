@@ -1,8 +1,24 @@
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cluster-config
-  namespace: flux-system
+    name: cluster-config
+    namespace: flux-system
 data:
-  test: "testvar"
+    DOMAIN_01: ENC[AES256_GCM,data:npmOo0pZnH/0n//JtQ==,iv:KkO98GfumC9SOcCe9aHYhNjU7u+DLvHHkGFjm1gX1uI=,tag:POMHdBbcpEV6SmHbB44bOg==,type:str]
+    NAS_IP: ENC[AES256_GCM,data:JjnmCQTlA+UuIw==,iv:FlUwbNn42LUUlhHPVYtLPLqiE07iIoyzmc4kQQC9J/E=,tag:cUBEqAU3OnceV+PM7LBx7w==,type:str]
+    LB_IP_TRAEFIK_INGRESS_INTERNAL: ENC[AES256_GCM,data:xE9mJYBG4nZiyoQ=,iv:mexhndmy1cXvdnDO3eMR3gTj5jEVi2MgBaaFNBw+9R0=,tag:FerhquPZK8JqZ6JQ/+asHg==,type:str]
+sops:
+    age:
+        - recipient: age1e37dddpcd83kdc45xsle36a9dxc492t0xnpsakyk7478zlga5agsrqjdad
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBlVHVRV1lyMHgyZjhuY2Y2
+            eUVCTmt1ZmFLOHlvaUpLU3lCN2IxMEdnUEY4CjVDQmhwQzZDZHpOTng5WkFFekMr
+            TmtwdzBtY0JoaFNmZXhzUWpocGJWWlEKLS0tIGVJRUExUTFtMXlFRmpwMHo5eEs0
+            TzFMQkpPZnhlREtHU1dlMEJWbjRER00KiyvUqaFS7Ol0r5II1X37HzWOi48mS8kx
+            MyRgJ9h6uOLwAAXhkIA4hygqg5BaHQ2loNuFt+gCpS/RZDfpP4sLGw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-01-22T21:17:38Z"
+    mac: ENC[AES256_GCM,data:pikGbMKdSYMLMwc6cVZmgxdyo9EO+/DpXsM2Olog567Xq8EcJYJdMqv+LecXniiLpbcgarfWpHAxbHfKiZm0XJTnSxZmaNp0dPKEzawdYpWN0NokxF2qbXjqOte9Ev1/wXZ+Nx+Izjlrvk56vJ+ww498MR6fxHWtdvzuXGVkzo4=,iv:Fzze4cvbEbF6T3cjNOtFuWVuRiqmmPrRAub2L9flbSM=,tag:jpKTnkuBSYR5XtlHvp+inw==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.11.0

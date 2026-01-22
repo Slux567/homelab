@@ -20,8 +20,6 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-config
-      - kind: Secret
-        name: cluster-secrets
   patches:
     - # Add Kustomization defaults for all child Kustomizations
       patch: |-

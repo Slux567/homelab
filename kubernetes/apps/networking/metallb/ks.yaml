@@ -20,8 +20,6 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-config
-      - kind: Secret
-        name: cluster-secrets
   targetNamespace: networking
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
@@ -45,6 +43,4 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-config
-      - kind: Secret
-        name: cluster-secrets
   targetNamespace: networking
