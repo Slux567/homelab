@@ -67,18 +67,16 @@ spec:
       prometheusSpec:
         externalUrl: https://prometheus.${DOMAIN_01}
         retention: 14d
-        retentionSize: 50GB
+        retentionSize: 45GB
         resources:
           requests:
             cpu: 100m
           limits:
-            memory: 4Gi
+            memory: 3Gi
         storageSpec:
           volumeClaimTemplate:
             spec:
-              selector:
-                matchLabels:
-                  app.kubernetes.io/name: prometheus-data-pv
+              storageClassName: k8s-nfs
               resources:
                 requests:
                   storage: 50Gi
