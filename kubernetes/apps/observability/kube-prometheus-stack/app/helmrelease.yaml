@@ -8,7 +8,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: kube-prometheus-stack
-  interval: 1h
+  interval: 10m
   values:
     crds:
       enabled: true
@@ -17,11 +17,15 @@ spec:
         forceConflicts: true
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
-      ingress:
-        enabled: true
-        ingressClassName: traefik
-        hosts:
-          - alertmanager.${SECRET_DOMAIN}
+      route:
+        main:
+          enabled: true
+          hostnames:
+            - alertmanager.${SECRET_DOMAIN}
+          parentRefs:
+            - name: traefik
+              namespace: gateway
+              sectionName: websecure
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager-config
@@ -51,11 +55,15 @@ spec:
     kubeProxy:
       enabled: false
     prometheus:
-      ingress:
-        enabled: true
-        ingressClassName: traefik
-        hosts:
-          - prometheus.${SECRET_DOMAIN}
+      route:
+        main:
+          enabled: true
+          hostnames:
+            - prometheus.${SECRET_DOMAIN}
+          parentRefs:
+            - name: traefik
+              namespace: gateway
+              sectionName: websecure
       prometheusSpec:
         externalUrl: https://prometheus.${SECRET_DOMAIN}
         retention: 14d
@@ -103,11 +111,15 @@ spec:
               targetLabel: hostname
     grafana:
       enabled: true
-      ingress:
-        enabled: true
-        ingressClassName: traefik
-        hosts:
-          - grafana.${SECRET_DOMAIN}
+      route:
+        main:
+          enabled: true
+          hostnames:
+            - grafana.${SECRET_DOMAIN}
+          parentRefs:
+            - name: traefik
+              namespace: gateway
+              sectionName: websecure
       env:
         GF_SERVER_ROOT_URL: https://grafana.${SECRET_DOMAIN}
       initChownData:
