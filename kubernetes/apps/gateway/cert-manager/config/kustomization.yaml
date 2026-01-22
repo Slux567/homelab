@@ -6,4 +6,4 @@ kind: Kustomization
 resources:
   - ./secret.yaml
   - ./clusterissuer.yaml
-  - ./cert.yaml
+  - ./public-wildcard-cert.yaml
