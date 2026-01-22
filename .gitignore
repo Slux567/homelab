@@ -28,3 +28,6 @@
 **/talos/secrets/
 
 **/old_cluster/**/
+
+age.agekey
+kubeconfig
