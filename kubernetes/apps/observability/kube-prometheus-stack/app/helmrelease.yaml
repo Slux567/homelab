@@ -23,9 +23,9 @@ spec:
           hostnames:
             - "alertmanager.${DOMAIN_01}"
           parentRefs:
-            - name: traefik
+            - name: internal
               namespace: gateway
-              sectionName: websecure
+              sectionName: https
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager-config
@@ -61,9 +61,9 @@ spec:
           hostnames:
             - "prometheus.${DOMAIN_01}"
           parentRefs:
-            - name: traefik
+            - name: internal
               namespace: gateway
-              sectionName: websecure
+              sectionName: https
       prometheusSpec:
         externalUrl: "https://prometheus.${DOMAIN_01}"
         retention: 14d
@@ -117,9 +117,9 @@ spec:
           hostnames:
             - "grafana.${DOMAIN_01}"
           parentRefs:
-            - name: traefik
+            - name: internal
               namespace: gateway
-              sectionName: websecure
+              sectionName: https
       env:
         GF_SERVER_ROOT_URL: "https://grafana.${DOMAIN_01}"
       initChownData:
