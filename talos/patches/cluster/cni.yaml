@@ -9,3 +9,11 @@ cluster:
       name: none
   extraManifests:
     - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+  controllerManager:
+    extraArgs:
+      bind-address: 0.0.0.0
+
+  scheduler:
+    extraArgs:
+      bind-address: 0.0.0.0

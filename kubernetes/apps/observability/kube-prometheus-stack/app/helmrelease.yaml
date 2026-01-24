@@ -16,6 +16,8 @@ spec:
         enabled: true
         forceConflicts: true
     cleanPrometheusOperatorObjectNames: true
+
+# Alert Manager Config
     alertmanager:
       route:
         main:
@@ -40,20 +42,57 @@ spec:
             requests:
               storage: 2Gi
 
-    kubeApiServer:
+# Kube-system service monitors
+    kubelet:
+      enabled: true
       serviceMonitor:
-        selector:
-          k8s-app: kube-apiserver
-    kubeScheduler:
-      service:
-        selector:
-          k8s-app: kube-scheduler
+        metricRelabelings:
+          # Drop high cardinality labels
+          - action: labeldrop
+            regex: (uid)
+          - action: labeldrop
+            regex: (id|name)
+          - action: drop
+            sourceLabels: ["__name__"]
+            regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
+    kubeApiServer:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          # Drop high cardinality labels
+          - action: drop
+            sourceLabels: ["__name__"]
+            regex: (apiserver|etcd|rest_client)_request(|_sli|_slo)_duration_seconds_bucket
+          - action: drop
+            sourceLabels: ["__name__"]
+            regex: (apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket)
     kubeControllerManager:
+      enabled: true
+      endpoints: &cp
+        - "${ASGARD_IP}"
+        - "${MIDGARD_IP}"
+        - "${MUSPELHEIM_IP}"
+    kubeScheduler:
+      enabled: true
+      endpoints: *cp
+    kubeEtcd:
+      enabled: true
+      endpoints: *cp
       service:
-        selector:
-          k8s-app: kube-controller-manager
+        enabled: true
+        port: 2379
+        targetPort: 2379
+      serviceMonitor:
+        scheme: https
+        insecureSkipVerify: false
+        serverName: localhost
+        caFile: /etc/prometheus/secrets/etcd-certs/etcd-ca.crt
+        certFile: /etc/prometheus/secrets/etcd-certs/etcd-client.crt
+        keyFile: /etc/prometheus/secrets/etcd-certs/etcd-client-key.key
     kubeProxy:
       enabled: false
+
+# Prometheus Config
     prometheus:
       route:
         main:
@@ -65,9 +104,11 @@ spec:
               namespace: gateway
               sectionName: websecure
       prometheusSpec:
+        secrets:
+          - etcd-certs
         externalUrl: "https://prometheus.${DOMAIN_01}"
         retention: 14d
-        retentionSize: 45GB
+        retentionSize: 50GB
         resources:
           requests:
             cpu: 100m
@@ -80,6 +121,10 @@ spec:
               resources:
                 requests:
                   storage: 50Gi
+
+# Node Exporter Config
+    nodeExporter:
+      enabled: true
     prometheus-node-exporter:
       fullnameOverride: node-exporter
       prometheus:
@@ -109,6 +154,8 @@ spec:
               replacement: $1
               sourceLabels: ["__meta_kubernetes_pod_node_name"]
               targetLabel: hostname
+
+# Grafana config
     grafana:
       enabled: true
       route:

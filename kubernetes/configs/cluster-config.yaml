@@ -5,8 +5,11 @@ metadata:
     namespace: flux-system
 data:
     DOMAIN_01: ENC[AES256_GCM,data:dUOZsVJln6e/tEo7cg==,iv:udUj7aVAVlGLy41YxKwgD1Gm7OwOoCGUjCO+XM2PC9c=,tag:DwAVRLL8ydpHYcFJQEOWug==,type:str]
-    NAS_IP: ENC[AES256_GCM,data:Rd+VIKHbAJIFXw==,iv:EK4vRGffB4CL7d+1zEul9HLFAxGOUHF6STnjuxwU9gI=,tag:uoWkiHX6+vGJxNWRAzRq4g==,type:str]
     LB_IP_TRAEFIK_INGRESS_INTERNAL: ENC[AES256_GCM,data:ZH3p6HkukOfmZm0=,iv:3LyGHkUtcFlo474tNz115KP+DMWZj1v7W/wt1lRG/wI=,tag:bLlK+WgfJYqrcogpkqPaVQ==,type:str]
+    ASGARD_IP: ENC[AES256_GCM,data:aXUhUA0hpcJydQ==,iv:yACc99EPZw2eDHSgxBoIidOJvCeZ2Dsm58m8lj/sTik=,tag:j0MBvtc0q4Q5MZb0WiXtsg==,type:str]
+    MIDGARD_IP: ENC[AES256_GCM,data:mGelKlTFMAhuHA==,iv:f1aP94ENJOECZ/sTzPkNHRNjzWd2RI0+rz6/Flk1NRA=,tag:YIUARpbZNQf16i4qbFTUGQ==,type:str]
+    MUSPELHEIM_IP: ENC[AES256_GCM,data:9fyX6BsyOIhQtw==,iv:QMrhsi5TElbiIxS9PV+rZ9f20kp5CgQBf/qKlBYxu5Y=,tag:jc8ncgjpaBLZnY4+O7nzNQ==,type:str]
+    NAS_IP: ENC[AES256_GCM,data:Rd+VIKHbAJIFXw==,iv:EK4vRGffB4CL7d+1zEul9HLFAxGOUHF6STnjuxwU9gI=,tag:uoWkiHX6+vGJxNWRAzRq4g==,type:str]
 sops:
     age:
         - recipient: age1e37dddpcd83kdc45xsle36a9dxc492t0xnpsakyk7478zlga5agsrqjdad
@@ -18,7 +21,7 @@ sops:
             TW14d1o0cmxyYlFUSUtXWmNGcnl0amcKF7dxQopfNZrNyZufY14BDcrqLULHNBPs
             hiuuYqkP8Z1UKR6nYwHpz7EYuCbvqTOnbFPVyDIBlo8wWeYtrHE2nA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-01-22T22:16:46Z"
-    mac: ENC[AES256_GCM,data:quHU7tD03VYwbBWAzOZ038lwybJEN+eQcDpm3XfWN39/6dxkVUhmw50dQw8BxK0Ykx2AqOFTWkGVJiekqEWUA9VL40iCjAiiUO5O0GUdZyKf3DyWxMbsKuz5KkdwfuyuUtSs97Z6FyK3SQ/xKnhszaiAWUr4/WS7I6Q+1doItRY=,iv:q7f1E8yLfRWuzsZ4iPBsd16LZRFHi9rufOzDNxw9j7k=,tag:bW+rVh5pTZvUmVFwiHNw8g==,type:str]
+    lastmodified: "2026-01-23T16:09:59Z"
+    mac: ENC[AES256_GCM,data:TCy03yim2oAqW+Fnc2J0pnq0TIEOwoncJzYUs94xVv7f/HqwI6Fb8DttB4LYFnAWczGGnO//73843I2xGIUeJkeZEvhWz6UdLqHcEUemZGSICznqN1yxiOx1Q2oY5fGXK/w0Nl2Bn3liNoNVrlihtwtBsEOjN7KgpK6hBTDum40=,iv:/6O6QBKZCg7Ooq8LhZcfNbTSxh6UNYQIkkwQ1VwT1gE=,tag:AoB1hah9/q92nHMA214MPQ==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.11.0
