@@ -3,11 +3,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cillium
+  name: cilium
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./kubernetes/apps/kube-system/cillium/app
+  path: ./kubernetes/apps/kube-system/cilium/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -26,11 +26,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cillium-config
+  name: cilium-config
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./kubernetes/apps/kube-system/cillium/config
+  path: ./kubernetes/apps/kube-system/cilium/config
   prune: true
   sourceRef:
     kind: GitRepository
