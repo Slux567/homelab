@@ -29,6 +29,8 @@ metadata:
   name: cert-manager-config
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cert-manager
   interval: 10m
   path: ./kubernetes/apps/cert-manager/cert-manager/config
   prune: true
