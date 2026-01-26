@@ -7,7 +7,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./kubernetes/apps/gateway/cert-manager/app
+  path: ./kubernetes/apps/cert-manager/cert-manager/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -20,7 +20,7 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-config
-  targetNamespace: gateway
+  targetNamespace: cert-manager
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -30,7 +30,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./kubernetes/apps/gateway/cert-manager/config
+  path: ./kubernetes/apps/cert-manager/cert-manager/config
   prune: true
   sourceRef:
     kind: GitRepository
@@ -43,4 +43,4 @@ spec:
     substituteFrom:
       - kind: ConfigMap
         name: cluster-config
-  targetNamespace: gateway
+  targetNamespace: cert-manager

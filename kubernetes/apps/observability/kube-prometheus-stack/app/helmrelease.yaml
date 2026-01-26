@@ -25,9 +25,9 @@ spec:
           hostnames:
             - "alertmanager.${DOMAIN_01}"
           parentRefs:
-            - name: traefik-gateway
-              namespace: gateway
-              sectionName: websecure
+            - name: internal
+              namespace: kube-system
+              sectionName: https
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager-config
@@ -100,9 +100,9 @@ spec:
           hostnames:
             - "prometheus.${DOMAIN_01}"
           parentRefs:
-            - name: traefik-gateway
-              namespace: gateway
-              sectionName: websecure
+            - name: internal
+              namespace: kube-system
+              sectionName: https
       prometheusSpec:
         secrets:
           - etcd-certs
@@ -164,9 +164,9 @@ spec:
           hostnames:
             - "grafana.${DOMAIN_01}"
           parentRefs:
-            - name: traefik-gateway
-              namespace: gateway
-              sectionName: websecure
+            - name: internal
+              namespace: kube-system
+              sectionName: https
       env:
         GF_SERVER_ROOT_URL: "https://grafana.${DOMAIN_01}"
       initChownData:
