@@ -29,6 +29,8 @@ metadata:
   name: cilium-config
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cert-manager-config
   interval: 10m
   path: ./kubernetes/apps/kube-system/cilium/config
   prune: true
