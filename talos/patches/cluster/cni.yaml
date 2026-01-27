@@ -7,8 +7,6 @@ cluster:
       - 10.96.0.0/12
     cni:
       name: none
-  extraManifests:
-    - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
   controllerManager:
     extraArgs:

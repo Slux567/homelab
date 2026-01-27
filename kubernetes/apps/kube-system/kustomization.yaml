@@ -6,3 +6,4 @@ kind: Kustomization
 resources:
   - ./cilium/ks.yaml
   - ./csi-driver-nfs/ks.yaml
+  - ./metrics-server/ks.yaml
