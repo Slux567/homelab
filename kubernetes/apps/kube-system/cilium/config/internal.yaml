@@ -27,5 +27,4 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: public-wildcard-cert
-            namespace: cert-manager
+            name: wildcard-cert
