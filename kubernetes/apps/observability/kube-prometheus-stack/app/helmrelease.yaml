@@ -19,6 +19,7 @@ spec:
 
 # Alert Manager Config
     alertmanager:
+      enabled: true
       route:
         main:
           enabled: true
