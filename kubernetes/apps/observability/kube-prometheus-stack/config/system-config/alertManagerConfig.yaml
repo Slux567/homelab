@@ -10,6 +10,14 @@ spec:
     repeatInterval: 1h
     receiver: "pushover"
     routes:
+    - receiver: "null"
+      groupInterval: 15s
+      groupWait: 0s
+      repeatInterval: 5m
+      matchers:
+        - name: alertname
+          matchType: "="
+          value: "Watchdog"
     - receiver: "pushover"
       matchers:
         - name: severity
@@ -17,6 +25,7 @@ spec:
           value: "warning|critical"
 
   receivers:
+  - name: "null"
   - name: pushover
     pushoverConfigs:
       - html: true
