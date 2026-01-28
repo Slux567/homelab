@@ -48,8 +48,10 @@ spec:
           timeoutSeconds: 5
     extraArgs:
       - --ignore-ingress-tls-spec
-    policy: create-only
-    sources: ["ingress", "service"]
+    policy: sync
+    sources: ["crd", "gateway-httproute", "service"]
     txtOwnerId: default
     txtPrefix: k8s.
     domainFilters: ["${DOMAIN_01}"] # replace with your domain
+    serviceMonitor:
+      enabled: true
