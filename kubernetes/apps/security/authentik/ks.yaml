@@ -6,7 +6,7 @@ metadata:
   name: authentik
 spec:
   interval: 10m
-  path: ./kubernetes/apps/authentik/authentik/app
+  path: ./kubernetes/apps/security/authentik/app
   prune: true
   sourceRef:
     kind: GitRepository
