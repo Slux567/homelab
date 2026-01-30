@@ -7,3 +7,4 @@ resources:
   - ./cilium/ks.yaml
   - ./csi-driver-nfs/ks.yaml
   - ./metrics-server/ks.yaml
+  - ./ext-postgres-operator/ks.yaml
