@@ -3,11 +3,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cilium
+  name: ext-postgres-operator
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./kubernetes/apps/kube-system/cilium/app
+  path: ./kubernetes/apps/kube-system/ext-postgres-operator/app
   prune: true
   sourceRef:
     kind: GitRepository

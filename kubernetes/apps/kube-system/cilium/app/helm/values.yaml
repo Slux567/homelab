@@ -23,7 +23,7 @@ envoy:
     serviceMonitor:
       enabled: false # Disable during initial install
 gatewayAPI:
-  enabled: true
+  enabled: false
 hubble:
   enabled: true
   relay:
