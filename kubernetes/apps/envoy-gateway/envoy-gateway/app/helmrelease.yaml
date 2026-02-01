@@ -10,16 +10,6 @@ spec:
     name: envoy-gateway
   interval: 1h
   values:
-    deployment:
-      envoyGateway:
-        gateway:
-          controllerName: gateway.envoyproxy.io/gatewayclass-controller
-        resources:
-          requests:
-            cpu: 45m
-            memory: 512Mi
-          limits:
-            memory: 1Gi
     config:
       envoyGateway:
         provider:
