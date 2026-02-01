@@ -27,7 +27,7 @@ spec:
             - "alertmanager.${DOMAIN_01}"
           parentRefs:
             - name: internal
-              namespace: kube-system
+              namespace: envoy-gateway
               sectionName: https
       alertmanagerSpec:
         alertmanagerConfiguration:
@@ -102,7 +102,7 @@ spec:
             - "prometheus.${DOMAIN_01}"
           parentRefs:
             - name: internal
-              namespace: kube-system
+              namespace: envoy-gateway
               sectionName: https
       prometheusSpec:
         secrets:
@@ -166,7 +166,7 @@ spec:
             - "grafana.${DOMAIN_01}"
           parentRefs:
             - name: internal
-              namespace: kube-system
+              namespace: envoy-gateway
               sectionName: https
       env:
         GF_SERVER_ROOT_URL: "https://grafana.${DOMAIN_01}"
