@@ -12,6 +12,8 @@ spec:
   values:
     deployment:
       envoyGateway:
+        gateway:
+          controllerName: gateway.envoyproxy.io/gatewayclass-controller
         resources:
           requests:
             cpu: 45m
