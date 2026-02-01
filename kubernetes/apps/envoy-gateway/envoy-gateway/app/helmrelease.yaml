@@ -10,6 +10,14 @@ spec:
     name: envoy-gateway
   interval: 1h
   values:
+    deployment:
+      envoyGateway:
+        resources:
+          requests:
+            cpu: 45m
+            memory: 512Mi
+          limits:
+            memory: 1Gi
     config:
       envoyGateway:
         provider:
