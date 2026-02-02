@@ -1,0 +1,56 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: internal-auth
+spec:
+  extAuth:
+    failOpen: false
+    headersToExtAuth:
+      - cookie
+    http:
+      backendRefs:
+        - name: ak-outpost-proxy-outpost
+          namespace: security
+          port: 9000
+      path: /outpost.goauthentik.io/auth/envoy
+      headersToBackend:
+        - set-cookie
+        - x-authentik-username
+        - x-authentik-groups
+        - x-authentik-email
+        - x-authentik-name
+        - x-authentik-uid
+        - authorization
+  targetRefs:
+    - group: 'gateway.networking.k8s.io'
+      kind: 'Gateway'
+      name: 'internal-auth'
+# ---
+# apiVersion: gateway.envoyproxy.io/v1alpha1
+# kind: SecurityPolicy
+# metadata:
+#   name: external-auth
+# spec:
+#   extAuth:
+#     failOpen: false
+#     headersToExtAuth:
+#       - cookie
+#     http:
+#       backendRefs:
+#         - name: ak-outpost-proxy-outpost-external
+#           namespace: security
+#           port: 9001
+#       path: /outpost.goauthentik.io/auth/envoy
+#       headersToBackend:
+#         - set-cookie
+#         - x-authentik-username
+#         - x-authentik-groups
+#         - x-authentik-email
+#         - x-authentik-name
+#         - x-authentik-uid
+#         - authorization
+#   targetRefs:
+#     - group: 'gateway.networking.k8s.io'
+#       kind: 'Gateway'
+#       name: 'external-auth'

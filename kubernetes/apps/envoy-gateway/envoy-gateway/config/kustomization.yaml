@@ -7,3 +7,4 @@ resources:
   - ./gatewayclass.yaml
   - ./wildcard-cert.yaml
   - ./envoy.yaml
+  - ./securitypolicies.yaml
