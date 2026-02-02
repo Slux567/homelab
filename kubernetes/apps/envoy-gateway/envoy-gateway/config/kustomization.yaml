@@ -6,4 +6,4 @@ kind: Kustomization
 resources:
   - ./gatewayclass.yaml
   - ./wildcard-cert.yaml
-  - ./internal.yaml
+  - ./envoy.yaml
