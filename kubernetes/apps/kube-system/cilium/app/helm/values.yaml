@@ -1,29 +1,39 @@
 ---
+# --- Core Cilium networking ---
+routingMode: native
 autoDirectNodeRoutes: true
+endpointRoutes:
+  enabled: true
+
+ipv4NativeRoutingCIDR: "10.244.0.0/16"
+
+ipam:
+  mode: kubernetes
+
+kubeProxyReplacement: true
+kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+
+k8sServiceHost: 127.0.0.1
+k8sServicePort: 7445
+
+# --- L2 announcements ---
+l2announcements:
+  enabled: true
+
+# --- BPF / Talos compatibility ---
 bpf:
   masquerade: true
-  # Ref: https://github.com/siderolabs/talos/issues/10002
   hostLegacyRouting: true
-cni:
-  # Set to False when pairing with Multus CNI
-  exclusive: true
+
 cgroup:
   automount:
     enabled: false
   hostRoot: /sys/fs/cgroup
-# NOTE: devices might need to be set if you have more than one active NIC on your hosts
-# devices: eno+ eth+
-dashboards:
-  enabled: true
-endpointRoutes:
-  enabled: true
-envoy:
-  rollOutPods: true
-  prometheus:
-    serviceMonitor:
-      enabled: false # Disable during initial install
-gatewayAPI:
-  enabled: false
+
+cni:
+  exclusive: true
+
+# --- Hubble ---
 hubble:
   enabled: true
   relay:
@@ -36,54 +46,18 @@ hubble:
       - drop
       - tcp
       - flow
-ipam:
-  mode: kubernetes
-ipv4NativeRoutingCIDR: "10.244.0.0/16"
-k8sServiceHost: 127.0.0.1
-k8sServicePort: 7445
-kubeProxyReplacement: true
-kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-l2announcements:
-  enabled: true
-loadBalancer:
-  algorithm: maglev
-  mode: "dsr"
-localRedirectPolicy: true
-operator:
-  dashboards:
-    enabled: true
-  prometheus:
-    enabled: true
-    serviceMonitor:
-      enabled: false # Disable during initial install
-  replicas: 1
-  rollOutPods: true
+
+# --- Prometheus ---
 prometheus:
   enabled: true
   serviceMonitor:
-    enabled: false # Disable during initial install
-    trustCRDsExist: true
+    enabled: false   # flip to true once CRDs exist
+operator:
+  replicas: 1
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: false
+
+# --- Rollouts ---
 rollOutCiliumPods: true
-routingMode: native
-securityContext:
-  capabilities:
-    ciliumAgent:
-      - CHOWN
-      - KILL
-      - NET_ADMIN
-      - NET_RAW
-      - IPC_LOCK
-      - SYS_ADMIN
-      - SYS_RESOURCE
-      - PERFMON
-      - BPF
-      - DAC_OVERRIDE
-      - FOWNER
-      - SETGID
-      - SETUID
-    cleanCiliumState:
-      - NET_ADMIN
-      - SYS_ADMIN
-      - SYS_RESOURCE
-socketLB:
-  hostNamespaceOnly: true
