@@ -26,7 +26,7 @@ spec:
           hostnames:
             - "alertmanager.${DOMAIN_01}"
           parentRefs:
-            - name: internal-auth
+            - name: internal
               namespace: envoy-gateway
               sectionName: https
       alertmanagerSpec:
@@ -101,7 +101,7 @@ spec:
           hostnames:
             - "prometheus.${DOMAIN_01}"
           parentRefs:
-            - name: internal-auth
+            - name: internal
               namespace: envoy-gateway
               sectionName: https
       prometheusSpec:
