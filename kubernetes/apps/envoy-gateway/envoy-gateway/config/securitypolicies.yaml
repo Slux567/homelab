@@ -23,9 +23,9 @@ spec:
         - x-authentik-uid
         - authorization
   targetRefs:
-    - group: 'gateway.networking.k8s.io'
-      kind: 'Gateway'
-      name: 'internal-auth'
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: kube-prometheus-stack-prometheus
 # ---
 # apiVersion: gateway.envoyproxy.io/v1alpha1
 # kind: SecurityPolicy
