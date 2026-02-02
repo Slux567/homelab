@@ -11,8 +11,6 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: authentik
-  install:
-    createNamespace: true
   values:
     authentik:
       error_reporting:
@@ -30,7 +28,7 @@ spec:
             - "auth.${DOMAIN_01}"
           parentRefs:
             - name: internal
-              namespace: kube-system
+              namespace: envoy-gateway
               sectionName: https
       volumes:
         - name: postgres-creds
