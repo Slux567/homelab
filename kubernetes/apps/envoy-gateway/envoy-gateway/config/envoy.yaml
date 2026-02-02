@@ -31,7 +31,6 @@ spec:
         certificateRefs:
           - kind: Secret
             name: wildcard-cert
-
 ---
 # yaml-language-server: $schema=https://kube-schemas.pages.dev/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1

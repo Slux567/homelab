@@ -7,3 +7,4 @@ resources:
   - ./ocirepository.yaml
   - ./storage.yaml
   - ./helmrelease.yaml
+  - ./securitypolicies.yaml
