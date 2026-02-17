@@ -16,7 +16,7 @@ spec:
 apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
-  name: internal-pool
+  name: external-pool
 spec:
   serviceSelector:
     matchLabels:

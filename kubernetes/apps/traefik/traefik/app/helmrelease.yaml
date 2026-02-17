@@ -11,6 +11,8 @@ spec:
   interval: 1h
   values:
     providers:
+      kubernetesIngress:
+        enabled: false
       kubernetesGateway:
         # -- Enable Traefik Gateway provider for Gateway API
         enabled: true
