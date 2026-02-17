@@ -15,5 +15,5 @@ spec:
         # -- Enable Traefik Gateway provider for Gateway API
         enabled: true
     gateway:
-      # -- When providers.kubernetesGateway.enabled, deploy a default gateway (Disabled cause I deploy my own in config)
+      # -- When providers.kubernetesGateway.enabled, deploy a default gateway (Disabled cause I deploy my own in config)!
       enabled: false
