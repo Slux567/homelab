@@ -17,7 +17,7 @@ spec:
         forceConflicts: true
     cleanPrometheusOperatorObjectNames: true
 
-# Alert Manager Config
+# Alert Manager Config!
     alertmanager:
       enabled: true
       route:
