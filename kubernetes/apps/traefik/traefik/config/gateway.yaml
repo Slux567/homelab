@@ -33,6 +33,40 @@ spec:
           - kind: Secret
             name: wildcard-cert
 ---
+# yaml-language-server: $schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/gateway.networking.k8s.io/gateway_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: external
+  annotations:
+    external-dns.alpha.kubernetes.io/target: "external.${DOMAIN_01}"
+spec:
+  gatewayClassName: traefik
+  infrastructure:
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: "external.${DOMAIN_01}"
+    labels:
+      lb-scope: external
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      hostname: "*.${DOMAIN_01}"
+      allowedRoutes:
+        namespaces:
+          from: Same
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: "*.${DOMAIN_01}"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        certificateRefs:
+          - kind: Secret
+            name: wildcard-cert
+---
 # yaml-language-server: $schema=https://kube-schemas.pages.dev/gateway.networking.k8s.io/httproute_v1.json
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
