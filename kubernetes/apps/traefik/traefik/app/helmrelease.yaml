@@ -10,4 +10,6 @@ spec:
     name: traefik
   interval: 1h
   values:
-    # Nothing for now
+    kubernetesGateway:
+      # -- Enable Traefik Gateway provider for Gateway API
+      enabled: true
