@@ -21,7 +21,7 @@ l2announcements:
   enabled: true
 loadBalancer:
   algorithm: maglev
-  mode: dsr
+  mode: snat
   serviceTopology: true
 localRedirectPolicies:
   enabled: true
