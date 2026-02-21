@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: external-dns
+  name: metallb
 spec:
   interval: 1h
   url: https://metallb.github.io/metallb
