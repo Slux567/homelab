@@ -1,0 +1,8 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: default-pool
+spec:
+  addresses:
+  - "${GATEWAY_IP_INTERNAL}/32"
+  - "${GATEWAY_IP_EXTERNAL}/32"
