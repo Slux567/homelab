@@ -1,0 +1,7 @@
+installation:
+  calicoNetwork:
+    ipPools:
+      - cidr: 10.42.0.0/16
+        encapsulation: IPIP
+        natOutgoing: Enabled
+        nodeSelector: all()

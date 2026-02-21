@@ -7,16 +7,16 @@ helmDefaults:
   waitForJobs: true
 
 repositories:
-  - name: cilium
-    url: https://helm.cilium.io
+  - name: projectcalico
+    url: https://docs.tigera.io/calico/charts
 
 releases:
-  - name: cilium
+  - name: calico
     namespace: kube-system
     atomic: true
-    chart: cilium/cilium
-    version: 1.18.6
-    values: ['../../../kubernetes/apps/kube-system/cilium/app/helm/values.yaml']
+    chart: projectcalico/tigera-operator
+    version: v3.31.3
+    values: ['../../../kubernetes/apps/kube-system/calico/app/helm/values.yaml']
 
   # - name: coredns
   #   namespace: kube-system
