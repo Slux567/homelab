@@ -8,6 +8,9 @@ spec:
     - group: gateway.envoyproxy.io
       kind: SecurityPolicy
       namespace: observability
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: playground
   to:
     - group: ""
       kind: Service
