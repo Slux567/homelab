@@ -15,7 +15,7 @@ spec:
         name: renovate
   values:
     cronjob:
-      schedule: "27 * * * *" # Run every hour at minute 0
+      schedule: "46 * * * *" # Run every hour at minute 0
     redis:
       enabled: true  
     renovate:
@@ -34,8 +34,9 @@ spec:
             "fileMatch": ["kubernetes/.+\\.ya?ml$"]
           },
           "dependencyDashboard": true,
-          "branchConcurrentLimit": 5,
-          "prConcurrentLimit": 5,
+          "branchConcurrentLimit": 10,
+          "prConcurrentLimit": 10,
+          "prHourlyLimit": 10,
           "baseBranchPatterns": ["main"],
           "automerge": false
         }
