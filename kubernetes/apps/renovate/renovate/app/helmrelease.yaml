@@ -15,7 +15,7 @@ spec:
         name: renovate
   values:
     cronjob:
-      schedule: "* * * * *" # Run every hour at minute 0
+      schedule: "15 * * * *" # Run every hour at minute 0
     redis:
       enabled: true  
     renovate:
