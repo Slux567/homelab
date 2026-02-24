@@ -1,3 +1,7 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json"
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "ignorePaths": [
+            "kubernetes/clusters/homelab/flux-system/**",
+            "kubernetes/vaulted-apps/**"
+          ]
 }

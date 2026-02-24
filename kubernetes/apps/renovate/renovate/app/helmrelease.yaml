@@ -26,10 +26,6 @@ spec:
           "token": "${RENOVATE_TOKEN}",
           "repositories": ["Slux567/homelab"],
           "extends": ["config:recommended"],
-          "ignorePaths": [
-            "kubernetes/clusters/homelab/flux-system/**",
-            "kubernetes/vaulted-apps/**"
-          ],
           "enabledManagers": ["kubernetes", "flux"],
           "flux": {
             "fileMatch": ["kubernetes/.+\\.ya?ml$"]
