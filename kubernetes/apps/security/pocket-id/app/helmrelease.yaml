@@ -26,7 +26,7 @@ spec:
               ENCRYPTION_KEY:
                 valueFrom:
                   secretKeyRef:
-                    name: pocket-id-secret
+                    name: pocket-id
                     key: ENCRYPTION_KEY
             probes:
               liveness:
