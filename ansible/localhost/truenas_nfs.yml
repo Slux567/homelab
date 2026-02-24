@@ -19,12 +19,12 @@
   tasks:
       - name: Prompt for dataset name
         pause:
-          prompt: "Enter the share/dataset name (e.g., my_share)"
+          prompt: "Enter the share/dataset name (e.g., selfhosted/awesome-service)"
         register: dataset_input
 
       - name: Prompt for quota size
         pause:
-          prompt: "Enter allocated space with unit (e.g., 100G, 1T, 500M) or leave empty for no quota"
+          prompt: "Enter allocated space with unit (e.g., 500M, 15G, 2T) or leave empty for no quota"
         register: quota_input
 
       - name: Set dataset name variable
