@@ -3,11 +3,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: external-secrets
+  name: onepassword
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./kubernetes/apps/security/external-secrets/app
+  path: ./kubernetes/apps/security/onepassword/app
   dependsOn:
     - name: external-secrets
       namespace: security
@@ -30,11 +30,11 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: external-secrets-config
+  name: onepassword-config
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./kubernetes/apps/security/external-secrets/config
+  path: ./kubernetes/apps/security/onepassword/config
   dependsOn:
     - name: external-secrets
       namespace: security
