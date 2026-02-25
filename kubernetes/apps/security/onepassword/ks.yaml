@@ -10,7 +10,7 @@ spec:
   path: ./kubernetes/apps/security/onepassword/app
   dependsOn:
     - name: external-secrets
-      namespace: security
+      namespace: flux-system
   prune: true
   sourceRef:
     kind: GitRepository
@@ -37,7 +37,7 @@ spec:
   path: ./kubernetes/apps/security/onepassword/config
   dependsOn:
     - name: external-secrets
-      namespace: security
+      namespace: flux-system
   prune: true
   sourceRef:
     kind: GitRepository
