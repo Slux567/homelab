@@ -17,7 +17,7 @@ spec:
   interval: 1h
   chart:
     spec:
-      chart: calico
+      chart: tigera-operator
       version: 3.31.3
       sourceRef:
         kind: HelmRepository
