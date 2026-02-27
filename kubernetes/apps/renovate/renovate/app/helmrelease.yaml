@@ -19,7 +19,12 @@ spec:
     redis:
       enabled: true  
     renovate:
-      existingSecret: renovate
+      env:
+        - name: RENOVATE_GH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: renovate
+              key: RENOVATE_GH_TOKEN
       config: |
         {
           "$schema": "https://docs.renovatebot.com/renovate-schema.json",
