@@ -182,13 +182,13 @@ spec:
           enabled: true
           name: Pocket ID
           icon: signin
-          scopes: openid email profile
+          scopes: openid email profile groups
           auth_url: "https://id.${DOMAIN_01}/authorize"
           token_url: "https://id.${DOMAIN_01}/api/oidc/token"
           api_url: "https://id.${DOMAIN_01}/api/oidc/userinfo"
           use_pkce: true
           use_refresh_token: true
-          role_attribute_path: "contains(groups[*], 'admins') && 'Admin' || 'Viewer'"
+          role_attribute_path: "contains(groups[*], 'Admin') && 'Admin' || 'Viewer'"
       initChownData:
         enabled: false
       persistence:
