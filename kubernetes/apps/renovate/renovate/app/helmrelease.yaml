@@ -18,7 +18,7 @@ spec:
     - secretRef:
         name: renovate
     cronjob:
-      schedule: "24 * * * *" # Run every day at 6am
+      schedule: "* 6 * * *" # Run every day at 6am
     redis:
       enabled: true  
     renovate:
