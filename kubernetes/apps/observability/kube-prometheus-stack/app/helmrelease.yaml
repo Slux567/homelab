@@ -178,7 +178,7 @@ spec:
         GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
           valueFrom:
             secretKeyRef:
-              key: GF_AUTH_GENERIC_OAUTH_CLIENT_ID
+              key: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
               name: grafana
       grafana.ini:
         server:
