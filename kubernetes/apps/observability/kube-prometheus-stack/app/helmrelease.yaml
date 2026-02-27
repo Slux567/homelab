@@ -170,16 +170,7 @@ spec:
               sectionName: https
       env:
         GF_SERVER_ROOT_URL: "https://grafana.${DOMAIN_01}"
-        GF_AUTH_GENERIC_OAUTH_CLIENT_ID:
-          valueFrom:
-            secretKeyRef:
-              key: GF_AUTH_GENERIC_OAUTH_CLIENT_ID
-              name: grafana
-        GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
-          valueFrom:
-            secretKeyRef:
-              key: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
-              name: grafana
+      envFromSecret: grafana
       grafana.ini:
         server:
           root_url: "https://grafana.${DOMAIN_01}"
