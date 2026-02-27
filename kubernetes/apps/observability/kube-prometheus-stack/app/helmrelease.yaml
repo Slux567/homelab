@@ -170,6 +170,27 @@ spec:
               sectionName: https
       env:
         GF_SERVER_ROOT_URL: "https://grafana.${DOMAIN_01}"
+      extraEnvFrom:
+        - secretRef:
+            name: grafana
+      grafana.ini:
+        server:
+          root_url: "https://grafana.${DOMAIN_01}"
+        auth:
+          disable_login_form: true
+        auth.basic:
+          enabled: false
+        auth.generic_oauth:
+          enabled: true
+          name: Pocket ID
+          icon: signin
+          scopes: openid email profile
+          auth_url: "https://id.${DOMAIN_01}/authorize"
+          token_url: "https://id.${DOMAIN_01}/api/oidc/token"
+          api_url: "https://id.${DOMAIN_01}/api/oidc/userinfo"
+          use_pkce: true
+          use_refresh_token: true
+          role_attribute_path: "contains(groups[*], 'admins') && 'Admin' || 'Viewer'"
       initChownData:
         enabled: false
       persistence:
