@@ -15,15 +15,16 @@ spec:
         name: renovate
   values:
     cronjob:
-      schedule: "* 6 * * *" # Run every day at 6am
+      schedule: "24 * * * *" # Run every day at 6am
     redis:
       enabled: true  
     renovate:
+      existingSecret: renovate
       config: |
         {
           "$schema": "https://docs.renovatebot.com/renovate-schema.json",
           "platform": "github",
-          "token": "${RENOVATE_TOKEN}",
+          "token": "{{ env.RENOVATE_GH_TOKEN }}",
           "repositories": ["Slux567/homelab"],
           "extends": ["config:recommended"],
           "enabledManagers": ["kubernetes", "flux"],

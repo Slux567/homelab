@@ -11,7 +11,6 @@ data:
     NAS_IP: ENC[AES256_GCM,data:Rd+VIKHbAJIFXw==,iv:EK4vRGffB4CL7d+1zEul9HLFAxGOUHF6STnjuxwU9gI=,tag:uoWkiHX6+vGJxNWRAzRq4g==,type:str]
     GATEWAY_IP_INTERNAL: ENC[AES256_GCM,data:YcuBYosC6VYsk/k=,iv:eK/G2kn6yh+KBmQ+pqlSZHDfGIMHo20uVdLvcqNJrOc=,tag:TINmpmpJoj7R4lvnAzq5kA==,type:str]
     GATEWAY_IP_EXTERNAL: ENC[AES256_GCM,data:ycRijCoOLJqfFFc=,iv:xk0/Bk/f75RRiwnc/LZj3CfsXiKL90Y24rkWo4V0eZU=,tag:FSfXcr/aE8cb24BtNt/vcA==,type:str]
-    RENOVATE_TOKEN: ENC[AES256_GCM,data:7MCSNaxSG/D0u0i7c1s3a/Ia06/biSXuiJnf3vS0YeYrBctpjVpleBZNlBP1Fh7rnkJAK2mV+S+p9g3CfjfIDS4egy7MJFsmkiuGDZE+/dejzYA4EcnWzhpB3sXo,iv:O2Ws+aKJIH2SQzTJX1ymdrDLLfLQGyietRQQnr+HjWE=,tag:IRWep0yqc3v9gZ+fEBnJVA==,type:str]
 sops:
     age:
         - recipient: age1e37dddpcd83kdc45xsle36a9dxc492t0xnpsakyk7478zlga5agsrqjdad
@@ -23,7 +22,7 @@ sops:
             TW14d1o0cmxyYlFUSUtXWmNGcnl0amcKF7dxQopfNZrNyZufY14BDcrqLULHNBPs
             hiuuYqkP8Z1UKR6nYwHpz7EYuCbvqTOnbFPVyDIBlo8wWeYtrHE2nA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-02-23T18:04:47Z"
-    mac: ENC[AES256_GCM,data:axT05IaLGoacZBmSJgPopAUUHrriGZxJkUwpKQ9/zjYYPeqFXQZWa+XV2YPL/UIhFwNOI2gGwQB6KKnqQQxRO1vsLiJ4ofl3L35dJd0/19hzOo51knFO5HU6bX146q2zHOJtrxRgerlfDaFWRC1sYQmkUtNyeRQ6miHTuhjKOLY=,iv:jiKKxQYJObnNrOKOfNELiCDS4JZi9SpMHljHrTimn1Y=,tag:nJIHwyTQaomc2pJ+OZoSVw==,type:str]
+    lastmodified: "2026-02-27T18:22:55Z"
+    mac: ENC[AES256_GCM,data:l7b/vaLR234ViSVhabPmj0lGf8RFjRkq6vOUqq+ikif/5Cj6giHb1qDM/b9qyIBlNdi5TliHoqGflY28egdSGb4EpPwvJSP6dmlqpGtuNexCuru2v6TW0+G70YUKCtqkgMBhOh7yN6797RpLF8CUYBPoJzm6CNY95kUvQE/9KwU=,iv:Xdf5+d9BFjq/3whVVfdyWGtypHv7J37KD/Yg64NbN/w=,tag:hLXX2tkjAlrwgArzglpnow==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.11.0
