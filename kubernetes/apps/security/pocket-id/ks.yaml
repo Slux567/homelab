@@ -8,7 +8,7 @@ metadata:
 spec:
   dependsOn:
     - name: onepassword-config
-      namespace: security
+      namespace: flux-system
   interval: 10m
   path: ./kubernetes/apps/security/pocket-id/app
   prune: true
