@@ -14,17 +14,14 @@ spec:
         kind: HelmRepository
         name: renovate
   values:
+    envFrom:
+    - secretRef:
+        name: renovate
     cronjob:
       schedule: "24 * * * *" # Run every day at 6am
     redis:
       enabled: true  
     renovate:
-      env:
-        - name: RENOVATE_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: renovate
-              key: RENOVATE_TOKEN
       config: |
         {
           "$schema": "https://docs.renovatebot.com/renovate-schema.json",
