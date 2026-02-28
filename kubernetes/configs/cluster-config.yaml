@@ -11,6 +11,7 @@ data:
     NAS_IP: ENC[AES256_GCM,data:Rd+VIKHbAJIFXw==,iv:EK4vRGffB4CL7d+1zEul9HLFAxGOUHF6STnjuxwU9gI=,tag:uoWkiHX6+vGJxNWRAzRq4g==,type:str]
     GATEWAY_IP_INTERNAL: ENC[AES256_GCM,data:YcuBYosC6VYsk/k=,iv:eK/G2kn6yh+KBmQ+pqlSZHDfGIMHo20uVdLvcqNJrOc=,tag:TINmpmpJoj7R4lvnAzq5kA==,type:str]
     GATEWAY_IP_EXTERNAL: ENC[AES256_GCM,data:ycRijCoOLJqfFFc=,iv:xk0/Bk/f75RRiwnc/LZj3CfsXiKL90Y24rkWo4V0eZU=,tag:FSfXcr/aE8cb24BtNt/vcA==,type:str]
+    TIMEZONE: ENC[AES256_GCM,data:i6XazLyWfAjk9bXQyH37+A==,iv:xnSl32MX4vjpC13r1GYLTtdSh+exemg0yhnrMJ+bXyk=,tag:SvFjB0kE78SQ0GarLMZRtA==,type:str]
 sops:
     age:
         - recipient: age1e37dddpcd83kdc45xsle36a9dxc492t0xnpsakyk7478zlga5agsrqjdad
@@ -22,7 +23,7 @@ sops:
             TW14d1o0cmxyYlFUSUtXWmNGcnl0amcKF7dxQopfNZrNyZufY14BDcrqLULHNBPs
             hiuuYqkP8Z1UKR6nYwHpz7EYuCbvqTOnbFPVyDIBlo8wWeYtrHE2nA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-02-27T18:22:55Z"
-    mac: ENC[AES256_GCM,data:l7b/vaLR234ViSVhabPmj0lGf8RFjRkq6vOUqq+ikif/5Cj6giHb1qDM/b9qyIBlNdi5TliHoqGflY28egdSGb4EpPwvJSP6dmlqpGtuNexCuru2v6TW0+G70YUKCtqkgMBhOh7yN6797RpLF8CUYBPoJzm6CNY95kUvQE/9KwU=,iv:Xdf5+d9BFjq/3whVVfdyWGtypHv7J37KD/Yg64NbN/w=,tag:hLXX2tkjAlrwgArzglpnow==,type:str]
+    lastmodified: "2026-02-28T21:19:44Z"
+    mac: ENC[AES256_GCM,data:xZGEoSoq2kHbtYIU5V4ufjQAp6ISXisUoh9Hs6uLTXpQoAv0ViewOgdXfwACqNSTE2zViSkaQbnwfPWFSZS291b+Vmzde5ktHkHD9b89pOBbs63Dv37GdwhLbXYCKooSbkpVC+FK8bnF/ht6QMRLgo5dttdJBRsL3AClaRUWIWo=,iv:xRh2/CJKkTYjiumsG3O2tUjDM3PQ5Pe5AuEKxlSBK8g=,tag:S7jmwLR0nmEBN47gZmoDMg==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.11.0
