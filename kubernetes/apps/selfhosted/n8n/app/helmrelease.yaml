@@ -58,14 +58,14 @@ spec:
         hostnames:
           - *hostName
         parentRefs:
-          - name: envoy-internal
+          - name: internal
             namespace: envoy-gateway
             sectionName: https
       webhooks:
         hostnames:
           - n8n-webhook.${CLUSTER_DOMAIN}
         parentRefs:
-          - name: envoy-internal
+          - name: internal
             namespace: envoy-gateway
             sectionName: https
         rules:
