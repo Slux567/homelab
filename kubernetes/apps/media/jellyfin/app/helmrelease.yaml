@@ -50,7 +50,6 @@ spec:
               limits:
                 memory: 12Gi
         pod:
-          priorityClassName: media-cluster-critical
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
