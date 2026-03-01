@@ -8,4 +8,5 @@ resources:
   - ./media-storage.yaml
   - ./radarr/ks.yaml
   - ./sonarr/ks.yaml
+  - ./prowlarr/ks.yaml
   - ./jellyfin/ks.yaml
