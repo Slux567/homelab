@@ -7,9 +7,10 @@ resources:
   - ./namespace.yaml
   - ./media-storage.yaml
   - ./qbittorrent/ks.yaml
+  - ./flaresolverr/ks.yaml
+  - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
   - ./sonarr/ks.yaml
-  - ./prowlarr/ks.yaml
   - ./bazarr/ks.yaml
   - ./jellyfin/ks.yaml
   - ./seerr/ks.yaml
