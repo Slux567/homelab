@@ -11,7 +11,7 @@ spec:
   interval: 1h
   values:
     controllers:
-      main:
+      seerr:
         containers:
           app:
             image:
@@ -67,7 +67,7 @@ spec:
 
     service:
       app:
-        controller: main
+        controller: seerr
         ports:
           http:
             port: *port

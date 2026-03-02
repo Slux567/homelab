@@ -12,7 +12,6 @@ spec:
   values:
     controllers:
       sonarr:
-        type: statefulset
         containers:
           app:
             image:

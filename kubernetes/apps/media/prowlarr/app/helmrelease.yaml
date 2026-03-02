@@ -12,7 +12,6 @@ spec:
   values:
     controllers:
       prowlarr:
-        type: statefulset
         containers:
           app:
             image:
