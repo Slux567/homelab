@@ -11,3 +11,4 @@ resources:
   - ./prowlarr/ks.yaml
   - ./bazarr/ks.yaml
   - ./jellyfin/ks.yaml
+  - ./seerr/ks.yaml
