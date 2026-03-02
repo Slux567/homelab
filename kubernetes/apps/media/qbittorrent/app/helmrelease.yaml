@@ -11,18 +11,9 @@ spec:
   interval: 1h
   values:
     controllers:
-      qbittorrent:
-        type: statefulset
-        pod:
-          securityContext:
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups:
-              - 10000
-            seccompProfile:
-              type: RuntimeDefault
+      main:
         containers:
-          app:
+          qbittorrent:
             image:
               repository: ghcr.io/home-operations/qbittorrent
               tag: 5.1.4@sha256:56ecd30a7f5e1357daf5eea2a6935134d329b7b268a3a9b9c67041b65fb87fc6
@@ -67,8 +58,8 @@ spec:
                 memory: 4Gi
 
     service:
-      app:
-        controller: qbittorrent
+      qbittorrent:
+        controller: main
         type: LoadBalancer
         annotations:
           metallb.io/loadBalancerIPs: "${QBITTORRENT_IP}"
@@ -90,7 +81,7 @@ spec:
             addr = "http://0.0.0.0:80"
 
     route:
-      app:
+      qbittorrent:
         parentRefs:
           - name: internal
             namespace: envoy-gateway
@@ -105,26 +96,26 @@ spec:
       config:
         existingClaim: qbittorrent-config
         advancedMounts:
-          qbittorrent:
-            app:
+          main:
+            qbittorrent:
               - path: /config
       config-file:
         type: configMap
         identifier: config
         advancedMounts:
-          qbittorrent:
-            app:
+          main:
+            qbittorrent:
               - path: /config/.qbt.toml
                 subPath: .qbt.toml
       media:
         existingClaim: media-storage
         advancedMounts:
-          qbittorrent:
-            app:
+          main:
+            qbittorrent:
               - path: /media
       tmp:
         type: emptyDir
         advancedMounts:
-          qbittorrent:
-            app:
+          main:
+            qbittorrent:
               - path: /tmp
