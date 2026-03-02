@@ -6,3 +6,4 @@ spec:
   addresses:
   - "${GATEWAY_IP_INTERNAL}/32"
   - "${GATEWAY_IP_EXTERNAL}/32"
+  - "${QBITTORRENT_IP}/32"
