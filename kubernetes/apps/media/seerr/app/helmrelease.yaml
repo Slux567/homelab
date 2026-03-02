@@ -11,8 +11,7 @@ spec:
   interval: 1h
   values:
     controllers:
-      seerr:
-        type: statefulset
+      main:
         containers:
           app:
             image:
@@ -68,7 +67,7 @@ spec:
 
     service:
       app:
-        controller: seerr
+        controller: main
         ports:
           http:
             port: *port
