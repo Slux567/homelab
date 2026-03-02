@@ -82,14 +82,14 @@ spec:
 
     route:
       app:
+        hostnames:
+          - qb.sluxcloud.com
         parentRefs:
           - name: internal
             namespace: envoy-gateway
-        hostnames:
-          - qb.sluxcloud.com
         rules:
           - backendRefs:
-              - identifier: qbittorrent
+              - name: qbittorrent
                 port: *port
 
     persistence:
