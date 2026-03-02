@@ -89,7 +89,7 @@ spec:
           - qb.sluxcloud.com
         rules:
           - backendRefs:
-              - identifier: app
+              - identifier: qbittorrent
                 port: *port
 
     persistence:
