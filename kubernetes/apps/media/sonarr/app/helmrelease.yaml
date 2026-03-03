@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/sonarr
-              tag: 4.0.16.2946@sha256:22651c750eedb091f6d76ade95dbecae0eeafe2b55432c3b8d8b042e8745f344
+              tag: 4.0.16.2944
             env:
               TZ: ${TIMEZONE}
               SONARR__APP__INSTANCENAME: Sonarr
@@ -26,7 +26,6 @@ spec:
               SONARR__LOG__DBENABLED: "False"
               SONARR__LOG__LEVEL: info
               SONARR__SERVER__PORT: &port 8989
-              SONARR__UPDATE__BRANCH: develop
             envFrom:
               - secretRef:
                   name: sonarr
