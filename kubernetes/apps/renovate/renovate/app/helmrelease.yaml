@@ -19,6 +19,11 @@ spec:
         name: renovate
     cronjob:
       schedule: "* 6 * * *" # Run every day at 6am
+      successfulJobsHistoryLimit: 1
+      failedJobsHistoryLimit: 0
+      jobTemplate:
+        spec:
+          ttlSecondsAfterFinished: 600
     redis:
       enabled: true  
     renovate:
