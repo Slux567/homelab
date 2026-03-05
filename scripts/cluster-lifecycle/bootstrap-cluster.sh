@@ -28,7 +28,6 @@ else
   done
   echo "✅ Talos configs applied to machines."
 
-
 # -----------------------------
 # Step 2: Bootstrap controlplane node
 # -----------------------------
@@ -68,54 +67,12 @@ echo "✅ Kubernetes Nodes listed."
 echo ""
 
 # -----------------------------
-# Step 5: Apply CRDs
-# -----------------------------
-echo "CRD Installation:"
-crds=(
-    # renovate: datasource=github-releases depName=kubernetes-sigs/external-dns
-    https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/tags/v0.18.0/config/crd/standard/dnsendpoints.externaldns.k8s.io.yaml
-    # renovate: datasource=github-releases depName=kubernetes-sigs/gateway-api
-    https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/experimental-install.yaml
-    # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
-    https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.84.0/stripped-down-crds.yaml
-)
-for crd in "${crds[@]}"; do
-    if kubectl get -f "$crd" >/dev/null 2>&1; then
-        echo "✅ CRDs already applied: $(basename "$crd")"
-    else
-        echo "📦 Applying CRD $(basename "$crd")..."
-        if kubectl apply --server-side -f "$crd" >/dev/null 2>&1; then
-            echo "✅ Applied $(basename "$crd")"
-        else
-            echo "❌ Failed to apply $(basename "$crd")"
-            exit 1
-        fi
-    fi
-done
-echo ""
-
-# -----------------------------
-# Step 6: Sync Helm releases
-# -----------------------------
-echo "⛵ Syncing Helm releases from $HELMFILE..."
-if [[ ! -f "${ROOT_DIR}/scripts/cluster-lifecycle/data/$HELMFILE" ]]; then
-    echo "❌ Helmfile not found: ${ROOT_DIR}/scripts/cluster-lifecycle/data/$HELMFILE"
-    exit 1
-fi
-if helmfile --file "${ROOT_DIR}/scripts/cluster-lifecycle/data/$HELMFILE" sync --hide-notes; then
-    echo "✅ Helm releases synced successfully."
-else
-    echo "❌ Failed to sync Helm releases."
-    exit 1
-fi
-echo ""
-
-# -----------------------------
-# Step 7: Create flux-system namespace and SOPS secret
+# Step 5: Create flux-system namespace and SOPS secret
 # -----------------------------
 NAMESPACE="flux-system"
 SECRET_NAME="sops-age"
 AGE_KEY_FILE="${ROOT_DIR}/scripts/cluster-lifecycle/data/age.agekey"
+GITHUB_ACCESS_TOKEN="${ROOT_DIR}/scripts/cluster-lifecycle/data/git-token-auth.yaml"
 
 echo "📦 Ensuring Kubernetes namespace '$NAMESPACE' exists..."
 kubectl get namespace "$NAMESPACE" >/dev/null 2>&1 || {
@@ -134,41 +91,58 @@ cat "$AGE_KEY_FILE" | kubectl create secret generic "$SECRET_NAME" \
 echo "✅ Secret '$SECRET_NAME' created in namespace '$NAMESPACE'."
 echo ""
 
-# -----------------------------
-# Step 8: Bootstrap Flux with GitHub
-# -----------------------------
-echo "🚀 Bootstrapping Flux into the cluster (GitHub)..."
-if [[ -z "${GITHUB_TOKEN:-}" ]]; then
-    echo "🔐 GITHUB_TOKEN is not set."
-    echo "Please enter your GitHub Personal Access Token (input will be hidden):"
-    read -s GITHUB_TOKEN
-    echo ""
-    if [[ -z "$GITHUB_TOKEN" ]]; then
-        echo "❌ GitHub token cannot be empty."
-        exit 1
-    fi
-    export GITHUB_TOKEN
-fi
-if flux bootstrap github \
-    --token-auth \
-    --owner=slux567 \
-    --repository=homelab \
-    --branch=main \
-    --path=kubernetes/clusters/homelab \
-    --namespace=flux-system \
-    --personal; then
-    echo "✅ Flux bootstrapped successfully."
-else
-    echo "❌ Flux bootstrap failed."
-    unset GITHUB_TOKEN
-    exit 1
-fi
-# Cleanup token from environment
-unset GITHUB_TOKEN
+kubectl apply -f $GITHUB_ACCESS_TOKEN --namespace="$NAMESPACE"
+echo "✅ Github Access Token Secret Created In Namespace '$NAMESPACE'."
 echo ""
 
 # -----------------------------
-# Step 9: Success message
+# Step 6: Apply CRDs
+# -----------------------------
+echo "CRD Installation:"
+crds=(
+    # renovate: datasource=github-releases depName=kubernetes-sigs/external-dns
+    https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/tags/v0.18.0/config/crd/standard/dnsendpoints.externaldns.k8s.io.yaml
+    # renovate: datasource=github-releases depName=kubernetes-sigs/gateway-api
+    https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.3.0/experimental-install.yaml
+    # renovate: datasource=github-releases depName=prometheus-operator/prometheus-operator
+    https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.84.0/stripped-down-crds.yaml
+    # renovate: datasource=github-releases depName=cert-manager/cert-manager
+    https://github.com/cert-manager/cert-manager/releases/download/v1.19.4/cert-manager.crds.yaml
+)
+for crd in "${crds[@]}"; do
+    if kubectl get -f "$crd" >/dev/null 2>&1; then
+        echo "✅ CRDs already applied: $(basename "$crd")"
+    else
+        echo "📦 Applying CRD $(basename "$crd")..."
+        if kubectl apply --server-side -f "$crd" >/dev/null 2>&1; then
+            echo "✅ Applied $(basename "$crd")"
+        else
+            echo "❌ Failed to apply $(basename "$crd")"
+            exit 1
+        fi
+    fi
+done
+echo ""
+
+
+# -----------------------------
+# Step 7: Sync Helm releases
+# -----------------------------
+echo "⛵ Syncing Helm releases from $HELMFILE..."
+if [[ ! -f "${ROOT_DIR}/scripts/cluster-lifecycle/data/$HELMFILE" ]]; then
+    echo "❌ Helmfile not found: ${ROOT_DIR}/scripts/cluster-lifecycle/data/$HELMFILE"
+    exit 1
+fi
+if helmfile --file "${ROOT_DIR}/scripts/cluster-lifecycle/data/$HELMFILE" sync --hide-notes; then
+    echo "✅ Helm releases synced successfully."
+else
+    echo "❌ Failed to sync Helm releases."
+    exit 1
+fi
+echo ""
+
+# -----------------------------
+# Step 8: Success message
 # -----------------------------
 kubectl get nodes -o wide
 echo "🎉 Succesfull Kubernetes Cluster Deployment"

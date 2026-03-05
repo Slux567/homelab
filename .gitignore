@@ -30,4 +30,5 @@
 **/old_cluster/**/
 
 age.agekey
+git-token-auth.yaml
 kubeconfig
