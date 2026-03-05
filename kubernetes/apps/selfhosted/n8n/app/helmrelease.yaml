@@ -77,3 +77,7 @@ spec:
     persistence:
       data:
         existingClaim: n8n
+        advancedMounts:
+          n8n:
+            app:
+              - path: /home/node/.n8n
