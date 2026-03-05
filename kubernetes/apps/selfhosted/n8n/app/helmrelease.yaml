@@ -63,7 +63,7 @@ spec:
             sectionName: https
       webhooks:
         hostnames:
-          - n8n-webhook.${CLUSTER_DOMAIN}
+          - n8n-webhook.${DOMAIN_01}
         parentRefs:
           - name: internal
             namespace: envoy-gateway
