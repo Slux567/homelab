@@ -6,3 +6,6 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./n8n/ks.yaml
+
+components:
+  - ../../components/networkpolicies/baseline
