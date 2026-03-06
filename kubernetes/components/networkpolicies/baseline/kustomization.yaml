@@ -3,6 +3,7 @@ kind: Component
 
 resources:
   - default-deny.yaml
+  - allow-flux-system.yaml
   - allow-same-namespace.yaml
   - allow-dns.yaml
   - allow-observability.yaml
