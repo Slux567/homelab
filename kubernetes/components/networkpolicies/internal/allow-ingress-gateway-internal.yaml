@@ -13,4 +13,4 @@ spec:
           kubernetes.io/metadata.name: envoy-gateway
       podSelector:
         matchLabels:
-          kubernetes.io/metadata.name: internal
+          gateway.envoyproxy.io/owning-gateway-name: internal
