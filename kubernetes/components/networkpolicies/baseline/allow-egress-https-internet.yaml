@@ -1,15 +1,13 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: baseline-allow-http-https-egress
+  name: baseline-allow-egress-https-internet
 spec:
   podSelector: {}
   policyTypes:
   - Egress
   egress:
   - ports:
-    - protocol: TCP
-      port: 80
     - protocol: TCP
       port: 443
     to:

@@ -2,8 +2,9 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
 resources:
-  - default-deny.yaml
+  - deny-all.yaml
+  - allow-egress-https-internet.yaml
+  - allow-egress-pod-kube-dns.yaml
+  - allow-ingress-ns-kube-system.yaml
+  - allow-ingress-ns-observability.yaml
   - allow-same-namespace.yaml
-  - allow-dns.yaml
-  - allow-observability.yaml
-  - allow-http-https-egress.yaml
