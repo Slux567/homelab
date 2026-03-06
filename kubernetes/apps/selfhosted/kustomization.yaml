@@ -6,5 +6,5 @@ namespace: selfhosted
 components:
   - ../../components/networkpolicies/baseline
 resources:
-  - ./namespace.yaml
+  # - ./namespace.yaml
   - ./n8n/ks.yaml
