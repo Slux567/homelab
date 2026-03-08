@@ -1,0 +1,11 @@
+apiVersion: metallb.io/v1beta2
+kind: BGPPeer
+metadata:
+  name: default
+  namespace: metallb-system
+spec:
+  disableMP: false
+  myASN: 65000
+  peerASN: 64512
+  peerAddress: 10.0.30.1
+  peerPort: 179
