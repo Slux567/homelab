@@ -15,11 +15,11 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/plex/plex
-              tag: 10.11.6
+              repository: ghcr.io/home-operations/plex
+              tag: 1.43.0.10492@sha256:8cb062f2b0660bd7811387e6c799da0ce5f18112078fe21485c11adcc83a9c1c
             env:
               TZ: ${TIMEZONE}
-              PLEX_ADVERTISE_URL: https://plex.sluxcloud.com:443
+              PLEX_ADVERTISE_URL: https://plex.${DOMAIN_01}:443
             probes:
               liveness: &probes
                 enabled: true
