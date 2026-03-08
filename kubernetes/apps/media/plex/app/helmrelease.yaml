@@ -69,6 +69,9 @@ spec:
 
     service:
       app:
+        type: LoadBalancer
+        annotations:
+          metallb.io/loadBalancerIPs: "${PLEX_IP}"
         ports:
           http:
             port: *port

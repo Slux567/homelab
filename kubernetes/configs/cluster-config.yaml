@@ -11,7 +11,8 @@ data:
     NAS_IP: ENC[AES256_GCM,data:Rd+VIKHbAJIFXw==,iv:EK4vRGffB4CL7d+1zEul9HLFAxGOUHF6STnjuxwU9gI=,tag:uoWkiHX6+vGJxNWRAzRq4g==,type:str]
     GATEWAY_IP_INTERNAL: ENC[AES256_GCM,data:YcuBYosC6VYsk/k=,iv:eK/G2kn6yh+KBmQ+pqlSZHDfGIMHo20uVdLvcqNJrOc=,tag:TINmpmpJoj7R4lvnAzq5kA==,type:str]
     GATEWAY_IP_EXTERNAL: ENC[AES256_GCM,data:ycRijCoOLJqfFFc=,iv:xk0/Bk/f75RRiwnc/LZj3CfsXiKL90Y24rkWo4V0eZU=,tag:FSfXcr/aE8cb24BtNt/vcA==,type:str]
-    QBITTORRENT_IP: ENC[AES256_GCM,data:LbRm35oo6DOzrH4=,iv:zSuXacPMQfo155/melz9U+/VlGQAinSniksFHlNZF/4=,tag:yCSyYjKOAETkb/phtmUW/g==,type:str]
+    QBITTORRENT_IP: ENC[AES256_GCM,data:nYivV8BExNn/3QE=,iv:tFERqUa0GyqckBFaNEmVfNHK8PBiUfNyfO0uyNNjkMI=,tag:bSEPZmmqIfcSkCjrlmCLOA==,type:str]
+    PLEX_IP: ENC[AES256_GCM,data:i7v/YiuqnL24Crc=,iv:YTT2eM9BaxX1OsLwjDNwPt1Za/BDP3RO7InhY520cAg=,tag:Vrs9dIgCNZmSIwkb8iOk7g==,type:str]
     TIMEZONE: ENC[AES256_GCM,data:i6XazLyWfAjk9bXQyH37+A==,iv:xnSl32MX4vjpC13r1GYLTtdSh+exemg0yhnrMJ+bXyk=,tag:SvFjB0kE78SQ0GarLMZRtA==,type:str]
 sops:
     age:
@@ -24,7 +25,7 @@ sops:
             TW14d1o0cmxyYlFUSUtXWmNGcnl0amcKF7dxQopfNZrNyZufY14BDcrqLULHNBPs
             hiuuYqkP8Z1UKR6nYwHpz7EYuCbvqTOnbFPVyDIBlo8wWeYtrHE2nA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-03-02T15:40:01Z"
-    mac: ENC[AES256_GCM,data:i1WbYzWiPOcwIKQ+XAW7Re+AcKxhIX+j2qJgkxqr1e0Hzd2f9BmeOKN0CDz/YreHRaBy7ZL+WGQLIzay+RRHzzX5JykaCrDZSqF66u5EtbXvqp0CjUm73RlCAlPT8Y6hj7xa7u4xDtNBEO8XSLV/Xv5ZD4SxZrudc9yn8RSIfDE=,iv:0CD9yJFFxwWjTggYOKO/Nq5sRtLI8NRyB3muiIraw7I=,tag:8dkxJrwu8FGyZLacSxR5bA==,type:str]
+    lastmodified: "2026-03-08T15:58:56Z"
+    mac: ENC[AES256_GCM,data:R3AHcsJRfZ9H74NtEqI9ZDY+LWoGzdiDeNN06PfzOxqZhOXkZeP2WBv4YqHEJ74n7wY328+4cRcqocSx1h+62ayhxdWskwdb//Y65P1OsMwFIegvcjkb6pmkYFtZE4g2dfKINFQUXYev2TV7PIAcNjFldrc/Vba96oTrzBTGjx0=,iv:6G9NMQHGEvSffawUlj7DyQCAvukBJY0fv5jZoYscXC4=,tag:x7JK5anujA4Vrb4XgVVrqA==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.11.0
