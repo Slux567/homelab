@@ -3,3 +3,5 @@ kind: BGPAdvertisement
 metadata:
   name: default
   namespace: metallb-system
+  ipAddressPools:
+  - first-pool
