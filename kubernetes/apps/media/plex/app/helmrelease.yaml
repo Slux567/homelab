@@ -20,7 +20,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               PLEX_ADVERTISE_URL: https://10.0.30.103:32400, https://plex.${DOMAIN_01}:443
-              PLEX_NO_AUTH_NETWORKS: 192.168.0.0/16
+              PLEX_NO_AUTH_NETWORKS: 192.168.0.0/16,10.0.0.0/8
             probes:
               liveness: &probes
                 enabled: true
