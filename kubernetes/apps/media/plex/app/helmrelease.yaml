@@ -85,22 +85,21 @@ spec:
           - name: internal
             namespace: envoy-gateway
         rules:
-          - # Ref: https://forums.plex.tv/t/external-srt-subtitles-are-not-working-w-reverse-proxy/886540
-            backendRefs:
+          - backendRefs:
               - identifier: app
-                port: 32400
+                port: *port
             filters:
               - type: RequestHeaderModifier
                 requestHeaderModifier:
-                  remove:
-                    - Range
+                  remove: ["Range"]
             matches:
               - path:
                   type: PathPrefix
                   value: /library/streams
           - backendRefs:
               - identifier: app
-                port: 32400
+                port: *port
+
   
     persistence:
       config:
