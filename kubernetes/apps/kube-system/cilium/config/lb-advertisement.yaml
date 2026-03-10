@@ -11,5 +11,7 @@ spec:
         addresses:
           - LoadBalancerIP
       selector:
-        matchLabels:
-          bgp.cilium.io/advertise-service: default
+        matchExpressions:
+        - key: somekey
+          operator: NotIn
+          values: ["never"]
