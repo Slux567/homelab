@@ -13,11 +13,17 @@ export SECRET_BUNDLE_NAME=secrets.yaml
 # # -----------------------------
 # # Step 1: Generate secrets (one-time)
 # # -----------------------------
-# echo "🔐 Generating secrets for the cluster..."
-# mkdir -p ${ROOT_DIR}/talos/secrets
-# talosctl gen secrets -o ${ROOT_DIR}/talos/secrets/$SECRET_BUNDLE_NAME
-# echo "✅ Secrets generated at ${ROOT_DIR}/talos/secrets/$SECRET_BUNDLE_NAME"
-# echo ""
+echo "🔐 Generating secrets for the cluster..."
+mkdir -p "${ROOT_DIR}/talos/secrets"
+SECRET_PATH="${ROOT_DIR}/talos/secrets/${SECRET_BUNDLE_NAME}"
+if [ -f "$SECRET_PATH" ]; then
+  echo "⚠️  Secrets already exist at $SECRET_PATH"
+  echo "Skipping generation to avoid overwriting existing cluster secrets."
+else
+  talosctl gen secrets -o "$SECRET_PATH"
+  echo "✅ Secrets generated at $SECRET_PATH"
+fi
+echo ""
 
 # -----------------------------
 # Step 2: Generate base machine configurations
@@ -31,7 +37,6 @@ talosctl gen config $CLUSTER_NAME https://$YOUR_ENDPOINT:6443 \
     --force
 talosctl --talosconfig=${ROOT_DIR}/talos/config/talosconfig \
     config endpoint $NODE_01 $NODE_02 $NODE_03
-
 # -----------------------------
 # Step 3: Patch machine configs
 # -----------------------------
@@ -47,7 +52,7 @@ talosctl machineconfig patch ${ROOT_DIR}/talos/config/controlplane.yaml \
 talosctl machineconfig patch ${ROOT_DIR}/talos/config/controlplane.yaml \
     --patch ${ROOT_DIR}/talos/patches/machines/muspelheim.yaml \
     --output ${ROOT_DIR}/talos/config/$MUSPELHEIM_CFG
-
+echo "Done"
 # -----------------------------
 # Step 4: Cleanup old configs
 # -----------------------------

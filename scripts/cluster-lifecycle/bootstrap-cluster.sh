@@ -5,10 +5,11 @@ set -euo pipefail
 export ROOT_DIR="$(git rev-parse --show-toplevel)"
 source "${ROOT_DIR}/scripts/vars.env"
 
+export CONTROL_PLANE_IP=("$NODE_01" "$NODE_02" "$NODE_03")
 declare -A NODE_CONFIGS=(
-  ["$NODE_01"]="$ASGARD_CFG"
-  ["$NODE_02"]="$MIDGARD_CFG"
-  ["$NODE_03"]="$MUSPELHEIM_CFG"
+  ["$NODE_01"]="asgard.yaml"
+  ["$NODE_02"]="midgard.yaml"
+  ["$NODE_03"]="muspelheim.yaml"
 )
 
 # -----------------------------
@@ -36,10 +37,12 @@ else
       echo -ne "⏳ Waiting $i seconds before bootstrapping...\r"
       sleep 1
   done
-  talosctl bootstrap --nodes "$NODE_01"
+  talosctl bootstrap --nodes "$NODE_01" --talosconfig=${ROOT_DIR}/talos/config/talosconfig
   echo "✅ Bootstrapping success on $NODE_01."
 fi
 echo ""
+
+talosctl kubeconfig --nodes $NODE_01 --talosconfig=${ROOT_DIR}/talos/config/talosconfig
 
 # -----------------------------
 # Step 3: Wait for Kubernetes API to be reachable
