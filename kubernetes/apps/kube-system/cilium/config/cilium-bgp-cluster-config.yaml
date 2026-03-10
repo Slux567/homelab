@@ -1,0 +1,17 @@
+apiVersion: cilium.io/v2
+kind: CiliumBGPClusterConfig
+metadata:
+  name: cilium-bgp
+spec:
+  nodeSelector:
+    matchLabels:
+      node-role.kubernetes.io/control-plane: ""
+  bgpInstances:
+  - name: "instance-65200"
+    localASN: 65200
+    peers:
+    - name: "unifi-router"
+      peerASN: 65100
+      peerAddress: 10.0.30.1
+      peerConfigRef:
+        name: "cilium-peer-config"

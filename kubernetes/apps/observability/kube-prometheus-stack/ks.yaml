@@ -33,6 +33,9 @@ metadata:
   name: kube-prometheus-stack-config
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: onepassword-config
+      namespace: flux-system
   interval: 1h
   path: ./kubernetes/apps/observability/kube-prometheus-stack/config
   prune: true
