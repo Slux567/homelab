@@ -62,7 +62,7 @@ spec:
         controller: qbittorrent
         type: LoadBalancer
         annotations:
-          metallb.io/loadBalancerIPs: "${QBITTORRENT_IP}"
+          lbipam.cilium.io/ips: "${QBITTORRENT_IP}"
         ports:
           http:
             port: *port

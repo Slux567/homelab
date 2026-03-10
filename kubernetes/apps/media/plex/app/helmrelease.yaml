@@ -72,7 +72,7 @@ spec:
       app:
         type: LoadBalancer
         annotations:
-          metallb.io/loadBalancerIPs: "${PLEX_IP}"
+          lbipam.cilium.io/ips: "${PLEX_IP}"
         externalTrafficPolicy: Local
         ports:
           http:

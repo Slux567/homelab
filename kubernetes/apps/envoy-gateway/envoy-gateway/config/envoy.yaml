@@ -11,7 +11,7 @@ spec:
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: "internal.${DOMAIN_01}"
-      metallb.io/loadBalancerIPs: "${GATEWAY_IP_INTERNAL}"
+      lbipam.cilium.io/ips: "${GATEWAY_IP_INTERNAL}"
   listeners:
     - name: http
       protocol: HTTP
@@ -63,7 +63,7 @@ spec:
   infrastructure:
     annotations:
       external-dns.alpha.kubernetes.io/hostname: "external.${DOMAIN_01}"
-      metallb.io/loadBalancerIPs: "${GATEWAY_IP_EXTERNAL}"
+      lbipam.cilium.io/ips: "${GATEWAY_IP_EXTERNAL}"
   listeners:
     - name: http
       protocol: HTTP
