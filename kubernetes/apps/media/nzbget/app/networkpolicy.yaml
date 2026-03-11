@@ -5,7 +5,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: plex
+      app.kubernetes.io/name: nzbget
   policyTypes:
   - Egress
   egress:
