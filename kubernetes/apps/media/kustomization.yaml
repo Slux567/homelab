@@ -6,7 +6,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./media-storage.yaml
-  - ./qbittorrent/ks.yaml
+  # - ./qbittorrent/ks.yaml
   - ./nzbget/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./prowlarr/ks.yaml
