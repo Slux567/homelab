@@ -32,7 +32,10 @@ spec:
           "$schema": "https://docs.renovatebot.com/renovate-schema.json",
           "platform": "github",
           "repositories": ["Slux567/homelab"],
-          "extends": ["config:recommended"],
+          "extends": [
+            "config:recommended",
+            ":automergeMinor"
+          ],
           "enabledManagers": ["kubernetes", "flux"],
           "flux": {
             "fileMatch": ["kubernetes/.+\\.ya?ml$"]
@@ -45,7 +48,14 @@ spec:
           "prConcurrentLimit": 10,
           "prHourlyLimit": 10,
           "baseBranchPatterns": ["main"],
-          "automerge": false
+          "automerge": false,
+          "packageRules": [
+            {
+              "matchUpdateTypes": ["minor"],
+              "automerge": true,
+              "rangeStrategy": "increase"
+            }
+          ]
         }
     persistence:
       cache:
