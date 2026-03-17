@@ -34,7 +34,7 @@ spec:
           "repositories": ["Slux567/homelab"],
           "extends": [
             "config:recommended",
-            ":automergeMinor"
+            ":automergePatch"
           ],
           "enabledManagers": ["kubernetes", "flux"],
           "flux": {
@@ -51,7 +51,7 @@ spec:
           "automerge": false,
           "packageRules": [
             {
-              "matchUpdateTypes": ["minor"],
+              "matchUpdateTypes": ["patch"],
               "automerge": true,
               "rangeStrategy": "increase"
             }
