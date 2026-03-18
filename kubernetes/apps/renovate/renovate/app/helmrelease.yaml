@@ -35,11 +35,8 @@ spec:
           "extends": [
             "config:recommended",
           ],
-          "enabledManagers": ["kubernetes", "flux"],
+          "enabledManagers": ["flux"],
           "flux": {
-            "fileMatch": ["kubernetes/.+\\.ya?ml$"]
-          },
-          "kubernetes": {
             "fileMatch": ["kubernetes/.+\\.ya?ml$"]
           },
           "dependencyDashboard": true,
