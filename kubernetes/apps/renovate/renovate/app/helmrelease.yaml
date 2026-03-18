@@ -34,7 +34,6 @@ spec:
           "repositories": ["Slux567/homelab"],
           "extends": [
             "config:recommended",
-            ":automergePatch"
           ],
           "enabledManagers": ["kubernetes", "flux"],
           "flux": {
@@ -44,16 +43,27 @@ spec:
             "fileMatch": ["kubernetes/.+\\.ya?ml$"]
           },
           "dependencyDashboard": true,
-          "branchConcurrentLimit": 10,
-          "prConcurrentLimit": 10,
-          "prHourlyLimit": 10,
+
+          "branchConcurrentLimit": 5,
+          "prConcurrentLimit": 5,
+          "prHourlyLimit": 5,
+
           "baseBranchPatterns": ["main"],
-          "automerge": false,
+
           "packageRules": [
             {
-              "matchUpdateTypes": ["patch"],
-              "automerge": true,
-              "rangeStrategy": "increase"
+              description: "Auto-merge OCI Charts",
+              matchDatasources: ["docker"],
+              automerge: true,
+              automergeType: "pr",
+              matchUpdateTypes: ["minor", "patch"],
+              matchPackageNames: ["/kube-prometheus-stack/"],
+              ignoreTests: false,
+            },
+            {
+              "description": "Do NOT auto-merge major updates",
+              "matchUpdateTypes": ["major"],
+              "automerge": false
             }
           ]
         }
