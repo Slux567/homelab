@@ -28,8 +28,8 @@ spec:
                   httpGet:
                     path: /jsonrpc/status
                     port: &port 6789
-                  initialDelaySeconds: 30
-                  periodSeconds: 20
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
                   timeoutSeconds: 5
                   failureThreshold: 6
               readiness: *probes

@@ -4,4 +4,4 @@ resources:
   - networkpolicy.yaml
   - ocirepository.yaml
   - storage.yaml
-  - helmrelease.yaml
+  - helmrelease.yaml  
