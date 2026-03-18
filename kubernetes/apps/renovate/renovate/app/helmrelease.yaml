@@ -54,8 +54,7 @@ spec:
               automerge: true,
               automergeType: "pr",
               matchUpdateTypes: ["minor", "patch"],
-              matchPackageNames: ["/kube-prometheus-stack/"],
-              ignoreTests: false,
+              ignoreTests: true,
             },
             {
               "description": "Do NOT auto-merge major updates",
