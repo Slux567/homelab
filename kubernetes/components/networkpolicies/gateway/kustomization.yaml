@@ -6,3 +6,6 @@ resources:
   - allow-ingress-internal-ip.yaml
   - allow-ingress-external-ip.yaml
   - allow-egress-except-system-namespaces.yaml
+  - deny-all.yaml
+  - allow-egress-pod-kube-dns.yaml
+  - allow-ingress-ns-observability.yaml
