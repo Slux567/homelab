@@ -7,4 +7,4 @@ components:
   - ../../components/networkpolicies/internal
 resources:
   - ./namespace.yaml
-  - ./n8n/ks.yaml
+  - ./applications.yaml
