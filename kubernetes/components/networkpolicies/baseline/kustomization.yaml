@@ -5,6 +5,6 @@ resources:
   - deny-all.yaml
   - allow-egress-https-internet.yaml
   - allow-egress-pod-kube-dns.yaml
-  - aallow-ingress-pod-metrics-server.yaml
+  - allow-ingress-pod-metrics-server.yaml
   - allow-ingress-ns-observability.yaml
   - allow-same-namespace.yaml
