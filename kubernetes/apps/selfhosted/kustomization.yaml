@@ -6,8 +6,8 @@ kind: Kustomization
 namespace: selfhosted
 
 components:
-  - ../../../../components/networkpolicies/baseline
-  - ../../../../components/networkpolicies/internal
+  - ../../components/networkpolicies/baseline
+  - ../../components/networkpolicies/internal
 resources:
   - ./namespace.yaml
   - ./n8n/ks.yaml
