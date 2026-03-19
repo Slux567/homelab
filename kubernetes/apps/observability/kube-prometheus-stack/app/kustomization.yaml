@@ -2,10 +2,10 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-components:
-  - ../../../../components/networkpolicies/baseline
-  - ../../../../components/networkpolicies/internal
-  - ../../../../components/networkpolicies/observability
+# components:
+  # - ../../../../components/networkpolicies/baseline
+  # - ../../../../components/networkpolicies/internal
+  # - ../../../../components/networkpolicies/observability
 resources:
   - ./external-secret.yaml
   - ./etcd-certs.yaml
