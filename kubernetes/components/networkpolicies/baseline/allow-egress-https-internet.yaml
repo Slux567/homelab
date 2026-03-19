@@ -3,13 +3,17 @@ kind: NetworkPolicy
 metadata:
   name: baseline-allow-egress-https-internet
 spec:
-  podSelector: {}
+  podSelector: {} # all pods in this namespace
   policyTypes:
   - Egress
   egress:
-  - ports:
-    - protocol: TCP
-      port: 443
-    to:
+  - to:
     - ipBlock:
         cidr: 0.0.0.0/0
+        except:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+    ports:
+    - protocol: TCP
+      port: 443
