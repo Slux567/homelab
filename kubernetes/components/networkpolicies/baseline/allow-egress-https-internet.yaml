@@ -7,4 +7,5 @@ spec:
   policyTypes:
   - Egress
   egress:
-    - {}
+     - to:
+         - cidr: 0.0.0.0/0
