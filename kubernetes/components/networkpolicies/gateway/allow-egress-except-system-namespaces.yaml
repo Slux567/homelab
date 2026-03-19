@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: gateway-allow-egress-ns-all
+  name: gateway-allow-egress-except-system-namespaces
 spec:
   podSelector: {}
   policyTypes:
@@ -9,3 +9,11 @@ spec:
   egress:
   - to:
     - podSelector: {}
+    - namespaceSelector:
+        matchExpressions:
+          - key: kubernetes.io/metadata.name
+            operator: NotIn
+            values:
+              - networking 
+              - kube-system
+              - envoy-gateway
