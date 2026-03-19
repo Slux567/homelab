@@ -1,9 +1,7 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
-# Default namespace for all resources
-namespace: selfhosted
+namespace: flux-system
 
 components:
   - ../../components/networkpolicies/baseline
@@ -11,12 +9,3 @@ components:
 resources:
   - ./namespace.yaml
   - ./n8n/ks.yaml
-
-# Patch specific resources to a different namespace
-patchesStrategicMerge:
-  - |-
-    apiVersion: kustomize.toolkit.fluxcd.io/v1
-    kind: Kustomization
-    metadata:
-      name: n8n
-      namespace: flux-system
