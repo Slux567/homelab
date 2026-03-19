@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: gateway-allow-internal-gateway-access
+spec:
+  podSelector:
+    matchLabels:
+      gateway.networking.k8s.io/gateway-name: internal
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 10.0.30.100/32 
+    ports:
+    - protocol: TCP
+      port: 80
+    - protocol: TCP
+      port: 443
