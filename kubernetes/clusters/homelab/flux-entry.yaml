@@ -55,7 +55,6 @@ spec:
                 kind: HelmRelease
                 metadata:
                   name: _
-                  namespace: flux-system
                 spec:
                   install:
                     crds: CreateReplace
