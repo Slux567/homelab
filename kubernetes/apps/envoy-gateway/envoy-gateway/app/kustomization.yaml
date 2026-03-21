@@ -5,6 +5,7 @@ kind: Kustomization
 components:
   - ../../../../components/networkpolicies/baseline
   - ../../../../components/networkpolicies/gateway
+  - ../../../../components/networkpolicies/all-namespace-egress
 resources:
   - ./ocirepository.yaml
   - ./helmrelease.yaml
