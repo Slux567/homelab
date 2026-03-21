@@ -3,6 +3,7 @@ kind: Kustomization
 components:
   - ../../../../components/networkpolicies/baseline
   - ../../../../components/networkpolicies/internal
+  - ../../../../components/networkpolicies/allow-internet
 resources:
   - ocirepository.yaml
   - external-secret.yaml
