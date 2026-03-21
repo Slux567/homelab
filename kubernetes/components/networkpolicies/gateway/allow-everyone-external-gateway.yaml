@@ -9,3 +9,6 @@ spec:
   ingress:
     - fromCIDR:
         - 0.0.0.0/0
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/instance: envoy-gateway
