@@ -6,6 +6,7 @@ components:
   - ../../../../components/networkpolicies/baseline
   - ../../../../components/networkpolicies/gateway
   - ../../../../components/networkpolicies/all-namespace-egress
+  - ../../../../components/networkpolicies/allow-internet
 resources:
   - ./ocirepository.yaml
   - ./helmrelease.yaml
