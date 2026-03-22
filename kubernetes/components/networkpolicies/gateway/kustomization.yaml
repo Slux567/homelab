@@ -4,3 +4,4 @@ kind: Component
 resources:
   - allow-everyone-external-gateway.yaml
   - allow-home-internal-gateway.yaml
+  - allow-envoy-kubeapi-egress.yaml

@@ -1,0 +1,16 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-envoy-kubeapi-egress
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: envoy-gateway
+  egress:
+    - toServices:
+        - k8sServiceSelector:
+            selector:
+              matchLabels:
+                component: apiserver
+                provider: kubernetes
+            namespace: default
