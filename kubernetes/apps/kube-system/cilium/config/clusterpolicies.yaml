@@ -4,13 +4,22 @@ metadata:
   name: allow-coredns
   namespace: kube-system
 spec:
-  description: "Allow all workloads to talk to CoreDNS for DNS resolution"
+  description: "Allow all workloads and host/remote-node to talk to CoreDNS for DNS resolution"
   endpointSelector:
     matchLabels:
       k8s-app: kube-dns
   ingress:
     - fromEndpoints:
         - {}
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+            - port: "53"
+              protocol: TCP
+    - fromEntities:
+        - host
+        - remote-node
       toPorts:
         - ports:
             - port: "53"
