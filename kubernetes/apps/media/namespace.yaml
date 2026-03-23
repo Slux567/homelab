@@ -4,13 +4,13 @@ kind: Namespace
 metadata:
   name: media
 ---
-apiVersion: cilium.io/v2
-kind: CiliumNetworkPolicy
-metadata:
-  name: allow-same-namespace
-  namespace: media
-spec:
-  endpointSelector: {}
-  ingress:
-    - fromEndpoints:
-        - {}
+# apiVersion: cilium.io/v2
+# kind: CiliumNetworkPolicy
+# metadata:
+#   name: allow-same-namespace
+#   namespace: media
+# spec:
+#   endpointSelector: {}
+#   ingress:
+#     - fromEndpoints:
+#         - {}

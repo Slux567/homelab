@@ -7,13 +7,13 @@ metadata:
     kustomize.toolkit.fluxcd.io/prune: disabled
     pod-security.kubernetes.io/enforce: privileged
 ---
-apiVersion: cilium.io/v2
-kind: CiliumNetworkPolicy
-metadata:
-  name: allow-same-namespace
-  namespace: cert-manager
-spec:
-  endpointSelector: {}
-  ingress:
-    - fromEndpoints:
-        - {}
+# apiVersion: cilium.io/v2
+# kind: CiliumNetworkPolicy
+# metadata:
+#   name: allow-same-namespace
+#   namespace: cert-manager
+# spec:
+#   endpointSelector: {}
+#   ingress:
+#     - fromEndpoints:
+#         - {}
