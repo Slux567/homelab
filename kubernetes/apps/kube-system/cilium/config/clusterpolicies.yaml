@@ -30,6 +30,36 @@ spec:
         - {}
 ---
 apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-all-to-flux-controllers
+  namespace: flux-system
+spec:
+  description: "Allow all pods cluster-wide to reach Flux controllers"
+  endpointSelector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - source-controller
+          - helm-controller
+          - kustomize-controller
+          - notification-controller
+          - image-reflector-controller
+          - image-automation-controller
+  ingress:
+    - fromEndpoints:
+        - {}
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP
+            - port: "9090"
+              protocol: TCP
+            - port: "9292"
+              protocol: TCP
+---
+apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
 metadata:
   name: allow-observability-to-all
