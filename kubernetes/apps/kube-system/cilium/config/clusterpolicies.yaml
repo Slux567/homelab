@@ -1,0 +1,53 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-observability-to-all
+spec:
+  description: "Allow ingress from all pods in the observability namespace to all pods cluster‑wide"
+  endpointSelector: {}
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: observability
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-envoy-internal-to-exposure-internal
+spec:
+  description: "Allow ingress from envoy-gateway pods with gateway=internal → exposure=internal pods"
+  endpointSelector:
+    matchLabels:
+      exposure: internal
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: envoy-gateway
+            gateway: internal
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-envoy-external-to-exposure-external
+spec:
+  description: "Allow ingress from envoy-gateway pods with gateway=external → exposure=external pods"
+  endpointSelector:
+    matchLabels:
+      exposure: external
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: envoy-gateway
+            gateway: external
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-host-to-pods
+spec:
+  description: "Allow ingress from host entity to all pods (for kubelet probes, exec, logs, node traffic)"
+  endpointSelector: {}
+  ingress:
+    - fromEntities:
+        - host

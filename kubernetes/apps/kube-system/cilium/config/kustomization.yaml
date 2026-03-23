@@ -5,3 +5,4 @@ resources:
   - cilium-bgp-peer-config.yaml
   - lb-advertisement.yaml
   - lb-pool.yaml
+  - clusterpolicies.yaml

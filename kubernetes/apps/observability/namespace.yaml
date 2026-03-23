@@ -5,3 +5,14 @@ metadata:
   name: observability
   labels:
     pod-security.kubernetes.io/enforce: privileged
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-same-namespace
+  namespace: observability
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEndpoints:
+        - {}

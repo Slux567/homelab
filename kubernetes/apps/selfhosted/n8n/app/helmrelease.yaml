@@ -42,6 +42,8 @@ spec:
               limits:
                 memory: 2Gi
         pod:
+          labels:
+            exposure: internal
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
