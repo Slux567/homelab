@@ -5,6 +5,7 @@ kind: Kustomization
 
 resources:
   - ./namespace.yaml
+  - ./networkpolicies.yaml
   - ./media-storage.yaml
   # - ./qbittorrent/ks.yaml
   - ./nzbget/ks.yaml
