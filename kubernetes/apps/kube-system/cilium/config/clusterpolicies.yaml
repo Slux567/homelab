@@ -9,23 +9,17 @@ spec:
     matchLabels:
       k8s-app: kube-dns
   ingress:
-    - fromEndpoints:
-        - {}
-      toPorts:
-        - ports:
-            - port: "53"
-              protocol: UDP
-            - port: "53"
-              protocol: TCP
     - fromEntities:
-        - host
-        - remote-node
+        - cluster
       toPorts:
         - ports:
             - port: "53"
               protocol: UDP
             - port: "53"
               protocol: TCP
+          rules:
+            dns:
+              - matchPattern: "*"
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
@@ -37,6 +31,16 @@ spec:
   ingress:
     - fromEndpoints:
         - {}
+---
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-all-egress
+spec:
+  description: "Allow all egress traffic from all pods cluster-wide"
+  endpointSelector: {}
+  egress:
+    - {}
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
