@@ -1,7 +1,7 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: allow-coredns-ingress
+  name: allow-coredns
   namespace: kube-system
 spec:
   description: "Allow all workloads to talk to CoreDNS for DNS resolution"
