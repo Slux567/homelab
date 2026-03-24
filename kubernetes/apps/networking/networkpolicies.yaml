@@ -21,6 +21,7 @@ spec:
   egress:
     - toEntities:
         - world
+        - kube-apiserver
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
