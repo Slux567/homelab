@@ -42,13 +42,14 @@ spec:
 
           "platformAutomerge": true,
           "automergeType": "pr",
+          "automergeStrategy": "squash",
+
+          "prCreation": "immediate",
 
           "schedule": ["after 6am and before 11pm"],
 
           "prHourlyLimit": 4,
           "prConcurrentLimit": 10,
-
-          "prCreation": "not-pending",
 
           "rebaseWhen": "behind-base-branch",
 
@@ -83,20 +84,20 @@ spec:
               "automerge": true
             },
             {
-              "description": "Auto-merge minor updates for trusted deps",
+              "description": "Auto-merge minor updates",
               "matchUpdateTypes": ["minor"],
               "matchDatasources": ["docker", "helm"],
               "automerge": true
             },
             {
-              "description": "Group all Kubernetes YAML updates",
+              "description": "Group Kubernetes resources",
               "matchManagers": ["kubernetes", "flux"],
-              "groupName": "kubernetes manifests"
+              "groupName": "kubernetes"
             },
             {
-              "description": "Group Helm chart updates",
+              "description": "Group Helm charts",
               "matchManagers": ["helm-values"],
-              "groupName": "helm charts"
+              "groupName": "helm"
             },
             {
               "description": "Pin Docker digests",
@@ -104,15 +105,10 @@ spec:
               "pinDigests": true
             },
             {
-              "description": "Stability days for major updates",
+              "description": "Major updates need manual review",
               "matchUpdateTypes": ["major"],
               "stabilityDays": 3,
               "automerge": false
-            },
-            {
-              "description": "Ignore super noisy images",
-              "matchPackagePatterns": ["^ghcr.io/.*/nightly"],
-              "enabled": false
             }
           ],
 
@@ -123,7 +119,7 @@ spec:
           "commitMessageTopic": "{{depName}}",
 
           "prBodyNotes": [
-            "⚙️ Managed by Renovate for Flux GitOps"
+            "⚙️ Managed by Renovate (self-hosted via Flux)"
           ]
         }
 
