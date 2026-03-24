@@ -6,6 +6,9 @@ metadata:
 spec:
   endpointSelector: {}
   ingress:
+    - fromEntities:
+      - kube-apiserver
+      - host
     - fromEndpoints:
         - {}
     - fromEndpoints:
