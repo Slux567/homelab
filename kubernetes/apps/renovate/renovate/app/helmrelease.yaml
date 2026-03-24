@@ -30,37 +30,96 @@ spec:
       config: |
         {
           "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-          "platform": "github",
-          "repositories": ["Slux567/homelab"],
+
           "extends": [
             "config:recommended",
+            ":dependencyDashboard",
+            ":semanticCommits",
+            ":timezone(Europe/Amsterdam)"
           ],
-          "enabledManagers": ["flux"],
-          "flux": {
-            "fileMatch": ["kubernetes/.+\\.ya?ml$"]
+
+          "platformAutomerge": true,
+          "automergeType": "pr",
+
+          "schedule": ["after 6am and before 11pm"],
+
+          "prHourlyLimit": 4,
+          "prConcurrentLimit": 10,
+
+          "rebaseWhen": "behind-base-branch",
+
+          "labels": ["dependencies"],
+
+          "kubernetes": {
+            "fileMatch": ["\\.ya?ml$"]
           },
-          "dependencyDashboard": true,
 
-          "branchConcurrentLimit": 5,
-          "prConcurrentLimit": 5,
-          "prHourlyLimit": 5,
+          "flux": {
+            "fileMatch": ["\\.ya?ml$"]
+          },
 
-          "baseBranchPatterns": ["main"],
+          "helm-values": {
+            "fileMatch": ["(^|/)values\\.ya?ml$"]
+          },
+
+          "regexManagers": [
+            {
+              "fileMatch": ["\\.ya?ml$"],
+              "matchStrings": [
+                "image:\\s*(?<depName>[^:\\s]+):(?<currentValue>[^\\s]+)"
+              ],
+              "datasourceTemplate": "docker"
+            }
+          ],
 
           "packageRules": [
             {
-              description: "Auto-merge OCI Charts",
-              matchDatasources: ["docker"],
-              automerge: true,
-              automergeType: "pr",
-              matchUpdateTypes: ["minor", "patch"],
-              ignoreTests: true,
+              "description": "Auto-merge patch updates",
+              "matchUpdateTypes": ["patch"],
+              "automerge": true
             },
             {
-              "description": "Do NOT auto-merge major updates",
+              "description": "Auto-merge minor updates for trusted deps",
+              "matchUpdateTypes": ["minor"],
+              "matchDatasources": ["docker", "helm"],
+              "automerge": true
+            },
+            {
+              "description": "Group all Kubernetes YAML updates",
+              "matchManagers": ["kubernetes", "flux"],
+              "groupName": "kubernetes manifests"
+            },
+            {
+              "description": "Group Helm chart updates",
+              "matchManagers": ["helm-values"],
+              "groupName": "helm charts"
+            },
+            {
+              "description": "Pin Docker digests",
+              "matchDatasources": ["docker"],
+              "pinDigests": true
+            },
+            {
+              "description": "Stability days for major updates",
               "matchUpdateTypes": ["major"],
+              "stabilityDays": 3,
               "automerge": false
+            },
+            {
+              "description": "Ignore super noisy images",
+              "matchPackagePatterns": ["^ghcr.io/.*/nightly"],
+              "enabled": false
             }
+          ],
+
+          "dependencyDashboard": true,
+
+          "commitMessagePrefix": "⬆️ ",
+          "commitMessageAction": "update",
+          "commitMessageTopic": "{{depName}}",
+
+          "prBodyNotes": [
+            "⚙️ Managed by Renovate for Flux GitOps"
           ]
         }
     persistence:
