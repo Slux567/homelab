@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: truenas-service
+subsets:
+  - addresses:
+      - ip: 10.0.40.50
+    ports:
+      - port: 80
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: truenas-route
+spec:
+  parentRefs:
+    - name: internal
+      namespace: envoy-gateway
+      sectionName: https
+  hostnames:
+    - truenas.sluxcloud.com
+  rules:
+    - backendRefs:
+        - name: truenas-service
+          port: 80
