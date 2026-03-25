@@ -27,6 +27,8 @@ spec:
           rules:
             dns:
               - matchPattern: "*"
+    - toCIDRSet:
+        - cidr: 10.0.40.0/24
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
