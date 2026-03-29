@@ -24,7 +24,7 @@ spec:
           except:
             - 10.42.0.0/16        # pod CIDR
             - 10.96.0.0/12        # service CIDR
-            - 192.168.10.0/24      # Home Network Range
+            - 192.168.0.0/16      # Home Network Range
             - 10.0.40.0/24        # Storage CIDR
     - toEntities:
         - kube-apiserver
@@ -41,3 +41,16 @@ spec:
               - matchPattern: "*"
     - toEndpoints:
         - {}
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: external-dns-policy
+  namespace: networking
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: external-dns
+  egress:
+    - toCIDRSet:
+        - cidr: 192.168.1.254/32
