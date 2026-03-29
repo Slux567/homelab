@@ -36,7 +36,7 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      gateway.networking.k8s.io/gateway-name: internal
+      gateway.networking.k8s.io/gateway-name: external
   ingress:
     - fromEndpoints:
         - matchLabels:
@@ -44,8 +44,9 @@ spec:
     - fromEntities:
         - world
   egress:
-    - toEntities:
-        - cluster
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: external
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
