@@ -19,8 +19,14 @@ spec:
             gateway.networking.k8s.io/gateway-name: internal
             io.kubernetes.pod.namespace: envoy-gateway
   egress:
+    - toCIDRSet:
+        - cidr: 0.0.0.0/0
+          except:
+            - 10.42.0.0/16        # pod CIDR
+            - 10.96.0.0/12        # service CIDR
+            - 192.168.0.0/16      # private range
+            - 10.0.40.0/24        # Storage CIDR
     - toEntities:
-        - world
         - kube-apiserver
     - toEndpoints:
         - matchLabels:

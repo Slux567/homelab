@@ -1,0 +1,67 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: kube-system-default
+  namespace: kube-system
+spec:
+  endpointSelector: {}  # applies to all pods in the namespace
+  ingress:
+    # Full freedom within kube-system
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: kube-system
+ 
+    # Kubelet health probes + apiserver aggregation layer callbacks
+    - fromEntities:
+        - host
+        - remote-node
+
+    # Allow all ingress from the observability namespace (metrics scraping etc.)
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: observability
+
+    # Other namespaces may only reach CoreDNS (port 53)
+    - fromEntities:
+        - cluster
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+            - port: "53"
+              protocol: TCP
+
+  egress:
+    # Full freedom within kube-system
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: kube-system
+ 
+    # Apiserver, kubelet scraping, node-to-node Cilium traffic
+    - toEntities:
+        - host
+        - remote-node
+ 
+    # External targets: upstream DNS resolvers, NFS server, external Postgres
+    - toCIDRSet:
+        - cidr: 0.0.0.0/0
+          except:
+            - 10.42.0.0/16        # pod CIDR
+            - 10.96.0.0/12        # service CIDR
+            - 192.168.0.0/16      # private range
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: hubble-ui-ingress
+  namespace: kube-system
+spec:
+  endpointSelector:
+    matchLabels:
+      k8s-app: hubble-ui
+  ingress:
+    # Internal gateway in envoy-gateway namespace may reach Hubble UI
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: envoy-gateway
+            gateway.networking.k8s.io/gateway-name: internal
