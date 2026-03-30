@@ -10,7 +10,7 @@ spec:
     - name: onepassword-config
       namespace: flux-system
   interval: 10m
-  path: ./kubernetes/apps/cloudflared/cloudflare-tunnel
+  path: ./kubernetes/apps/cloudflared/cloudflare-tunnel/app
   prune: true
   sourceRef:
     kind: GitRepository
