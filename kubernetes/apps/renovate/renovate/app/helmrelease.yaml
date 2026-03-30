@@ -102,7 +102,7 @@ spec:
             {
               "description": "Pin Docker digests",
               "matchDatasources": ["docker"],
-              "pinDigests": true
+              "pinDigests": false
             },
             {
               "description": "Major updates need manual review",
