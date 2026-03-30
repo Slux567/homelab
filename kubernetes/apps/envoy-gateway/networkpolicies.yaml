@@ -43,8 +43,7 @@ spec:
             app.kubernetes.io/name: gateway-helm
     - fromEndpoints:
         - matchLabels:
-            name: cloudflare-tunnel
-            namespace: cloudflared
+            io.kubernetes.pod.namespace: cloudflared
       toPorts:
         - ports:
             - port: "10443"
