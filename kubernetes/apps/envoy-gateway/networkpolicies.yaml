@@ -41,6 +41,8 @@ spec:
     - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/name: gateway-helm
+    - fromEntities:
+        - world
     - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/name: cloudflare-tunnel
