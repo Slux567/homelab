@@ -1,8 +1,8 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: default-selfhosted-policy
-  namespace: selfhosted
+  name: default-cloudflared-policy
+  namespace: cloudflared
 spec:
   endpointSelector: {}
   ingress:
