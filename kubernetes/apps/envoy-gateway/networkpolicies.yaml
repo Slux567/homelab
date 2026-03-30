@@ -41,11 +41,14 @@ spec:
     - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/name: gateway-helm
-    - fromEntities:
-        - world
     - fromEndpoints:
         - matchLabels:
-            app.kubernetes.io/name: cloudflare-tunnel
+            name: cloudflare-tunnel
+            namespace: cloudflared
+      toPorts:
+        - ports:
+            - port: "10443"
+              protocol: TCP
   egress:
     - toEndpoints:
         - matchLabels:
@@ -61,10 +64,4 @@ spec:
           rules:
             dns:
               - matchPattern: "*"
-    - toEndpoints:
-      - matchLabels:
-          app.kubernetes.io/name: gateway-helm
-      toPorts:
-        - ports:
-            - port: "18000"
-              protocol: TCP
+
