@@ -44,7 +44,7 @@ spec:
     - fromEntities:
         - matchLabels:
             app.kubernetes.io/name: cloudflare-tunnel
-      fromPorts:
+      toPorts:
         - ports:
             - port: "10443"
               protocol: TCP
