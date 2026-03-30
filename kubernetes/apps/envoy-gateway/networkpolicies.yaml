@@ -63,4 +63,9 @@ spec:
           rules:
             dns:
               - matchPattern: "*"
-
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: gateway-helm
+      toPorts:
+        - ports:
+            - port: "18000"
