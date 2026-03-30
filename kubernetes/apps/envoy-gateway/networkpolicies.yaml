@@ -51,7 +51,7 @@ spec:
   egress:
     - toEndpoints:
         - matchLabels:
-            io.kubernetes.pod.namespace: external
+            io.kubernetes.pod.namespace: testing
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
