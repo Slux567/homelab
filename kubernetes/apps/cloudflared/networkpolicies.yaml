@@ -1,16 +1,14 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: default-networking-policy
-  namespace: networking
+  name: default-selfhosted-policy
+  namespace: selfhosted
 spec:
   endpointSelector: {}
   ingress:
     - fromEntities:
       - kube-apiserver
       - host
-    - fromEndpoints:
-        - {}
     - fromEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: observability
@@ -20,10 +18,16 @@ spec:
           except:
             - 10.42.0.0/16        # pod CIDR
             - 10.96.0.0/12        # service CIDR
-            - 192.168.0.0/16      # Home Network Range
+            - 192.168.0.0/16      # private range
             - 10.0.40.0/24        # Storage CIDR
-    - toEntities:
-        - kube-apiserver
+      toPorts:
+        - ports:
+            - port: "443"
+              protocol: TCP
+            - port: "7844"
+              protocol: TCP
+            - port: "7844"
+              protocol: UDP
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
@@ -36,17 +40,6 @@ spec:
             dns:
               - matchPattern: "*"
     - toEndpoints:
-        - {}
----
-apiVersion: cilium.io/v2
-kind: CiliumNetworkPolicy
-metadata:
-  name: external-dns-unifi-policy
-  namespace: networking
-spec:
-  endpointSelector:
-    matchLabels:
-      app.kubernetes.io/instance: external-dns-unifi
-  egress:
-    - toCIDRSet:
-        - cidr: 192.168.1.254/32
+        - matchLabels:
+            gateway.networking.k8s.io/gateway-name: external
+            io.kubernetes.pod.namespace: envoy-gateway

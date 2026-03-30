@@ -5,6 +5,7 @@ metadata:
     namespace: flux-system
 data:
     DOMAIN_01: ENC[AES256_GCM,data:dUOZsVJln6e/tEo7cg==,iv:udUj7aVAVlGLy41YxKwgD1Gm7OwOoCGUjCO+XM2PC9c=,tag:DwAVRLL8ydpHYcFJQEOWug==,type:str]
+    CLOUDFLARE_TUNNEL_ID: ENC[AES256_GCM,data:VXqubIk/32sLaPwM5d29nU1vJXHoOlV9/XVD8nI6zHKCbW6m,iv:nyCFdOnezr2vCwrb17wR5M+q8OFb6bsONguMoEq2Mv4=,tag:zUeM4p1VyadIdoEZjVbEvA==,type:str]
     ASGARD_IP: ENC[AES256_GCM,data:aXUhUA0hpcJydQ==,iv:yACc99EPZw2eDHSgxBoIidOJvCeZ2Dsm58m8lj/sTik=,tag:j0MBvtc0q4Q5MZb0WiXtsg==,type:str]
     MIDGARD_IP: ENC[AES256_GCM,data:mGelKlTFMAhuHA==,iv:f1aP94ENJOECZ/sTzPkNHRNjzWd2RI0+rz6/Flk1NRA=,tag:YIUARpbZNQf16i4qbFTUGQ==,type:str]
     MUSPELHEIM_IP: ENC[AES256_GCM,data:9fyX6BsyOIhQtw==,iv:QMrhsi5TElbiIxS9PV+rZ9f20kp5CgQBf/qKlBYxu5Y=,tag:jc8ncgjpaBLZnY4+O7nzNQ==,type:str]
@@ -25,7 +26,7 @@ sops:
             TW14d1o0cmxyYlFUSUtXWmNGcnl0amcKF7dxQopfNZrNyZufY14BDcrqLULHNBPs
             hiuuYqkP8Z1UKR6nYwHpz7EYuCbvqTOnbFPVyDIBlo8wWeYtrHE2nA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-03-08T15:58:56Z"
-    mac: ENC[AES256_GCM,data:R3AHcsJRfZ9H74NtEqI9ZDY+LWoGzdiDeNN06PfzOxqZhOXkZeP2WBv4YqHEJ74n7wY328+4cRcqocSx1h+62ayhxdWskwdb//Y65P1OsMwFIegvcjkb6pmkYFtZE4g2dfKINFQUXYev2TV7PIAcNjFldrc/Vba96oTrzBTGjx0=,iv:6G9NMQHGEvSffawUlj7DyQCAvukBJY0fv5jZoYscXC4=,tag:x7JK5anujA4Vrb4XgVVrqA==,type:str]
+    lastmodified: "2026-03-30T22:16:25Z"
+    mac: ENC[AES256_GCM,data:kC4XrYzkLGrsMRzrjyYRp+nYofTSXArw6wroJwzzJDiETAgtn9M9JETH8B96Jv0IOObb3Mi5c4zmlfWkb3lJlYgavojH06WyG4CaK5sSZAZ7v3lbFM0pYLw+quTgPLvrQHDvSUTbPAaJmUIizTFaBRUWlItrv6AU7PJ99GkQcq8=,iv:lqjyq14WMtMcXnZHMa7BM3C8PYboVKqLZD+9FWVc7rI=,tag:un3hHEnE+IWVjMtFkttYAw==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.11.0
