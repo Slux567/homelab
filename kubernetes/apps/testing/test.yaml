@@ -48,7 +48,7 @@ metadata:
   namespace: testing
 spec:
   parentRefs:
-    - name: internal
+    - name: external
       namespace: envoy-gateway
       sectionName: https
   hostnames:
