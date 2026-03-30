@@ -41,7 +41,7 @@ spec:
     - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/name: gateway-helm
-    - fromEntities:
+    - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/name: cloudflare-tunnel
       toPorts:
