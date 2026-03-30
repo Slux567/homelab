@@ -42,7 +42,12 @@ spec:
         - matchLabels:
             app.kubernetes.io/name: gateway-helm
     - fromEntities:
-        - world
+        - matchLabels:
+            app.kubernetes.io/name: cloudflare-tunnel
+      fromPorts:
+        - ports:
+            - port: "10443"
+              protocol: TCP
   egress:
     - toEndpoints:
         - matchLabels:
