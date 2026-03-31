@@ -1,6 +1,6 @@
 ---
-originRequest:
-  originServerName: "external.${DOMAIN_01}"
+# originRequest:
+#   originServerName: "external.${DOMAIN_01}"
 
 ingress:
   - hostname: "${DOMAIN_01}"
