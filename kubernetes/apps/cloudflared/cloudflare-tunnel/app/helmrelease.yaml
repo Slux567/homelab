@@ -24,7 +24,7 @@ spec:
               TUNNEL_METRICS: 0.0.0.0:8080
               TUNNEL_TRANSPORT_PROTOCOL: quic
               TUNNEL_POST_QUANTUM: true
-              TUNNEL_ID:
+              CLOUDFLARE_TUNNEL_ID:
                 valueFrom:
                   secretKeyRef:
                     name: cloudflare-tunnel-secret
