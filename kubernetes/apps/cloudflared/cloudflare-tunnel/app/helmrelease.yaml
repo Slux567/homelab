@@ -22,7 +22,6 @@ spec:
               NO_AUTOUPDATE: true
               TUNNEL_CRED_FILE: /etc/cloudflared/creds/credentials.json
               TUNNEL_METRICS: 0.0.0.0:8080
-              TUNNEL_ORIGIN_ENABLE_HTTP2: true
               TUNNEL_TRANSPORT_PROTOCOL: quic
               TUNNEL_POST_QUANTUM: true
               TUNNEL_ID:
@@ -32,10 +31,7 @@ spec:
                     key: CLOUDFLARE_TUNNEL_ID
             args:
               - tunnel
-              - --config
-              - /etc/cloudflared/config/config.yaml
               - run
-              - "$(TUNNEL_ID)"
             probes:
               liveness: &probes
                 enabled: true
@@ -61,8 +57,8 @@ spec:
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 65534
-        runAsGroup: 65534
+        runAsUser: 1000
+        runAsGroup: 1000
         seccompProfile: { type: RuntimeDefault }
     service:
       app:
@@ -73,6 +69,19 @@ spec:
       app:
         endpoints:
           - port: http
+    configMaps:
+      config:
+        data:
+          config.yaml: |-
+            ingress:
+              - hostname: "*.${DOMAIN_01}"
+                originRequest:
+                  http2Origin: true
+                  keepAliveTimeout: 3600s
+                  originServerName: external.${DOMAIN_01}
+                  tcpKeepAlive: 7200s
+                service: https://external.envoy-gateway.svc.cluster.local:443
+              - service: http_status:404
     persistence:
       config:
         type: configMap
