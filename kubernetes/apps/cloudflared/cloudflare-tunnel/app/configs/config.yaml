@@ -1,10 +1,7 @@
 ---
-# originRequest:
-#   originServerName: "external.${DOMAIN_01}"
-
 ingress:
   - hostname: "${DOMAIN_01}"
-    service: &svc https://external.envoy-gateway.svc.cluster.local
+    service: http://external.envoy-gateway.svc.cluster.local
   - hostname: "*.${DOMAIN_01}"
-    service: *svc
+    service: http://external.envoy-gateway.svc.cluster.local
   - service: http_status:404
