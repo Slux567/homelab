@@ -1,4 +1,7 @@
 ---
+originRequest:
+  originServerName: "external.${DOMAIN_01}"
+
 ingress:
   - hostname: "${DOMAIN_01}"
     service: http://external.envoy-gateway.svc.cluster.local
