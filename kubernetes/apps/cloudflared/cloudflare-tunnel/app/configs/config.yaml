@@ -1,6 +1,6 @@
 ---
 originRequest:
-  originServerName: "external.${DOMAIN_01}"
+  noTLSVerify: true
 
 ingress:
   - hostname: "${DOMAIN_01}"
