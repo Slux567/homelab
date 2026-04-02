@@ -76,10 +76,12 @@ spec:
             ingress:
               - hostname: "*.${DOMAIN_01}"
                 originRequest:
-                  http2Origin: true
-                  keepAliveTimeout: 3600s
+                  http2Origin: false
+                  noTLSVerify: true
                   originServerName: external.${DOMAIN_01}
-                  tcpKeepAlive: 7200s
+                  connectTimeout: 30s
+                  keepAliveConnections: 100
+                  keepAliveTimeout: 90s
                 service: https://external.envoy-gateway.svc.cluster.local:443
               - service: http_status:404
     persistence:
