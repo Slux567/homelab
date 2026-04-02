@@ -4,7 +4,7 @@ originRequest:
 
 ingress:
   - hostname: "${DOMAIN_01}"
-    service: http://external.envoy-gateway.svc.cluster.local
+    service: https://external.envoy-gateway.svc.cluster.local
   - hostname: "*.${DOMAIN_01}"
-    service: http://external.envoy-gateway.svc.cluster.local
+    service: https://external.envoy-gateway.svc.cluster.local
   - service: http_status:404
