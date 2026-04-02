@@ -59,7 +59,6 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         ports:
@@ -83,13 +82,12 @@ spec:
                 service: https://external.envoy-gateway.svc.cluster.local:443
               - service: http_status:404
     persistence:
-      config:
+      config-file:
         type: configMap
-        name: cloudflare-tunnel-configmap
+        identifier: config
         globalMounts:
-          - path: /etc/cloudflared/config/config.yaml
+          - path: /etc/cloudflared/config.yaml
             subPath: config.yaml
-            readOnly: true
       creds:
         type: secret
         name: cloudflare-tunnel-secret
