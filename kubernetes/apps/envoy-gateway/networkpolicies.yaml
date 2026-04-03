@@ -60,6 +60,8 @@ spec:
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: testing
+        - matchLabels:
+            io.kubernetes.pod.namespace: cloudflared
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
