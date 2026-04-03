@@ -52,7 +52,7 @@ spec:
       namespace: envoy-gateway
       sectionName: https
   hostnames:
-    - nginx.sluxcloud.com   # replace with your hostname
+    - poep.sluxcloud.com   # replace with your hostname
   rules:
     - matches:
         - path:
