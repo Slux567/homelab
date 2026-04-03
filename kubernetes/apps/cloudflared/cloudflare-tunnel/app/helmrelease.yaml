@@ -77,11 +77,9 @@ spec:
               - hostname: "*.${DOMAIN_01}"
                 originRequest:
                   http2Origin: true
-                  noTLSVerify: true
                   originServerName: external.${DOMAIN_01}
-                  connectTimeout: 30s
-                  keepAliveConnections: 100
-                  keepAliveTimeout: 90s
+                  keepAliveTimeout: 3600s
+                  tcpKeepAlive: 7200s
                 service: https://external.envoy-gateway.svc.cluster.local:443
               - service: http_status:404
     persistence:
