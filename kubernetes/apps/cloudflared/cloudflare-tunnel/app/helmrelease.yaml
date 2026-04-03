@@ -76,7 +76,7 @@ spec:
             ingress:
               - hostname: "*.${DOMAIN_01}"
                 originRequest:
-                  http2Origin: false
+                  http2Origin: true
                   noTLSVerify: true
                   originServerName: external.${DOMAIN_01}
                   connectTimeout: 30s
