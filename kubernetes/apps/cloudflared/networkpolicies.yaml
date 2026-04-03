@@ -12,6 +12,10 @@ spec:
     - fromEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: observability
+    - fromEndpoints:
+        - matchLabels:
+            gateway.networking.k8s.io/gateway-name: external
+            io.kubernetes.pod.namespace: envoy-gateway
   egress:
     - toCIDRSet:
         - cidr: 0.0.0.0/0
