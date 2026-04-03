@@ -38,6 +38,8 @@ spec:
     matchLabels:
       gateway.networking.k8s.io/gateway-name: external
   ingress:
+    - fromCIDRSet:
+        - cidr: 192.168.10.0/24
     - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/name: gateway-helm
