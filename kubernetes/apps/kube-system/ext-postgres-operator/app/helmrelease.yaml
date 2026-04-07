@@ -11,7 +11,5 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: ext-postgres-operator
-  valuesFrom:
-    - kind: Secret
-      name: ext-postgres-operator
-      valuesKey: values.yaml
+  values:
+    existingSecret: "ext-postgres-operator-secret"
