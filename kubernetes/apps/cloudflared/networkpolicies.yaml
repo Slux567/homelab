@@ -24,14 +24,6 @@ spec:
             - 10.96.0.0/12        # service CIDR
             - 192.168.0.0/16      # private range
             - 10.0.40.0/24        # Storage CIDR
-      toPorts:
-        - ports:
-            - port: "443"
-              protocol: TCP
-            - port: "7844"
-              protocol: TCP
-            - port: "7844"
-              protocol: UDP
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
