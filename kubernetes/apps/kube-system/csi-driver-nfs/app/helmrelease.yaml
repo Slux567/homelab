@@ -17,10 +17,10 @@ spec:
       parameters:
         server: ${NAS_IP}
         share: /mnt/tank/k8s-nfs
+        subDir: ${pvc.metadata.namespace}/${pvc.metadata.name}
+      reclaimPolicy: Retain
+      volumeBindingMode: Immediate
       mountOptions:
         - nfsvers=4.2
-        - nconnect=16
         - hard
         - noatime
-      reclaimPolicy: Delete
-      volumeBindingMode: Immediate
