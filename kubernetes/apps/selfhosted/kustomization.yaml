@@ -5,3 +5,4 @@ resources:
   - ./namespace.yaml
   - ./networkpolicies.yaml
   - ./n8n/ks.yaml
+  - ./nextcloud/ks.yaml
