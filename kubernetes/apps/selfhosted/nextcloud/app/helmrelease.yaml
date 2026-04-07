@@ -91,3 +91,27 @@ spec:
         passwordKey: PASSWORD
         hostKey: HOSTNAME
         databaseKey: DATABASE_NAME
+
+    startupProbe:
+      enabled: false
+      initialDelaySeconds: 10
+      periodSeconds: 20
+      timeoutSeconds: 5
+      failureThreshold: 60
+      successThreshold: 1
+
+    livenessProbe:
+      enabled: false
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+
+    readinessProbe:
+      enabled: false
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
