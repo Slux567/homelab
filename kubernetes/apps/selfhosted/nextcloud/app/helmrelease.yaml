@@ -25,9 +25,9 @@ spec:
       mail:
         enabled: false
       securityContext:
-        runAsGroup: 1022
+        runAsGroup: 1000
         runAsNonRoot: true
-        runAsUser: 1022
+        runAsUser: 1000
       configs:
         proxy.config.php: |-
           <?php
@@ -75,8 +75,7 @@ spec:
 
     # Cache
     redis:
-      enabled: true
-      architecture: standalone
+      enabled: false
 
     # Database
     internalDatabase:
