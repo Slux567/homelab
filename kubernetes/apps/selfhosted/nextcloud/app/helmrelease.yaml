@@ -24,7 +24,7 @@ spec:
       host: next.{DOMAIN_01}
       mail:
         enabled: false
-      securityContext:
+      podSecurityContext:
         runAsGroup: 1000
         runAsNonRoot: true
         runAsUser: 1000
@@ -78,7 +78,7 @@ spec:
       enabled: false
 
     externalRedis:
-      enabled: true
+      enabled: false
       host: ${NAS_IP}
       port: "6379"
       ## Use a existing secret
