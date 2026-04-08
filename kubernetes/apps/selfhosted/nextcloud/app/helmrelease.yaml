@@ -24,12 +24,10 @@ spec:
       host: next.{DOMAIN_01}
       mail:
         enabled: false
-      securityContext:
+      podSecurityContext:
         runAsGroup: 1000
         runAsNonRoot: true
         runAsUser: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
       configs:
         proxy.config.php: |-
           <?php
