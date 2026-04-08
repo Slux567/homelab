@@ -24,7 +24,7 @@ spec:
       host: next.{DOMAIN_01}
       mail:
         enabled: false
-      podSecurityContext:
+      securityContext:
         runAsGroup: 1000
         runAsNonRoot: true
         runAsUser: 1000
