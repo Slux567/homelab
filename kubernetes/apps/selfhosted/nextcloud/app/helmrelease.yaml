@@ -18,7 +18,7 @@ spec:
       datadir: /var/www/data
       extraEnv:
         - name: REDIS_HOST
-          value: dragonfly.dbms.svc.cluster.local.
+          value: ${NAS_IP}
         - name: REDIS_HOST_PORT
           value: "6379"
       existingSecret:
