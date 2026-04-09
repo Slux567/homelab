@@ -16,6 +16,11 @@ spec:
       enabled: true
     nextcloud:
       datadir: /var/www/data
+      extraEnv:
+        - name: REDIS_HOST
+          value: dragonfly.dbms.svc.cluster.local.
+        - name: REDIS_HOST_PORT
+          value: "6379"
       existingSecret:
         enabled: true
         secretName: nextcloud-secret
@@ -73,24 +78,9 @@ spec:
       enabled: true
       existingClaim: nextcloud
 
-    # Cache
-    redis:
-      enabled: false
-
-    externalRedis:
-      enabled: true
-      host: ${NAS_IP}
-      port: "6379"
-      ## Use a existing secret
-      existingSecret:
-        enabled: true
-        secretName: nextcloud-secret
-        passwordKey: REDIS_PASSWORD
-
     # Database
     internalDatabase:
       enabled: false
-
     externalDatabase:
       enabled: true
       type: postgresql
