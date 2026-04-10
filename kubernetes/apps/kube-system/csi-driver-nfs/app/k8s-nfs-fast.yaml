@@ -4,7 +4,7 @@ metadata:
   name: k8s-nfs-fast
 provisioner: nfs.csi.k8s.io
 parameters:
-  server: ${NAS_IP}
+  server: 10.0.40.50
   share: /mnt/apps/k8s-fast-nfs
   subDir: ${pvc.metadata.namespace}/${pvc.metadata.name}
 reclaimPolicy: Retain
