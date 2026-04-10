@@ -4,9 +4,21 @@ kind: PersistentVolumeClaim
 metadata:
   name: nextcloud
 spec:
-  storageClassName: "k8s-nfs"
+  storageClassName: "k8s-nfs-fast"
   accessModes:
     - ReadWriteOnce
+  resources:
+    requests:
+      storage: 15Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nextcloud-data
+spec:
+  storageClassName: "k8s-nfs"
+  accessModes:
+    - ReadWriteMany
   resources:
     requests:
       storage: 1000Gi

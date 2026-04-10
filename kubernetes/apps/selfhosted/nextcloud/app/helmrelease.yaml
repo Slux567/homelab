@@ -33,6 +33,8 @@ spec:
         runAsGroup: 1000
         runAsNonRoot: true
         runAsUser: 1000
+      defaultConfigs:
+        redis.config.php: false
       configs:
         proxy.config.php: |-
           <?php
@@ -46,6 +48,18 @@ spec:
               1 => '10.42.0.0/16',
             ),
           ); ?>
+
+        redis.config.php: |-
+          <?php
+          $CONFIG = array(
+            'memcache.distributed' => '\OC\Memcache\Redis',
+            'memcache.locking' => '\OC\Memcache\Redis',
+            'redis' => array(
+              'host' => getenv('REDIS_HOST'),
+              'port' => getenv('REDIS_HOST_PORT') ?: 6379,
+            ),
+          ); ?>
+          
         misc.config.php: |-
           <?php
           $CONFIG = array (
@@ -77,7 +91,10 @@ spec:
     persistence:
       enabled: true
       existingClaim: nextcloud
-
+      nextcloudData:
+        enabled: true
+        existingClaim: nextcloud-data
+        accessMode: ReadWriteMany
     # Database
     internalDatabase:
       enabled: false
