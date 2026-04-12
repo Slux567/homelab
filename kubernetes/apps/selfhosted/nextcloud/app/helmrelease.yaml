@@ -138,19 +138,3 @@ spec:
       timeoutSeconds: 5
       failureThreshold: 3
       successThreshold: 1
-
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: Deployment
-              name: nextcloud
-            patch: |-
-              apiVersion: apps/v1
-              kind: Deployment
-              metadata:
-                name: nextcloud
-              spec:
-                template:
-                  spec:
-                    hostUsers: false
