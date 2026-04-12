@@ -35,6 +35,10 @@ spec:
         runAsUser: 1000
       defaultConfigs:
         redis.config.php: false
+      phpConfigs:
+        redis-session.ini: |
+          session.save_handler = redis
+          session.save_path = "tcp://${NAS_IP}:6379?weight=1"
       configs:
         local.config.php: |-
           <?php
