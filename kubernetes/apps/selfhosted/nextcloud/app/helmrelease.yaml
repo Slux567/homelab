@@ -26,55 +26,27 @@ spec:
         secretName: nextcloud-secret
         usernameKey: NEXTCLOUD_USER
         passwordKey: NEXTCLOUD_PASSWORD
-      host: next.${DOMAIN_01}
+      host: next.{DOMAIN_01}
       mail:
         enabled: false
-      securityContext:
-        runAsGroup: 1000
-        runAsNonRoot: true
-        runAsUser: 1000
-      defaultConfigs:
-        redis.config.php: false
-      phpConfigs:
-        redis-session.ini: |
-          session.save_handler = redis
-          session.save_path = "tcp://${NAS_IP}:6379?weight=1"
       configs:
-        local.config.php: |-
+        proxy.config.php: |-
           <?php
           $CONFIG = array (
-            'trusted_domains' =>
-              [
-                'nextcloud',
-                'nextcloud.selfhosted.svc',
-                'next.${DOMAIN_01}'
-              ],
+            'check_data_directory_permissions' => false,
+            'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+            'mail_smtpmode' => 'null',
+            'skeletondirectory' => '',
             'trusted_proxies' => array(
               0 => '127.0.0.1',
               1 => '10.42.0.0/16',
             ),
-            'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
-            'default_phone_region' => 'NL',
-            'overwrite.cli.url' => 'https://next.${DOMAIN_01}',
-            'overwriteprotocol' => 'https',
-            'quota_include_external_storage' => 'false',
-            'check_data_directory_permissions' => false,
-            'skeletondirectory' => '',
-            'knowledgebaseenabled' => 'false',
-            'maintenance_window_start' => '1',
-            'enable_previews' => false,
-            'trashbin_retention_obligation' => 'auto, 30',
-            'auth.bruteforce.protection.enabled' => true,
-          );
-        redis.config.php: |-
+          ); ?>
+        misc.config.php: |-
           <?php
-          $CONFIG = array(
-            'memcache.distributed' => '\OC\Memcache\Redis',
-            'memcache.locking' => '\OC\Memcache\Redis',
-            'redis' => array(
-              'host' => getenv('REDIS_HOST'),
-              'port' => getenv('REDIS_HOST_PORT') ?: 6379,
-            ),
+          $CONFIG = array (
+            'default_phone_region' => 'NL',
+            'maintenance_window_start' => 2,
           ); ?>
     
     # Route
@@ -101,10 +73,7 @@ spec:
     persistence:
       enabled: true
       existingClaim: nextcloud
-      nextcloudData:
-        enabled: true
-        existingClaim: nextcloud-data
-        accessMode: ReadWriteMany
+
     # Database
     internalDatabase:
       enabled: false
@@ -142,3 +111,18 @@ spec:
       timeoutSeconds: 5
       failureThreshold: 3
       successThreshold: 1
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: nextcloud
+            patch: |-
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: nextcloud
+              spec:
+                template:
+                  spec:
+                    hostUsers: false
