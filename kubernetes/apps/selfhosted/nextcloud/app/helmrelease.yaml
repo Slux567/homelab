@@ -61,7 +61,7 @@ spec:
             'maintenance_window_start' => 2,
             'allow_local_remote_servers' => true,
             'overwriteprotocol' => 'https',
-            'overwrite.cli.url' => 'https://cloud.vzkn.eu',
+            'overwrite.cli.url' => 'https://next.${DOMAIN_01}',
             'filelocking.enabled' => 'true',
             'loglevel' => '2',
             'enable_previews' => true,
