@@ -33,7 +33,7 @@ spec:
         secretName: nextcloud-secret
         usernameKey: NEXTCLOUD_USER
         passwordKey: NEXTCLOUD_PASSWORD
-      host: next.{DOMAIN_01}
+      host: next.${DOMAIN_01}
       mail:
         enabled: false
       configs:
