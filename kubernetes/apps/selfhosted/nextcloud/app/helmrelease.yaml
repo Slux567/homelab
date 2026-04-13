@@ -40,6 +40,11 @@ spec:
         proxy.config.php: |-
           <?php
           $CONFIG = array (
+            'trusted_domains' =>
+              [
+                'nextcloud',
+                'next.${DOMAIN_01}'
+              ],
             'check_data_directory_permissions' => false,
             'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
             'mail_smtpmode' => 'null',
