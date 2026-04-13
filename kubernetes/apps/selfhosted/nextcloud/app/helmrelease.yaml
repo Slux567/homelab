@@ -74,6 +74,7 @@ spec:
           max_input_time = 3600
           max_execution_time = 3600
           memory_limit = 512M
+    # Route
     httpRoute:
       enabled: true
       hostnames:
