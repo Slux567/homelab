@@ -48,8 +48,6 @@ spec:
             'default_phone_region' => 'NL',
             'maintenance_window_start' => 2,
           ); ?>
-    
-    # Route
     httpRoute:
       enabled: true
       hostnames:
@@ -68,7 +66,6 @@ spec:
                 add:
                   - name: strict-transport-security
                     value: max-age=31536000
-    
     # Storage
     persistence:
       enabled: true
@@ -77,7 +74,6 @@ spec:
         enabled: true
         existingClaim: nextcloud-data
         accessMode: ReadWriteMany
-
     # Database
     internalDatabase:
       enabled: false
@@ -99,7 +95,6 @@ spec:
       timeoutSeconds: 5
       failureThreshold: 60
       successThreshold: 1
-
     livenessProbe:
       enabled: false
       initialDelaySeconds: 10
@@ -107,7 +102,6 @@ spec:
       timeoutSeconds: 5
       failureThreshold: 3
       successThreshold: 1
-
     readinessProbe:
       enabled: false
       initialDelaySeconds: 10
