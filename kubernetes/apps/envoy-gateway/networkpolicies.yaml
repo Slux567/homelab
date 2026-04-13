@@ -1,6 +1,33 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
+  name: default-envoy-gateway-policy
+  namespace: envoy-gateway
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEntities:
+      - kube-apiserver
+      - host
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: observability
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+          rules:
+            dns:
+              - matchPattern: "*"
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
   name: internal-gateway-policy
   namespace: envoy-gateway
 spec:
