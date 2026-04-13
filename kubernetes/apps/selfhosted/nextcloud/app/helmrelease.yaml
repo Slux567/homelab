@@ -10,12 +10,19 @@ spec:
     name: nextcloud
   interval: 30m
   values:
+
     image:
       flavor: fpm-alpine
+    
     nginx:
       enabled: true
+    
     nextcloud:
       datadir: /var/www/data
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
       extraEnv:
         - name: REDIS_HOST
           value: ${NAS_IP}
@@ -48,6 +55,13 @@ spec:
             'default_phone_region' => 'NL',
             'maintenance_window_start' => 2,
           ); ?>
+      phpConfigs:
+        uploadLimit.ini: |
+          upload_max_filesize = 16G
+          post_max_size = 16G
+          max_input_time = 3600
+          max_execution_time = 3600
+          memory_limit = 512M
     httpRoute:
       enabled: true
       hostnames:
