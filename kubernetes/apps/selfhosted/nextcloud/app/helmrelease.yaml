@@ -59,7 +59,14 @@ spec:
           $CONFIG = array (
             'default_phone_region' => 'NL',
             'maintenance_window_start' => 2,
-          ); ?>
+            'allow_local_remote_servers' => true,
+            'overwriteprotocol' => 'https',
+            'overwrite.cli.url' => 'https://cloud.vzkn.eu',
+            'filelocking.enabled' => 'true',
+            'loglevel' => '2',
+            'enable_previews' => true,
+            'bulkupload.enabled' => true,
+          );
       phpConfigs:
         uploadLimit.ini: |
           upload_max_filesize = 16G
@@ -128,3 +135,12 @@ spec:
       timeoutSeconds: 5
       failureThreshold: 3
       successThreshold: 1
+
+    cronjob:
+      enabled: true
+      resources:
+        requests:
+          cpu: 10m
+          memory: 96Mi
+        limits:
+          memory: 192Mi
