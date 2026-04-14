@@ -67,5 +67,7 @@ data:
           show: true
           cpu: true
           memory: true
+          showLabel: true
+          label: "Sluxcloud Cluster"
         nodes:
           show: false
