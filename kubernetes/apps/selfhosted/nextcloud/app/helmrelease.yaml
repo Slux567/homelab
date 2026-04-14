@@ -43,7 +43,8 @@ spec:
             'trusted_domains' =>
               [
                 'nextcloud',
-                'next.${DOMAIN_01}'
+                'next.${DOMAIN_01}',
+                'nextcloud.selfhosted.svc.cluster.local'
               ],
             'check_data_directory_permissions' => false,
             'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
@@ -53,7 +54,6 @@ spec:
               0 => '127.0.0.1',
               1 => '10.42.0.0/16',
               2 => '10.96.0.0/12',
-              3 => 'nextcloud.selfhosted.svc.cluster.local',
             ),
           ); ?>
         misc.config.php: |-
