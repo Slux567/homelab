@@ -9,3 +9,4 @@ resources:
   - ./csi-driver-nfs/ks.yaml
   - ./metrics-server/ks.yaml
   - ./ext-postgres-operator/ks.yaml
+  - ./reloader/ks.yaml
