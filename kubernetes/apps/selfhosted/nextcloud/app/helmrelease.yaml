@@ -77,6 +77,14 @@ spec:
     # Route
     httpRoute:
       enabled: true
+      annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Selfhosted
+          gethomepage.dev/icon: nextcloud.png
+          gethomepage.dev/name: nextcloud
+          gethomepage.dev/widget.type: nextcloud
+          gethomepage.dev/widget.url: "http://nextcloud.selfhosted.svc.cluster.local:8080"
+          gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_NC_TOKEN}}" }}'
       hostnames:
         - "next.${DOMAIN_01}"
       parentRefs:
