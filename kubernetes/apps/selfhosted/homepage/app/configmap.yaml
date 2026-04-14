@@ -28,16 +28,7 @@ data:
   kubernetes.yaml: |
     mode: cluster
     gateway: true
-  services.yaml: |
-    - Home:
-        - Uptime Kuma:
-            icon: uptime-kuma.png
-            href: https://uptime.${DOMAIN_01}
-            description: Status page
-            widget:
-              type: uptimekuma
-              url: https://uptime.roswellian.dev
-              slug: "{{HOMEPAGE_VAR_UPTIMEKUMA_SLUG}}"
+  services.yaml: ""
   settings.yaml: |
     title: Russell
     headerStyle: clean
