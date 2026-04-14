@@ -53,6 +53,7 @@ spec:
               0 => '127.0.0.1',
               1 => '10.42.0.0/16',
               2 => '10.96.0.0/12',
+              3 => 'nextcloud.selfhosted.svc.cluster.local',
             ),
           ); ?>
         misc.config.php: |-
