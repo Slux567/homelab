@@ -36,11 +36,9 @@ data:
             description: Unifi Controller
             widget:
               type: unifi
-              url: https://unifi.host.or.ip:port
+              url: https://192.168.1.254/
               site: Site Name # optional
-              username: user
-              password: pass
-              key: unifiapikey # required if using API key instead of username/password
+              key: "{{HOMEPAGE_VAR_UNIFI_API_KEY}}"
   settings.yaml: |
     title: Russell
     headerStyle: clean
