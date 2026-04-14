@@ -54,7 +54,7 @@ data:
     title: sluxcloud
     headerStyle: clean
     theme: dark
-    background: https://wallpapercat.com/w/full/e/b/4/618703-3000x2000-desktop-hd-costa-rica-background-photo.jpg
+    background: https://images8.alphacoders.com/430/thumb-1920-430921.png
     layout:
       Infrastructure:
         style: row
