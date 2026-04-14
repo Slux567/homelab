@@ -5,10 +5,20 @@ metadata:
   name: homepage-config
 data:
   bookmarks.yaml: |
-    - Git:
-        - sluxcloud:
+    - Personal:
+        - Rabobank:
+            - icon: mdi-bank
+              href: https://banking.rabobank.com/business/overview
+        - Degiro:
+            - icon: mdi-elevation-rise
+              href: https://trader.degiro.nl/
+    - Homelab:
+        - GitHub:
             - icon: si-github
               href: https://github.com/Slux567/homelab
+        - Claude:
+            - icon: si-claude
+              href: https://claude.ai/
     - Media:
         - YouTube:
             - icon: si-youtube
