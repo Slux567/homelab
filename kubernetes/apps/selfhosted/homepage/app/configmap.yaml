@@ -28,17 +28,29 @@ data:
   kubernetes.yaml: |
     mode: cluster
     gateway: true
-  services.yaml: ""
+  services.yaml: |
+    - Infrastructure:
+        - Unifi:
+            icon: unifi.png
+            href: https://192.168.1.254/
+            description: Unifi Controller
+            widget:
+              type: unifi
+              url: https://unifi.host.or.ip:port
+              site: Site Name # optional
+              username: user
+              password: pass
+              key: unifiapikey # required if using API key instead of username/password
   settings.yaml: |
     title: Russell
     headerStyle: clean
     layout:
+      Infrastructure:
+        style: row
+        columns: 2
       Media:
         style: row
-        columns: 2
-      Downloads:
-        style: row
-        columns: 2
+        columns: 3
       Selfhosted:
         style: row
         columns: 4
@@ -55,4 +67,4 @@ data:
           cpu: true
           memory: true
         nodes:
-          show: false
+          show: true

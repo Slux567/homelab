@@ -5,5 +5,5 @@ kind: Kustomization
 
 resources:
   - ./helmrepository.yaml
-  - ./secret.yaml
+  - ./external-secret.yaml
   - ./helmrelease.yaml

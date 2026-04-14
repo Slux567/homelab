@@ -74,15 +74,15 @@ spec:
 
     route:
       app:
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Media
-          gethomepage.dev/name: Seerr
-          gethomepage.dev/icon: overseerr.png
-          gethomepage.dev/description: Requests
-          gethomepage.dev/widget.type: jellyseerr
-          gethomepage.dev/widget.url: "http://seerr.media.svc.cluster.local:5055"
-          gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_SEERR_API_KEY}}" }}'
+        # annotations:
+        #   gethomepage.dev/enabled: "true"
+        #   gethomepage.dev/group: Media
+        #   gethomepage.dev/name: Seerr
+        #   gethomepage.dev/icon: overseerr.png
+        #   gethomepage.dev/description: Requests
+        #   gethomepage.dev/widget.type: jellyseerr
+        #   gethomepage.dev/widget.url: "http://seerr.media.svc.cluster.local:5055"
+        #   gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_SEERR_API_KEY}}" }}'
         parentRefs:
           - name: internal
             namespace: envoy-gateway

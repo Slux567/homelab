@@ -16,3 +16,5 @@ spec:
     - toEntities:
         - kube-apiserver
         - cluster
+    - toCIDRSet:
+        - cidr: 192.168.1.254/32
