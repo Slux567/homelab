@@ -19,7 +19,7 @@ data:
         - Claude:
             - icon: si-claude
               href: https://claude.ai/
-    - Media:
+    - Social Media:
         - YouTube:
             - icon: si-youtube
               href: https://youtube.com/feed/subscriptions
