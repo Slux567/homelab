@@ -54,7 +54,6 @@ data:
     title: sluxcloud
     headerStyle: clean
     theme: dark
-    color: blue
     background: https://wallpapercat.com/w/full/e/b/4/618703-3000x2000-desktop-hd-costa-rica-background-photo.jpg
     layout:
       Infrastructure:
