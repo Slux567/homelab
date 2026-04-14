@@ -86,7 +86,7 @@ spec:
           gethomepage.dev/name: nextcloud
           gethomepage.dev/widget.type: nextcloud
           gethomepage.dev/widget.url: "http://nextcloud.selfhosted.svc.cluster.local:8080"
-          gethomepage.dev/widget.key: '{{ "{{HOMEPAGE_VAR_NC_TOKEN}}" }}'
+          gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_NC_TOKEN}}"
       hostnames:
         - "next.${DOMAIN_01}"
       parentRefs:
