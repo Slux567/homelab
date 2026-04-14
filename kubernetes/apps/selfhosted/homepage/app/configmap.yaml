@@ -38,6 +38,17 @@ data:
               type: unifi
               url: https://192.168.1.254/
               key: "{{HOMEPAGE_VAR_UNIFI_API_KEY}}"
+        - TrueNAS:
+            icon: truenas.png
+            href: https://truenas.sluxcloud.com/
+            Description: TrueNAS Scale
+            widget:
+              type: truenas
+              url: http://10.0.40.50/
+              version: 2
+              key: "{{HOMEPAGE_VAR_TRUENAS_API_KEY}}"
+              enablePools: true 
+              nasType: scale
   settings.yaml: |
     title: Russell
     headerStyle: clean
