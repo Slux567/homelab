@@ -55,7 +55,7 @@ data:
     headerStyle: clean
     theme: dark
     color: blue
-    background: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
+    background: https://wallpapercat.com/w/full/e/b/4/618703-3000x2000-desktop-hd-costa-rica-background-photo.jpg
     layout:
       Infrastructure:
         style: row
