@@ -4,5 +4,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./networkpolicies.yaml
+
   - ./n8n/ks.yaml
   - ./nextcloud/ks.yaml
+  - ./homepage/ks.yaml
