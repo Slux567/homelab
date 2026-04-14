@@ -65,3 +65,6 @@ data:
           memory: true
         nodes:
           show: true
+    - unifi_console:
+        url: https://192.168.1.254/
+        key: "{{HOMEPAGE_VAR_UNIFI_API_KEY}}"
