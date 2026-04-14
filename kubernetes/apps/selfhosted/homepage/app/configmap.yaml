@@ -5,25 +5,24 @@ metadata:
   name: homepage-config
 data:
   bookmarks.yaml: |
-    - Communicate:
-        - Discord:
-            - icon: si-discord
-              href: https://discord.com
     - Git:
-        - home-ops:
+        - sluxcloud:
             - icon: si-github
               href: https://github.com/Slux567/homelab
     - Media:
         - YouTube:
             - icon: si-youtube
               href: https://youtube.com/feed/subscriptions
+        - Reddit:
+            - icon: si-reddit
+              href: https://www.reddit.com/
     - Reading:
-        - Hacker News:
-            - icon: si-ycombinator
-              href: https://news.ycombinator.com/
-        - Tildes:
-            - icon: mdi-forum
-              href: https://tildes.net/
+        - Tweakers:
+            - icon: si-toml
+              href: https://tweakers.net/
+        - NOS:
+            - icon: mdi-alpha-o-circle
+              href: https://nos.nl/
   docker.yaml: ""
   kubernetes.yaml: |
     mode: cluster
