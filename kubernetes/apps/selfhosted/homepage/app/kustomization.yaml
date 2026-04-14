@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ocirepository.yaml
   - configmap.yaml
+  - networkpolicy.yaml
   - external-secret.yaml
   - rbac.yaml
   - helmrelease.yaml
