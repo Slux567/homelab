@@ -61,10 +61,10 @@ data:
         style: row
         columns: 2
       Media:
-        style: row
+        style: columns
         columns: 3
       Selfhosted:
-        style: row
+        style: columns
         columns: 4
   widgets.yaml: |
     - search:
