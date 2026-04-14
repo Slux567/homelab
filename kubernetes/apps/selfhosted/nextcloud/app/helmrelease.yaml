@@ -78,7 +78,7 @@ spec:
     httpRoute:
       enabled: true
       annotations:
-          gethomepage.dev/enabled: "false"
+          gethomepage.dev/enabled: "true"
           gethomepage.dev/group: Selfhosted
           gethomepage.dev/icon: nextcloud.png
           gethomepage.dev/name: nextcloud
