@@ -37,7 +37,6 @@ data:
             widget:
               type: unifi
               url: https://192.168.1.254/
-              site: "Cloud Gateway Fiber"
               key: "{{HOMEPAGE_VAR_UNIFI_API_KEY}}"
   settings.yaml: |
     title: Russell
