@@ -36,6 +36,7 @@ data:
             description: Unifi Controller
             widget:
               type: unifi
+              fields: ["uptime", "wan", "lan", "lan_users"]
               url: https://192.168.1.254/
               key: "{{HOMEPAGE_VAR_UNIFI_API_KEY}}"
         - TrueNAS:
@@ -50,7 +51,7 @@ data:
               enablePools: true 
               nasType: scale
   settings.yaml: |
-    title: Russell
+    title: SluxCloud
     headerStyle: clean
     layout:
       Infrastructure:
