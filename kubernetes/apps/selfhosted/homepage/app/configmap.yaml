@@ -53,8 +53,6 @@ data:
   settings.yaml: |
     title: sluxcloud
     headerStyle: clean
-    theme: dark
-    background: https://images8.alphacoders.com/430/thumb-1920-430921.png
     layout:
       Infrastructure:
         style: row
