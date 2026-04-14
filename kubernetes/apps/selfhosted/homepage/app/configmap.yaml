@@ -58,6 +58,10 @@ data:
           dateStyle: short
           timeStyle: short
           hour12: false
+    - search:
+        provider: duckduckgo
+        focus: true
+        target: _blank
     - kubernetes:
         cluster:
           show: true
