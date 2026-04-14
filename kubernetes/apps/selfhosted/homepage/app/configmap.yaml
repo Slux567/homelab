@@ -52,12 +52,6 @@ data:
         style: row
         columns: 4
   widgets.yaml: |
-    - datetime:
-        text_size: xl
-        format:
-          dateStyle: short
-          timeStyle: short
-          hour12: false
     - search:
         provider: duckduckgo
         focus: true
