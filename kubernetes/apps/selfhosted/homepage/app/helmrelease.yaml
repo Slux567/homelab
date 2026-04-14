@@ -76,7 +76,7 @@ spec:
     route:
       app:
         hostnames:
-          - "homepage.${DOMAIN_01}"
+          - "home.${DOMAIN_01}"
         parentRefs:
           - name: internal
             namespace: envoy-gateway
