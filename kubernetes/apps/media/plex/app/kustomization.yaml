@@ -4,4 +4,5 @@ components:
   - ../../../../components/repositories/app-template
 resources:
   - storage.yaml
+  - networkpolicy.yaml
   - helmrelease.yaml
