@@ -11,6 +11,7 @@ spec:
   ingress:
     - fromCIDRSet:
         - cidr: 192.168.10.0/24
+        - cidr: 192.168.4.2/32
     - fromEndpoints:
         - matchLabels:
             app.kubernetes.io/name: gateway-helm
