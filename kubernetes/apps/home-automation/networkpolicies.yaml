@@ -1,14 +1,14 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: default-testing-policy
-  namespace: testing
+  name: default-home-automation-policy
+  namespace: home-automation
 spec:
   endpointSelector: {}
   ingress:
     - fromEntities:
-      - kube-apiserver
-      - host
+        - kube-apiserver
+        - host
     - fromEndpoints:
         - {}
     - fromEndpoints:
@@ -18,18 +18,15 @@ spec:
         - matchLabels:
             gateway.networking.k8s.io/gateway-name: internal
             io.kubernetes.pod.namespace: envoy-gateway
-    - fromEndpoints:
-        - matchLabels:
-            gateway.networking.k8s.io/gateway-name: external
-            io.kubernetes.pod.namespace: envoy-gateway
   egress:
+    # Standard internet egress
     - toCIDRSet:
         - cidr: 0.0.0.0/0
           except:
-            - 10.42.0.0/16        # pod CIDR
-            - 10.96.0.0/12        # service CIDR
-            - 192.168.0.0/16      # private range
+            - 10.42.0.0/16       # pod CIDR
+            - 10.96.0.0/12       # service CIDR
             - 10.0.40.0/24        # Storage CIDR
+    # DNS
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
@@ -41,5 +38,9 @@ spec:
           rules:
             dns:
               - matchPattern: "*"
+    # Intra-namespace communication
     - toEndpoints:
         - {}
+    # HOME VLAN — subnet allowed, port control delegated to Unifi
+    - toCIDRSet:
+        - cidr: 192.168.1.0/24   # HOME VLAN subnet
