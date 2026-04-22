@@ -43,4 +43,4 @@ spec:
         - {}
     # HOME VLAN — subnet allowed, port control delegated to Unifi
     - toCIDRSet:
-        - cidr: 192.168.1.0/24   # HOME VLAN subnet
+        - cidr: 192.168.10.0/24   # HOME VLAN subnet
