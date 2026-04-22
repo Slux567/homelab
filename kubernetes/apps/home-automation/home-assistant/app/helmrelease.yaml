@@ -80,7 +80,7 @@ spec:
       app:
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: 192.168.20.201
+          lbipam.cilium.io/ips: 10.0.30.104
         ports:
           sonos:
             enabled: true
