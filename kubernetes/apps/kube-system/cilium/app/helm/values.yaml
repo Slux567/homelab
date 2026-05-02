@@ -1,11 +1,11 @@
 ---
 autoDirectNodeRoutes: true
 bandwidthManager:
-  enabled: true
+  enabled: false
   bbr: true
 bpf:
   datapathMode: netkit
-  masquerade: true
+  masquerade: false
   preallocateMaps: true
   tproxy: false
 bpfClockProbe: true
