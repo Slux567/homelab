@@ -30,7 +30,8 @@ spec:
                 topologyKey: kubernetes.io/hostname
         successfulJobsHistoryLimit: 1
     image:
-      flavor: fpm-alpine
+      repository: nextcloud
+      tag: 33.0.2-fpm
     
     nginx:
       enabled: true
@@ -90,9 +91,18 @@ spec:
           max_input_time = 3600
           max_execution_time = 3600
           memory_limit = 512M
-    
-    securityContext:
-      fsGroupChangePolicy: OnRootMismatch
+        www.conf: |
+          [www]
+          user = www-data
+          group = www-data
+          listen = 127.0.0.1:9000
+          pm = dynamic
+          pm.max_children = 57
+          pm.start_servers = 14
+          pm.min_spare_servers = 14
+          pm.max_spare_servers = 42
+          pm.max_requests = 500
+          pm.process_idle_timeout = 10s
 
     # Route
     httpRoute:
@@ -164,19 +174,3 @@ spec:
       timeoutSeconds: 5
       failureThreshold: 3
       successThreshold: 1
-
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: Deployment
-              name: nextcloud
-            patch: |-
-              apiVersion: apps/v1
-              kind: Deployment
-              metadata:
-                name: nextcloud
-              spec:
-                template:
-                  spec:
-                    hostUsers: false
