@@ -10,13 +10,8 @@ spec:
     name: nextcloud
   interval: 30m
   values:
-    securityContext:
-        fsGroupChangePolicy: OnRootMismatch
     cronjob:
       enabled: true
-      sidecar:
-        securityContext:
-          runAsGroup: 82
     image:
       flavor: fpm-alpine
     phpClientHttpsFix:
@@ -25,8 +20,6 @@ spec:
       enabled: true
       config:
         default: true
-      securityContext: 
-        runAsGroup: 82
       resources:
         requests:
           cpu: 50m
@@ -35,11 +28,6 @@ spec:
           memory: 100Mi
 
     nextcloud:
-      securityContext:
-        runAsUser: 82
-        runAsGroup: 82
-        runAsNonRoot: true
-        readOnlyRootFilesystem: false
       datadir: /var/www/data
       extraEnv:
         - name: REDIS_HOST
@@ -84,7 +72,7 @@ spec:
             'allow_local_remote_servers' => true,
             'overwriteprotocol' => 'https',
             'overwrite.cli.url' => 'https://next.${DOMAIN_01}',
-            'filelocking.enabled' => 'true',
+            'filelocking.enabled' => true,
             'loglevel' => '2',
             'enable_previews' => true,
             'bulkupload.enabled' => true,
