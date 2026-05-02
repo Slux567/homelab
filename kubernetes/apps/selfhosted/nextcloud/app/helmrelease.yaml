@@ -20,8 +20,8 @@ spec:
     nextcloud:
       datadir: /var/www/data
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
+        runAsUser: 82
+        runAsGroup: 82
         runAsNonRoot: true
       extraEnv:
         - name: REDIS_HOST
