@@ -21,7 +21,7 @@ cgroup:
 # NOTE: devices might need to be set if you have more than one active NIC on your hosts
 # devices: eno+ eth+
 enableIPv4BIGTCP: true
-MTU: 1420
+MTU: 1500
 pmtuDiscovery:
   enabled: true
 dashboards:
