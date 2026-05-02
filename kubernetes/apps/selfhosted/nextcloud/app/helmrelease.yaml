@@ -19,10 +19,6 @@ spec:
     
     nextcloud:
       datadir: /var/www/data
-      securityContext:
-        runAsUser: 82
-        runAsGroup: 82
-        runAsNonRoot: true
       extraEnv:
         - name: REDIS_HOST
           value: ${NAS_IP}
