@@ -90,6 +90,10 @@ spec:
           max_input_time = 3600
           max_execution_time = 3600
           memory_limit = 512M
+    
+    securityContext:
+      fsGroupChangePolicy: OnRootMismatch
+
     # Route
     httpRoute:
       enabled: true
@@ -140,22 +144,22 @@ spec:
         databaseKey: DATABASE_NAME
 
     startupProbe:
-      enabled: false
-      initialDelaySeconds: 10
-      periodSeconds: 20
+      enabled: true
+      initialDelaySeconds: 5
+      periodSeconds: 10
       timeoutSeconds: 5
-      failureThreshold: 60
+      failureThreshold: 360
       successThreshold: 1
     livenessProbe:
-      enabled: false
-      initialDelaySeconds: 10
+      enabled: true
+      initialDelaySeconds: 5
       periodSeconds: 10
       timeoutSeconds: 5
       failureThreshold: 3
       successThreshold: 1
     readinessProbe:
-      enabled: false
-      initialDelaySeconds: 10
+      enabled: true
+      initialDelaySeconds: 5
       periodSeconds: 10
       timeoutSeconds: 5
       failureThreshold: 3
