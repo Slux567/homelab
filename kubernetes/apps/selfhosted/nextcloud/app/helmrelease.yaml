@@ -10,33 +10,35 @@ spec:
     name: nextcloud
   interval: 30m
   values:
+    securityContext:
+        fsGroupChangePolicy: OnRootMismatch
     cronjob:
       enabled: true
-      type: cronjob
-      cronjob:
-        affinity:
-          podAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              - labelSelector:
-                  matchExpressions:
-                    - key: app.kubernetes.io/instance
-                      operator: In
-                      values:
-                        - nextcloud
-                    - key: app.kubernetes.io/component
-                      operator: In
-                      values:
-                        - app
-                topologyKey: kubernetes.io/hostname
-        successfulJobsHistoryLimit: 1
+      sidecar:
+        securityContext:
+          runAsGroup: 82
     image:
-      repository: nextcloud
-      tag: 33.0.2-fpm
-    
+      flavor: fpm-alpine
+    phpClientHttpsFix:
+      enabled: true
     nginx:
       enabled: true
-    
+      config:
+        default: true
+      securityContext: 82
+      resources:
+        requests:
+          cpu: 50m
+          memory: 20Mi
+        limits:
+          memory: 100Mi
+
     nextcloud:
+      securityContext:
+        runAsUser: 82
+        runAsGroup: 82
+        runAsNonRoot: true
+        readOnlyRootFilesystem: false
       datadir: /var/www/data
       extraEnv:
         - name: REDIS_HOST
@@ -51,6 +53,8 @@ spec:
       host: next.${DOMAIN_01}
       mail:
         enabled: false
+      defaultConfigs:
+        redis.config.php: false
       configs:
         proxy.config.php: |-
           <?php
@@ -91,18 +95,6 @@ spec:
           max_input_time = 3600
           max_execution_time = 3600
           memory_limit = 512M
-        www.conf: |
-          [www]
-          user = www-data
-          group = www-data
-          listen = 127.0.0.1:9000
-          pm = dynamic
-          pm.max_children = 57
-          pm.start_servers = 14
-          pm.min_spare_servers = 14
-          pm.max_spare_servers = 42
-          pm.max_requests = 500
-          pm.process_idle_timeout = 10s
 
     # Route
     httpRoute:
