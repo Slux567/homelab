@@ -10,7 +10,25 @@ spec:
     name: nextcloud
   interval: 30m
   values:
-
+    cronjob:
+      enabled: true
+      type: cronjob
+      cronjob:
+        affinity:
+          podAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/instance
+                      operator: In
+                      values:
+                        - nextcloud
+                    - key: app.kubernetes.io/component
+                      operator: In
+                      values:
+                        - app
+                topologyKey: kubernetes.io/hostname
+        successfulJobsHistoryLimit: 1
     image:
       flavor: fpm-alpine
     
@@ -143,26 +161,18 @@ spec:
       failureThreshold: 3
       successThreshold: 1
 
-    cronjob:
-      enabled: true
-      type: cronjob
-      cronjob:
-        successfulJobsHistoryLimit: 1
-        securityContext:
-          runAsGroup: 33
-          runAsNonRoot: true
-          runAsUser: 33
-        affinity:
-          podAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              - labelSelector:
-                  matchExpressions:
-                    - key: app.kubernetes.io/name
-                      operator: In
-                      values:
-                        - nextcloud
-                    - key: app.kubernetes.io/component
-                      operator: In
-                      values:
-                        - app
-                topologyKey: kubernetes.io/hostname
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: nextcloud
+            patch: |-
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: nextcloud
+              spec:
+                template:
+                  spec:
+                    hostUsers: false
