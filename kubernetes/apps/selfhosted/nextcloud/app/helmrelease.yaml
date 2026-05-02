@@ -25,7 +25,8 @@ spec:
       enabled: true
       config:
         default: true
-      securityContext: 82
+      securityContext: 
+        runAsGroup: 82
       resources:
         requests:
           cpu: 50m
