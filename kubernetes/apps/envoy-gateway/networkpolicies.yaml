@@ -19,9 +19,8 @@ spec:
         - matchLabels:
             io.kubernetes.pod.namespace: observability
   egress:
-    - toEndpoints:
-        - matchLabels:
-            networkpolicy.sluxcloud/ingress-internal-gateway: "true"
+    - toEntities:
+        - cluster
     - toEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
