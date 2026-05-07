@@ -1,0 +1,12 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: label-ingress-vpn
+spec:
+  description: "Allow ingress directly from VPN (192.168.4.0/24) for pods with the ingress-vpn label"
+  endpointSelector:
+    matchLabels:
+      networkpolicy.sluxcloud/ingress-vpn: "true"
+  ingress:
+    - fromCIDR:
+        - "192.168.4.0/24"

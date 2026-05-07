@@ -10,6 +10,11 @@ spec:
     name: nextcloud
   interval: 30m
   values:
+    podLabels:
+      networkpolicy.sluxcloud/ingress-internal-gateway: "true"
+      networkpolicy.sluxcloud/egress-postgres: "true"
+      networkpolicy.sluxcloud/egress-redis: "true"
+
     cronjob:
       enabled: true
     image:

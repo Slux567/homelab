@@ -1,0 +1,13 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-same-namespace
+spec:
+  description: "Allow all ingress and egress traffic between pods in the same namespace"
+  endpointSelector: {}
+  ingress:
+    - fromEndpoints:
+        - {}  # any pod in the same namespace
+  egress:
+    - toEndpoints:
+        - {}  # any pod in the same namespace

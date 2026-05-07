@@ -7,3 +7,4 @@ resources:
   - lb-advertisement.yaml
   - lb-pool.yaml
   - hubble-httproute.yaml
+  - ./networkpolicies

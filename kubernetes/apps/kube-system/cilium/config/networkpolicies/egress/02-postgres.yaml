@@ -1,0 +1,16 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: label-egress-postgres
+spec:
+  description: "Allow egress to PostgreSQL on 10.0.40.50 port 5432"
+  endpointSelector:
+    matchLabels:
+      networkpolicy.sluxcloud/egress-postgres: "true"
+  egress:
+    - toCIDR:
+        - "10.0.40.50/32"
+      toPorts:
+        - ports:
+            - port: "5432"
+              protocol: TCP

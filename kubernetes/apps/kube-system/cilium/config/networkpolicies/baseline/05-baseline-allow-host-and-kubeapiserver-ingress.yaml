@@ -1,0 +1,32 @@
+---
+# allow-host-ingress.yaml
+# Allow ingress from the node (host) to all pods.
+# Kubernetes liveness, readiness, and startup probes originate
+# from the node — without this they will all fail.
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-host-ingress
+spec:
+  description: "Allow ingress from the host node to all pods (required for health probes)"
+  endpointSelector: {}
+  ingress:
+    - fromEntities:
+        - host
+        - remote-node
+ 
+---
+# allow-kube-apiserver-ingress.yaml
+# Allow ingress from the kube-apiserver to all pods.
+# Required for admission webhooks (cert-manager, Kyverno, etc).
+# Without this, any webhook-backed resource will fail to create.
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-kube-apiserver-ingress
+spec:
+  description: "Allow ingress from kube-apiserver to all pods (required for admission webhooks)"
+  endpointSelector: {}
+  ingress:
+    - fromEntities:
+        - kube-apiserver
