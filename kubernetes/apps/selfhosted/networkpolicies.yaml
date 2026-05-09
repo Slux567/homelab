@@ -1,59 +1,10 @@
-# apiVersion: cilium.io/v2
-# kind: CiliumNetworkPolicy
-# metadata:
-#   name: allow-homepage-to-nextcloud
-#   namespace: selfhosted
-# spec:
-#   endpointSelector:
-#     matchLabels:
-#       app.kubernetes.io/name: nextcloud
-
-#   ingress:
-#     - fromEndpoints:
-#         - matchLabels:
-#             app.kubernetes.io/name: homepage
-# ---
-# apiVersion: cilium.io/v2
-# kind: CiliumNetworkPolicy
-# metadata:
-#   name: allow-nextcloud-to-homepage
-#   namespace: selfhosted
-# spec:
-#   endpointSelector:
-#     matchLabels:
-#       app.kubernetes.io/name: homepage
-
-#   ingress:
-#     - fromEndpoints:
-#         - matchLabels:
-#             app.kubernetes.io/name: nextcloud
-# ---
-# apiVersion: cilium.io/v2
-# kind: CiliumNetworkPolicy
-# metadata:
-#   name: allow-media-to-homepage
-#   namespace: selfhosted
-# spec:
-#   endpointSelector:
-#     matchLabels:
-#       app.kubernetes.io/name: homepage
-
-#   ingress:
-#     - fromEndpoints:
-#         - matchLabels:
-#             k8s:io.kubernetes.pod.namespace: media
-# ---
-# apiVersion: cilium.io/v2
-# kind: CiliumNetworkPolicy
-# metadata:
-#   name: allow-homepage-to-media
-#   namespace: default
-# spec:
-#   endpointSelector:
-#     matchLabels:
-#       app.kubernetes.io/name: homepage
-
-#   egress:
-#     - toEndpoints:
-#         - matchLabels:
-#             k8s:io.kubernetes.pod.namespace: media
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-same-namespace
+spec:
+  description: "Allow all ingress from pods in same namespace"
+  endpointSelector: {}
+  ingress:
+    - fromEndpoints:
+        - {}
