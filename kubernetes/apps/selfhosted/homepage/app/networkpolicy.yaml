@@ -12,3 +12,6 @@ spec:
     - fromEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: media
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: nextcloud
