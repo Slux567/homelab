@@ -10,7 +10,4 @@ spec:
   ingress:
     - fromEndpoints:
         - matchLabels:
-            io.kubernetes.pod.namespace: media
-    - fromEndpoints:
-        - matchLabels:
-            app.kubernetes.io/name: nextcloud
+            k8s:io.kubernetes.pod.namespace: media
