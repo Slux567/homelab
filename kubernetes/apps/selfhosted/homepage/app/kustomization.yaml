@@ -4,5 +4,6 @@ resources:
   - ocirepository.yaml
   - configmap.yaml
   - external-secret.yaml
+  - networkpolicy.yaml
   - rbac.yaml
   - helmrelease.yaml
