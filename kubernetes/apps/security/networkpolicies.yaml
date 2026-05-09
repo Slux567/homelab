@@ -4,40 +4,48 @@ metadata:
   name: default-security-policy
   namespace: security
 spec:
-  endpointSelector: {}
+  endpointSelector: {} # Matches all pods in the 'security' namespace
   ingress:
+    # 1. Allow internal K8s management traffic
     - fromEntities:
-      - kube-apiserver
-      - host
-    - fromEndpoints:
-        - {}
-    - fromEndpoints:
-        - matchLabels:
-            io.kubernetes.pod.namespace: observability
-    - fromEndpoints:
-        - matchLabels:
-            gateway.networking.k8s.io/gateway-name: internal
-            io.kubernetes.pod.namespace: envoy-gateway
-  egress:
-    - toCIDRSet:
-        - cidr: 0.0.0.0/0
-          except:
-            - 10.42.0.0/16        # pod CIDR
-            - 10.96.0.0/12        # service CIDR
-            - 192.168.0.0/16      # private range
-            - 10.0.40.0/24        # Storage CIDR
-    - toEntities:
         - kube-apiserver
+        - host
+    # 2. Allow all pods within THIS namespace to talk to each other
+    - fromEndpoints:
+        - {} 
+    # 3. Allow Monitoring/Prometheus from 'observability' namespace
+    - fromEndpoints:
+        - matchLabels:
+            "k8s:io.kubernetes.pod.namespace": observability
+    # 4. Allow Envoy Gateway (Ingress traffic)
+    - fromEndpoints:
+        - matchLabels:
+            "k8s:io.kubernetes.pod.namespace": envoy-gateway
+            gateway.networking.k8s.io/gateway-name: internal
+  egress:
+    # 1. Allow Internal Traffic (Same Namespace)
+    - toEndpoints:
+        - {}
+    # 2. Allow DNS (REQUIRED for FQDN/API calls)
     - toEndpoints:
         - matchLabels:
-            io.kubernetes.pod.namespace: kube-system
+            "k8s:io.kubernetes.pod.namespace": kube-system
             k8s-app: kube-dns
       toPorts:
         - ports:
             - port: "53"
-              protocol: UDP
+              protocol: ANY # DNS can be UDP or TCP
           rules:
             dns:
               - matchPattern: "*"
-    - toEndpoints:
-        - {}
+    # 3. Allow Access to K8s API
+    - toEntities:
+        - kube-apiserver
+    # 4. Allow Internet Access (Excluding private/cluster ranges)
+    - toCIDRSet:
+        - cidr: 0.0.0.0/0
+          except:
+            - 10.42.0.0/16        # Cluster Pod CIDR
+            - 10.96.0.0/12        # Cluster Service CIDR
+            - 192.168.0.0/16      # Private LAN
+            - 10.0.40.0/24        # Storage Subnet
