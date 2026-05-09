@@ -10,24 +10,15 @@ spec:
   ingress:
     - fromEntities:
         - cluster
-      toPorts:
-        - ports:
-            - port: "53"
-              protocol: UDP
-            - port: "53"
-              protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
 metadata:
-  name: allow-dns-responses-ingress
+  name: allow-coredns-replies-ingress
 spec:
-  description: "Allow DNS responses back to all pods"
-  endpointSelector: {}
+  description: "Allow all pods to receive DNS responses from CoreDNS"
+  endpointSelector: {} # Matches ALL pods
   ingress:
-    - fromEntities:
-        - cluster
-      toPorts:
-        - ports:
-            - port: "53"
-              protocol: UDP
+    - fromEndpoints:
+        - matchLabels:
+            k8s-app: kube-dns
