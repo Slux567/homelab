@@ -3,15 +3,3 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: selfhosted
----
-apiVersion: "cilium.io/v2"
-kind: CiliumNetworkPolicy
-metadata:
-  name: allow-all-intra-namespace-selfhosted
-  namespace: selfhosted
-spec:
-  description: "Allow all pods in this namespace to talk to each other"
-  endpointSelector: {}
-  ingress:
-    - fromEndpoints:
-        - {}

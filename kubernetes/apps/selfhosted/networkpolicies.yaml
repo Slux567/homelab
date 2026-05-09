@@ -1,8 +1,8 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: security-namespace-policy
-  namespace: security
+  name: &app selfhosted
+  namespace: *app
 spec:
   endpointSelector: {}
   ingress:
