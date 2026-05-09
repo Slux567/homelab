@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-all-in-namespace
-  namespace: media   # change this to your namespace
+  namespace: selfhosted
 spec:
   podSelector: {}
 
