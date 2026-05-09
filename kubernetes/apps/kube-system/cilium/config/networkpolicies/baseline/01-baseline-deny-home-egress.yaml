@@ -14,3 +14,4 @@ spec:
     # Allow egress to kube-apiserver (virtual IP, not matchable by CIDR)
     - toEntities:
         - kube-apiserver
+        - cluster
