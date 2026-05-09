@@ -46,7 +46,6 @@ spec:
               limits:
                 memory: 400M
 
-
     service:
       app:
         ports:
