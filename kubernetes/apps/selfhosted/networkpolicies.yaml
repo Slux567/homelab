@@ -1,19 +1,30 @@
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
+---
+# Policy for the media namespace:
+# allow all ingress and egress to/from selfhosted
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
 metadata:
-  name: allow-all-in-namespace
-  namespace: selfhosted
+  name: allow-media-selfhosted
 spec:
-  podSelector: {}
-
-  policyTypes:
-    - Ingress
-    - Egress
-
+  endpointSelector:
+    matchLabels:
+      io.kubernetes.pod.namespace: media
   ingress:
-    - from:
-        - podSelector: {}
-
-  egress:
-    - to:
-        - podSelector: {}
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: selfhosted
+---
+# Policy for the selfhosted namespace:
+# allow all ingress and egress to/from media
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-selfhosted-media
+spec:
+  endpointSelector:
+    matchLabels:
+      io.kubernetes.pod.namespace: selfhosted
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: media
