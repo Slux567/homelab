@@ -6,6 +6,8 @@ spec:
   description: "Allow all egress except to home and storage subnets"
   endpointSelector: {}
   egress:
+    - toEndpoints:
+        - {}  # matches all pods in the cluster
     - toCIDRSet:
         - cidr: "0.0.0.0/0"
           except:
@@ -14,4 +16,3 @@ spec:
     # Allow egress to kube-apiserver (virtual IP, not matchable by CIDR)
     - toEntities:
         - kube-apiserver
-        - cluster
