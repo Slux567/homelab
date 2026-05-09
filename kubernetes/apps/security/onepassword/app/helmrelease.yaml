@@ -13,7 +13,9 @@ spec:
       onepassword-connect:
         strategy: RollingUpdate
         replicas: 2
-
+        pod:
+          labels:
+            networkpolicy.sluxcloud/ingress-internal-gateway: "true"
         containers:
           api:
             image:
