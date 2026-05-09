@@ -3,7 +3,6 @@ kind: CiliumNetworkPolicy
 metadata:
   name: allow-same-namespace
 spec:
-  description: "Allow all ingress from pods in same namespace"
   endpointSelector: {}
   ingress:
     - fromEndpoints:
