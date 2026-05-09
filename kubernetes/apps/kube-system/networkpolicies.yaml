@@ -30,25 +30,6 @@ spec:
               protocol: UDP
             - port: "53"
               protocol: TCP
-
-  egress:
-    # Full freedom within kube-system
-    - toEndpoints:
-        - matchLabels:
-            io.kubernetes.pod.namespace: kube-system
- 
-    # Apiserver, kubelet scraping, node-to-node Cilium traffic
-    - toEntities:
-        - host
-        - remote-node
- 
-    # External targets: upstream DNS resolvers, NFS server, external Postgres
-    - toCIDRSet:
-        - cidr: 0.0.0.0/0
-          except:
-            - 10.42.0.0/16        # pod CIDR
-            - 10.96.0.0/12        # service CIDR
-            - 192.168.0.0/16      # private range
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy

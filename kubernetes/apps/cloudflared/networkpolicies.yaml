@@ -16,26 +16,3 @@ spec:
         - matchLabels:
             gateway.networking.k8s.io/gateway-name: external
             io.kubernetes.pod.namespace: envoy-gateway
-  egress:
-    - toCIDRSet:
-        - cidr: 0.0.0.0/0
-          except:
-            - 10.42.0.0/16        # pod CIDR
-            - 10.96.0.0/12        # service CIDR
-            - 192.168.0.0/16      # private range
-            - 10.0.40.0/24        # Storage CIDR
-    - toEndpoints:
-        - matchLabels:
-            io.kubernetes.pod.namespace: kube-system
-            k8s-app: kube-dns
-      toPorts:
-        - ports:
-            - port: "53"
-              protocol: UDP
-          rules:
-            dns:
-              - matchPattern: "*"
-    - toEndpoints:
-        - matchLabels:
-            gateway.networking.k8s.io/gateway-name: external
-            io.kubernetes.pod.namespace: envoy-gateway
