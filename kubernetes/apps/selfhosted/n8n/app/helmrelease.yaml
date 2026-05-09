@@ -43,7 +43,7 @@ spec:
                 memory: 2Gi
         pod:
           labels:
-            exposure: internal
+            networkpolicy.sluxcloud/ingress-internal-gateway: "true"
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
