@@ -3,6 +3,5 @@ kind: Kustomization
 resources:
   - 01-baseline-deny-home-egress.yaml
   - 02-baseline-allow-coredns-ingress.yaml
-  - 03-allow-same-namespace.yaml
-  - 04-baseline-allow-prometheus-ingress.yaml
-  - 05-baseline-allow-host-and-kubeapiserver-ingress.yaml
+  - 03-baseline-allow-prometheus-ingress.yaml
+  - 04-baseline-allow-host-and-kubeapiserver-ingress.yaml
