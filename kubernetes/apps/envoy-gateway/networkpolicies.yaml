@@ -35,9 +35,6 @@ spec:
     - toEndpoints:
         - matchLabels:
             app.kubernetes.io/name: gateway-helm
-      toPorts:
-        - ports:
-            - port: "18000"
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
@@ -88,6 +85,3 @@ spec:
     - toEndpoints:
         - matchLabels:
             app.kubernetes.io/name: gateway-helm
-      toPorts:
-        - ports:
-            - port: "18000"
