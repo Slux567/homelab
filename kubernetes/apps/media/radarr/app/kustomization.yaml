@@ -4,5 +4,4 @@ resources:
   - ocirepository.yaml
   - external-secret.yaml
   - storage.yaml
-  - networkpolicy.yaml
   - helmrelease.yaml
