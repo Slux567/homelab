@@ -11,9 +11,6 @@ spec:
   values:
     controllers:
       main:
-        pod:
-          labels:
-            networkpolicy.sluxcloud/ingress-internal-gateway: "true"
         containers:
           app:
             image:
