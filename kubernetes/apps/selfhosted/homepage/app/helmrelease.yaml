@@ -59,6 +59,8 @@ spec:
                 drop:
                   - ALL
     defaultPodOptions:
+      labels:
+            networkpolicy.sluxcloud/ingress-internal-gateway: "true"
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
