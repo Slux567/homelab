@@ -25,6 +25,9 @@ spec:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
             k8s-app: kube-dns
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: gateway-helm
       toPorts:
         - ports:
             - port: "53"
@@ -72,6 +75,9 @@ spec:
         - matchLabels:
             io.kubernetes.pod.namespace: kube-system
             k8s-app: kube-dns
+    - toEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: gateway-helm
       toPorts:
         - ports:
             - port: "53"
