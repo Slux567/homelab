@@ -27,3 +27,18 @@ spec:
     - fromEndpoints:
         - matchLabels:
             k8s:io.kubernetes.pod.namespace: media
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-homepage-to-media
+  namespace: default
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: homepage
+
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: media
