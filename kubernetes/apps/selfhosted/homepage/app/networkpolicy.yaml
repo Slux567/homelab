@@ -13,9 +13,6 @@ spec:
         - matchLabels:
             io.kubernetes.pod.namespace: media
   egress:
-    - toEntities:
-        - kube-apiserver
-        - cluster
     - toCIDRSet:
         - cidr: 192.168.1.254/32
         - cidr: 10.0.40.50/32
