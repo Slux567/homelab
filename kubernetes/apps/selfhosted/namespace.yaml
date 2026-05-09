@@ -15,6 +15,3 @@ spec:
   ingress:
     - fromEndpoints:
         - {}
-  egress:
-    - toEndpoints:
-        - {}
