@@ -11,7 +11,6 @@ spec:
   interval: 30m
   values:
     podLabels:
-      networkpolicy.sluxcloud/ingress-internal-gateway: "true"
       networkpolicy.sluxcloud/egress-postgres: "true"
       networkpolicy.sluxcloud/egress-redis: "true"
 
