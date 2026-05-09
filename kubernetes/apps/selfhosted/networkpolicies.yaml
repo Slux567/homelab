@@ -16,6 +16,21 @@ spec:
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
+  name: allow-nextcloud-to-homepage
+  namespace: selfhosted
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: homepage
+
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: nextcloud
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
   name: allow-media-to-homepage
   namespace: selfhosted
 spec:
