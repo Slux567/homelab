@@ -7,7 +7,7 @@ metadata:
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: allow-all-intra-namespace-selfhosted
+  name: allow-all-intra-namespace-security
   namespace: security
 spec:
   description: "Allow all pods in this namespace to talk to each other"
