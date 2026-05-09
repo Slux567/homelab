@@ -8,4 +8,4 @@ resources:
   - ./networkpolicies.yaml
   - ./external-secrets/ks.yaml
   - ./onepassword/ks.yaml
-  # - ./pocket-id/ks.yaml
+  - ./pocket-id/ks.yaml
