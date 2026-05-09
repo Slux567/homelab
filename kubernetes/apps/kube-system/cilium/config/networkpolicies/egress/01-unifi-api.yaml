@@ -3,13 +3,13 @@ kind: CiliumClusterwideNetworkPolicy
 metadata:
   name: label-egress-unifi
 spec:
-  description: "Allow egress to Unifi gateway on 10.0.30.1 port 80/443"
+  description: "Allow egress to Unifi gateway on 192.168.1.254/32 port 80/443"
   endpointSelector:
     matchLabels:
       networkpolicy.sluxcloud/egress-unifi: "true"
   egress:
     - toCIDR:
-        - "10.0.30.1/32"
+        - "192.168.1.254/32"
       toPorts:
         - ports:
             - port: "80"

@@ -61,6 +61,8 @@ spec:
     defaultPodOptions:
       labels:
             networkpolicy.sluxcloud/ingress-internal-gateway: "true"
+            networkpolicy.sluxcloud/egress-unifi: "true"
+            networkpolicy.sluxcloud/egress-truenas-api: "true"
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
