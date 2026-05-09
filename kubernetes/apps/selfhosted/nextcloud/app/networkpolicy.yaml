@@ -2,7 +2,7 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: &app homepage
+  name: &app nextcloud
 spec:
   endpointSelector:
     matchLabels:
@@ -10,7 +10,4 @@ spec:
   ingress:
     - fromEndpoints:
         - matchLabels:
-            io.kubernetes.pod.namespace: media
-    - fromEndpoints:
-        - matchLabels:
-            app.kubernetes.io/name: nextcloud
+            app.kubernetes.io/name: homepage
