@@ -12,4 +12,6 @@ spec:
         kind: HelmRepository
         name: ext-postgres-operator
   values:
+    podLabels:
+      networkpolicy.sluxcloud/egress-postgres: "true"
     existingSecret: "ext-postgres-operator-secret"
