@@ -7,3 +7,4 @@ resources:
   - ./namespace.yaml
   - ./networkpolicies.yaml
   - ./home-assistant/ks.yaml
+  - ./esphome/ks.yaml
