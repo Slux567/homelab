@@ -46,8 +46,8 @@ spec:
         hostnames:
           - esphome.${DOMAIN_01}
         parentRefs:
-          - name: envoy-internal
-            namespace: network
+          - name: internal
+            namespace: envoy-gateway
     persistence:
       config:
         existingClaim: esphome
