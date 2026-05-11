@@ -20,7 +20,12 @@ spec:
             env:
               TZ: ${TIMEZONE}
               APP_URL: "https://auth.${DOMAIN_01}"
-              OIDC_ISSUER_URL: "https://id.${DOMAIN_01}"
+              GENERIC_AUTH_URL: "https://id.${DOMAIN_01}/authorize"
+              GENERIC_TOKEN_URL: "https://id.${DOMAIN_01}/api/oidc/token"
+              GENERIC_USER_URL: "https://id.${DOMAIN_01}/api/oidc/userinfo"
+              GENERIC_SCOPES: "openid email profile"
+              COOKIE_SECURE: "true"
+              DISABLE_CONTINUE: "true"
             envFrom:
               - secretRef:
                   name: tinyauth
