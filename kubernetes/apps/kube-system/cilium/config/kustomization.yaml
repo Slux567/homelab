@@ -8,3 +8,4 @@ resources:
   - lb-pool.yaml
   - hubble-httproute.yaml
   - ./networkpolicies
+  - securitypolicy.yaml
