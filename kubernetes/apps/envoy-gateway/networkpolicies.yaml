@@ -18,6 +18,14 @@ spec:
     - fromEndpoints:
         - matchLabels:
             io.kubernetes.pod.namespace: observability
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: tinyauth
+            io.kubernetes.pod.namespace: security
+      toPorts:
+        - ports:
+            - port: "10443"
+              protocol: TCP
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
