@@ -3,6 +3,7 @@ apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: SecurityPolicy
 metadata:
   name: prometheus-tinyauth
+  namespace: observability
 spec:
   extAuth:
     failOpen: false
@@ -24,6 +25,6 @@ spec:
         - Location
         - Set-Cookie
   targetRefs:
-    group: gateway.networking.k8s.io
-    kind: HTTPRoute
-    name: kube-prometheus-stack-prometheus
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: kube-prometheus-stack-prometheus
