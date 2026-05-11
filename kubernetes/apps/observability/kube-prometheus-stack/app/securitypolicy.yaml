@@ -1,0 +1,23 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: prometheus-tinyauth
+  namespace: observability
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: kube-prometheus-stack-prometheus
+  extAuth:
+    http:
+      backendRefs:
+        - group: ""
+          kind: Service
+          name: tinyauth
+          namespace: security
+          port: 3000
+      path: /api/auth
+      headersToBackend:
+        - Cookie
+        - Authorization
