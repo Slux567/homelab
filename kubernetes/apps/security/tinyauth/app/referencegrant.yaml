@@ -1,5 +1,5 @@
 ---
-# Allows SecurityPolicy resources in the observability namespace to reference
+# Allows SecurityPolicy resources in the selected namespaces to reference
 # the tinyauth Service in the security namespace for extAuth.
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
@@ -17,9 +17,6 @@ spec:
     - group: gateway.envoyproxy.io
       kind: SecurityPolicy
       namespace: home-automation
-    - group: gateway.envoyproxy.io
-      kind: SecurityPolicy
-      namespace: kube-system
   to:
     - group: ""
       kind: Service
