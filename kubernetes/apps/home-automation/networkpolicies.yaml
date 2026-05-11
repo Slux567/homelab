@@ -7,8 +7,8 @@ spec:
   endpointSelector: {}
   ingress:
     - fromEntities:
-        - kube-apiserver
-        - host
+      - kube-apiserver
+      - host
     - fromEndpoints:
         - {}
     - fromEndpoints:
