@@ -27,7 +27,7 @@ spec:
               TINYAUTH_OAUTH_PROVIDERS_POCKETID_AUTHURL: "https://id.${DOMAIN_01}/authorize"
               TINYAUTH_OAUTH_PROVIDERS_POCKETID_TOKENURL: "https://id.${DOMAIN_01}/api/oidc/token"
               TINYAUTH_OAUTH_PROVIDERS_POCKETID_USERINFOURL: "https://id.${DOMAIN_01}/api/oidc/userinfo"
-              TINYAUTH_OAUTH_PROVIDERS_POCKETID_REDIRECTURL: "https://auth.${DOMAIN_01}.com/api/oauth/callback/pocketid"
+              TINYAUTH_OAUTH_PROVIDERS_POCKETID_REDIRECTURL: "https://auth.${DOMAIN_01}.com/api/oauth-callback"
               TINYAUTH_OAUTH_PROVIDERS_POCKETID_SCOPES: "openid email profile groups"
               TINYAUTH_AUTH_SECURECOOKIE: true
               TINYAUTH_AUTH_SESSIONEXPIRY: 604800
