@@ -15,5 +15,5 @@ resources:
   - ./sonarr/ks.yaml
   - ./bazarr/ks.yaml
   - ./plex/ks.yaml
-  - ./jellyfin/ks.yaml
+  # - ./jellyfin/ks.yaml
   - ./seerr/ks.yaml
