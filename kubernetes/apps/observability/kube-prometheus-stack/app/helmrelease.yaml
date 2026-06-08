@@ -105,6 +105,12 @@ spec:
               namespace: envoy-gateway
               sectionName: https
       prometheusSpec:
+        additionalScrapeConfigs:
+          - job_name: 'node-exporter'
+            static_configs:
+              - targets: ['10.0.40.50:9100']
+                labels:
+                  hostname: 'truenas'
         secrets:
           - etcd-certs
         externalUrl: "https://prometheus.${DOMAIN_01}"
