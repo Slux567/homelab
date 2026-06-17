@@ -5,6 +5,8 @@ metadata:
 spec:
   parentRefs:
   - name: external
+    namespace: envoy-gateway
+    sectionName: https
   hostnames:
   - "portfolio.sluxcloud.com"
   rules:
