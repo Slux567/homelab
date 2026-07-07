@@ -7,3 +7,4 @@ resources:
   - ./n8n/ks.yaml
   - ./nextcloud/ks.yaml
   - ./homepage/ks.yaml
+  - ./radicale/ks.yaml
