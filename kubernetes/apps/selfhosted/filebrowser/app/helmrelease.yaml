@@ -17,7 +17,7 @@ spec:
             image:
               repository: ghcr.io/gtsteffaniak/filebrowser
               # renovate: datasource=github-releases depName=gtsteffaniak/filebrowser
-              tag: v1.4.0-stable
+              tag: 1.4.0-stable
             probes:
               liveness:
                 enabled: true
