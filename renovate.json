@@ -14,8 +14,14 @@
       "automergeType": "branch"
     },
     {
-      "description": "Open a PR for minor and major version bumps, no automerge",
-      "matchUpdateTypes": ["minor", "major"],
+      "description": "Group all minor version bumps into a single PR, no automerge",
+      "matchUpdateTypes": ["minor"],
+      "groupName": "Minor Patches",
+      "automerge": false
+    },
+    {
+      "description": "Open a separate PR per major version bump, no automerge",
+      "matchUpdateTypes": ["major"],
       "automerge": false
     }
   ],
