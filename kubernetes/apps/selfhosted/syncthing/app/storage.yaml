@@ -9,7 +9,6 @@ spec:
   resources:
     requests:
       storage: 2Gi
-  volumeName: syncthing-config
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -22,4 +21,3 @@ spec:
   resources:
     requests:
       storage: 20Gi
-  volumeName: syncthing-data
