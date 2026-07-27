@@ -11,13 +11,35 @@ spec:
       storage: 2Gi
 ---
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: filebrowser-data
+spec:
+  capacity:
+    storage: 4T
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: ${NAS_IP}
+    path: /mnt/tank/data
+  mountOptions:
+    - nfsvers=4.2
+    - hard
+    - noatime
+  persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    name: filebrowser-data
+    namespace: selfhosted
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: syncthing-data
+  name: filebrowser-data
 spec:
-  storageClassName: "k8s-nfs"
+  storageClassName: ""
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 20Gi
+      storage: 4T
+  volumeName: filebrowser-data

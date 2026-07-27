@@ -99,7 +99,7 @@ spec:
             app:
               - path: /var/syncthing/config
       data:
-        existingClaim: syncthing-data
+        existingClaim: filebrowser-data
         advancedMounts:
           syncthing:
             app:
