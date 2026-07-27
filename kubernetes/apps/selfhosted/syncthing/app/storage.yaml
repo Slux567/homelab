@@ -13,7 +13,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: filebrowser-data
+  name: syncthing-data
 spec:
   capacity:
     storage: 4T
@@ -28,13 +28,13 @@ spec:
     - noatime
   persistentVolumeReclaimPolicy: Retain
   claimRef:
-    name: filebrowser-data
+    name: syncthing-data
     namespace: selfhosted
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: filebrowser-data
+  name: syncthing-data
 spec:
   storageClassName: ""
   accessModes:
@@ -42,4 +42,4 @@ spec:
   resources:
     requests:
       storage: 4T
-  volumeName: filebrowser-data
+  volumeName: syncthing-data
