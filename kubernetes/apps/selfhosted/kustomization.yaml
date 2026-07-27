@@ -9,3 +9,4 @@ resources:
   - ./homepage/ks.yaml
   - ./radicale/ks.yaml
   - ./filebrowser/ks.yaml
+  - ./syncthing/ks.yaml
