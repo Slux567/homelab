@@ -21,6 +21,7 @@ spec:
 
             env:
               DB_CONNECTION_STRING: file:/app/data/pocket-id.db?_journal_mode=WAL&_busy_timeout=2500&_txlock=immediate
+              ALLOW_DOWNGRADE: true
               APP_URL: https://id.${DOMAIN_01}
               TRUST_PROXY: true
               TZ: ${TIMEZONE}
