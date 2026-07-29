@@ -77,7 +77,7 @@ spec:
       enabled: true
       endpoints: *cp
     kubeEtcd:
-      enabled: true
+      enabled: false
       endpoints: *cp
       service:
         enabled: true
