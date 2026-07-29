@@ -61,7 +61,7 @@ spec:
 
     persistence:
       config:
-        existingClaim: pocket-id-config
+        existingClaim: pocket-id
         globalMounts:
           - path: /app/data
       var:
