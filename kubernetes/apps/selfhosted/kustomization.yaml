@@ -6,6 +6,7 @@ resources:
   - ./networkpolicies.yaml
   - ./n8n/ks.yaml
   # - ./nextcloud/ks.yaml
+  - ./immich/ks.yaml
   - ./homepage/ks.yaml
   - ./radicale/ks.yaml
   - ./filebrowser/ks.yaml
