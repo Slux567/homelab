@@ -27,6 +27,11 @@ spec:
       labels:
         app: immich-postgres
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
       containers:
         - name: postgres
           # Must include the vectorchord/pgvector extension immich requires - see
