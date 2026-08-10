@@ -2,7 +2,7 @@
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: &app immich-library-restic
+  name: immich-library-restic
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
