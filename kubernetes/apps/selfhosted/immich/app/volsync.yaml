@@ -24,7 +24,7 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: immich-library
+  name: immich-library-restic
 spec:
   sourcePVC: immich-library
   trigger:
@@ -38,3 +38,12 @@ spec:
       daily: 7
       weekly: 4
     copyMethod: Direct
+    cacheStorageClassName: k8s-nfs-fast
+    cacheAccessModes:
+      - ReadWriteOnce
+    moverSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      seccompProfile:
+        type: RuntimeDefault
