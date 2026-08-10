@@ -5,4 +5,5 @@ resources:
   - external-secret.yaml
   - storage.yaml
   - postgres.yaml
+  - volsync.yaml
   - helmrelease.yaml
