@@ -28,7 +28,7 @@ metadata:
 spec:
   sourcePVC: immich-library
   trigger:
-    schedule: "* * * * *"
+    schedule: "0 * * * *"
   restic:
   # Prune the repository (repack to free space) every week
     pruneIntervalDays: 7
