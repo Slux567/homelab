@@ -47,28 +47,3 @@ spec:
       runAsGroup: 1000
       seccompProfile:
         type: RuntimeDefault
----
-apiVersion: volsync.backube/v1alpha1
-kind: ReplicationDestination
-metadata:
-  name: immich-restore
-  namespace: selfhosted
-spec:
-  trigger: {}
-  restic:
-    repository: immich-library-restic
-    destinationPVC: immich-library
-    copyMethod: Direct
-    restoreAsOf: "2026-08-11T12:00:00Z"
-    cacheStorageClassName: k8s-nfs-fast
-    cacheAccessModes:
-      - ReadWriteOnce
-    moverSecurityContext:
-      runAsNonRoot: true
-      runAsUser: 1000
-      runAsGroup: 1000
-      seccompProfile:
-        type: RuntimeDefault
-
-    # true deletes everything that is not in the snapshot.
-    enableFileDeletion: true 
