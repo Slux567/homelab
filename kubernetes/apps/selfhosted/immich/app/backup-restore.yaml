@@ -5,7 +5,7 @@ metadata:
   namespace: selfhosted
 spec:
   trigger: 
-    manual: {}
+    manual: restore-once
   restic:
     repository: immich-library-restic
     destinationPVC: immich-library
