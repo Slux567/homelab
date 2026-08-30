@@ -9,6 +9,10 @@ spec:
     name: immich
   interval: 30m
   values:
+    defaultPodOptions:
+      labels:
+        networkpolicy.sluxcloud/egress-postgres: "true"
+
     controllers:
       main:
         containers:
@@ -18,14 +22,26 @@ spec:
             env:
               REDIS_HOSTNAME: immich-valkey
               IMMICH_MACHINE_LEARNING_URL: "http://immich-machine-learning:3003"
-              DB_HOSTNAME: immich-postgres
-              DB_USERNAME: immich
-              DB_DATABASE_NAME: immich
+              DB_HOSTNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-secret-immich
+                    key: HOSTNAME
+              DB_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-secret-immich
+                    key: ROLE
+              DB_DATABASE_NAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: postgres-secret-immich
+                    key: DATABASE_NAME
               DB_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: immich
-                    key: DB_PASSWORD
+                    name: postgres-secret-immich
+                    key: PASSWORD
 
     immich:
       persistence:
