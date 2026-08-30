@@ -19,7 +19,6 @@ spec:
               tag: 26.2.0
             env:
               TZ: ${TIMEZONE}
-              NZBGET__SERVER__MAINDIR: /config
             probes:
               liveness: &probes
                 enabled: true
@@ -30,8 +29,8 @@ spec:
                     port: &port 6789
                   initialDelaySeconds: 0
                   periodSeconds: 10
-                  timeoutSeconds: 5
-                  failureThreshold: 6
+                  timeoutSeconds: 10
+                  failureThreshold: 30
               readiness: *probes
               startup:
                 enabled: true
@@ -49,9 +48,9 @@ spec:
                   - ALL
             resources:
               requests:
-                cpu: 100m
+                cpu: 500m
               limits:
-                memory: 8Gi
+                memory: 12Gi
         pod:
           securityContext:
             runAsNonRoot: true
