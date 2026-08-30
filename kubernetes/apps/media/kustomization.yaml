@@ -7,7 +7,7 @@ resources:
   - ./namespace.yaml
   - ./networkpolicies.yaml
   - ./media-storage.yaml
-  - ./qbittorrent/ks.yaml
+  # - ./qbittorrent/ks.yaml
   - ./nzbget/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./prowlarr/ks.yaml
