@@ -4,7 +4,7 @@ metadata:
   name: immich-restore
   namespace: selfhosted
 spec:
-  trigger: 
+  trigger:
     manual: restore-once
   restic:
     repository: immich-library-restic
