@@ -1,0 +1,22 @@
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
+metadata:
+  name: immich
+spec:
+  database: immich
+  dropOnDelete: false
+  masterRole: immich_master
+  schemas:
+    - public
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: immich
+spec:
+  role: immich_master
+  database: immich
+  secretName: postgres-secret
+  privileges: OWNER
+  secretTemplate:
+    PQ_URL: "host={{.Host}} user={{.Role}} password={{.Password}} dbname={{.Database}}"

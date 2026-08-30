@@ -28,15 +28,15 @@ metadata:
 spec:
   sourcePVC: immich-library
   trigger:
-    schedule: "0 * * * *"
+    schedule: "0 3 * * *"
   restic:
   # Prune the repository (repack to free space) every week
     pruneIntervalDays: 7
     repository: immich-library-restic
     retain:
-      hourly: 24
-      daily: 7
+      daily: 14
       weekly: 4
+      monthly: 3
     copyMethod: Direct
     cacheStorageClassName: k8s-nfs-fast
     cacheAccessModes:
