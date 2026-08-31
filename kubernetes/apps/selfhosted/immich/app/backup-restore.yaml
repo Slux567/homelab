@@ -10,7 +10,7 @@ spec:
     repository: immich-library-restic
     destinationPVC: immich-library
     copyMethod: Direct
-    restoreAsOf: "2026-08-13T12:00:00Z"
+    restoreAsOf: "2026-08-30T12:00:00Z"
     cacheStorageClassName: k8s-nfs-fast
     cacheAccessModes:
       - ReadWriteOnce
