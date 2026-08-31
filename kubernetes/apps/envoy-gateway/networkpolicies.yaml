@@ -22,9 +22,8 @@ spec:
         - matchLabels:
             app.kubernetes.io/name: tinyauth
             io.kubernetes.pod.namespace: security
-    - fromEndpoints:
+    - fromEndpoints:  # Allow apps in selfhosted to access internal applications through internal LB
         - matchLabels:
-            app.kubernetes.io/name: filebrowser
             io.kubernetes.pod.namespace: selfhosted
       toPorts:
         - ports:
