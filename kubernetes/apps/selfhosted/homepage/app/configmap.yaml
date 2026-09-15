@@ -1,0 +1,150 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage-config
+data:
+  bookmarks.yaml: ""
+  docker.yaml: ""
+  kubernetes.yaml: |
+    mode: cluster
+    gateway: true
+  services.yaml: |
+    - Media:
+        - Plex:
+            icon: plex.png
+            href: https://plex.${DOMAIN_01}/
+            description: Movies & TV
+            widget:
+              type: plex
+              url: http://plex.media.svc.cluster.local:32400
+              key: "{{HOMEPAGE_VAR_PLEX_TOKEN}}"
+        - Seerr:
+            icon: seerr.png
+            href: https://requests.${DOMAIN_01}/
+            description: Media requests
+            widget:
+              type: seerr
+              url: http://seerr.media.svc.cluster.local:5055
+              key: "{{HOMEPAGE_VAR_SEERR_API_KEY}}"
+        - Radarr:
+            icon: radarr.png
+            href: https://radarr.${DOMAIN_01}/
+            description: Movie management
+            widget:
+              type: radarr
+              url: http://radarr.media.svc.cluster.local:7878
+              key: "{{HOMEPAGE_VAR_RADARR_API_KEY}}"
+        - Sonarr:
+            icon: sonarr.png
+            href: https://sonarr.${DOMAIN_01}/
+            description: TV management
+            widget:
+              type: sonarr
+              url: http://sonarr.media.svc.cluster.local:8989
+              key: "{{HOMEPAGE_VAR_SONARR_API_KEY}}"
+        - Prowlarr:
+            icon: prowlarr.png
+            href: https://prowlarr.${DOMAIN_01}/
+            description: Indexer management
+            widget:
+              type: prowlarr
+              url: http://prowlarr.media.svc.cluster.local:9696
+              key: "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}"
+        - Bazarr:
+            icon: bazarr.png
+            href: https://bazarr.${DOMAIN_01}/
+            description: Subtitle management
+        - NZBGet:
+            icon: nzbget.png
+            href: https://nzbget.${DOMAIN_01}/
+            description: Usenet client
+    - Files & Sync:
+        - Filebrowser:
+            icon: filebrowser.png
+            href: https://filebrowser.${DOMAIN_01}/
+            description: File browser
+        - Immich:
+            icon: immich.png
+            href: https://photos.${DOMAIN_01}/
+            description: Photo backup
+        - Syncthing:
+            icon: syncthing.png
+            href: https://sync.${DOMAIN_01}/
+            description: File sync
+        - Radicale:
+            icon: radicale.png
+            href: https://radicale.${DOMAIN_01}/
+            description: CalDAV & CardDAV
+    - Automation:
+        - Home Assistant:
+            icon: home-assistant.png
+            href: https://hass.${DOMAIN_01}/
+            description: Home automation
+        - ESPHome:
+            icon: esphome.png
+            href: https://esphome.${DOMAIN_01}/
+            description: Device firmware
+        - n8n:
+            icon: n8n.png
+            href: https://n8n.${DOMAIN_01}/
+            description: Workflow automation
+    - Security:
+        - Pocket ID:
+            icon: pocket-id.png
+            href: https://id.${DOMAIN_01}/
+            description: Identity provider
+        - Tinyauth:
+            icon: tinyauth.png
+            href: https://auth.${DOMAIN_01}/
+            description: Auth proxy
+        - 1Password Connect:
+            icon: 1password.png
+            href: https://onepassword-connect.${DOMAIN_01}/
+            description: Secrets management
+    - Monitoring:
+        - Grafana:
+            icon: grafana.png
+            href: https://grafana.${DOMAIN_01}/
+            description: Dashboards
+        - Prometheus:
+            icon: prometheus.png
+            href: https://prometheus.${DOMAIN_01}/
+            description: Metrics
+        - Alertmanager:
+            icon: alertmanager.png
+            href: https://alertmanager.${DOMAIN_01}/
+            description: Alerting
+  settings.yaml: |
+    title: sluxcloud
+    headerStyle: clean
+    layout:
+      Media:
+        style: columns
+        columns: 3
+      Files & Sync:
+        style: columns
+        columns: 3
+      Automation:
+        style: row
+        columns: 3
+      Security:
+        style: row
+        columns: 3
+      Monitoring:
+        style: row
+        columns: 3
+  widgets.yaml: |
+    - search:
+        provider: duckduckgo
+        focus: true
+        target: _blank
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: "Sluxcloud Cluster"
+        nodes:
+          show: false

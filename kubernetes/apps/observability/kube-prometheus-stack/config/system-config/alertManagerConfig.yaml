@@ -1,0 +1,70 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: alertmanager-config
+spec:
+  route:
+    groupBy: ["alertname","job"]
+    groupWait: 1m
+    groupInterval: 10m
+    repeatInterval: 1h
+    receiver: "pushover"
+    routes:
+    - receiver: "null"
+      groupInterval: 15s
+      groupWait: 0s
+      repeatInterval: 5m
+      matchers:
+        - name: alertname
+          matchType: "="
+          value: "Watchdog"
+    - receiver: "pushover"
+      matchers:
+        - name: severity
+          matchType: "=~"
+          value: "warning|critical"
+
+  receivers:
+  - name: "null"
+  - name: pushover
+    pushoverConfigs:
+      - html: true
+        title: >-
+          [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]
+          {{ .CommonLabels.alertname }}
+        message: |-
+          {{- range .Alerts }}
+            {{- if ne .Annotations.description "" }}
+              {{ .Annotations.description }}
+            {{- else if ne .Annotations.summary "" }}
+              {{ .Annotations.summary }}
+            {{- else if ne .Annotations.message "" }}
+              {{ .Annotations.message }}
+            {{- else }}
+              Alert description not available
+            {{- end }}
+            {{- if gt (len .Labels.SortedPairs) 0 }}
+              <small>
+              {{- range .Labels.SortedPairs }}
+                <b>{{ .Name }}:</b> {{ .Value }}
+              {{- end }}
+              </small>
+            {{- end }}
+          {{- end }}
+        priority: |-
+          {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
+        sendResolved: true
+        # Optional sound to use for notification, see https://pushover.net/api#sound
+        # sound: <string>
+        ttl: 3600s
+        token:
+          name: pushover-secret
+          key: ALERTMANAGER_PUSHOVER_TOKEN
+        userKey:
+          name: pushover-secret
+          key: PUSHOVER_USER_KEY
+        urlTitle: View in Alertmanager
+
+
+
+                  

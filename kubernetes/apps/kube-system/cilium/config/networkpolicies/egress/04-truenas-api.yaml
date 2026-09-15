@@ -1,0 +1,18 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: label-egress-truenas-api
+spec:
+  description: "Allow egress to TrueNAS API on 10.0.40.50 port 80/443"
+  endpointSelector:
+    matchLabels:
+      networkpolicy.sluxcloud/egress-truenas-api: "true"
+  egress:
+    - toCIDR:
+        - "10.0.40.50/32"
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP
+            - port: "443"
+              protocol: TCP

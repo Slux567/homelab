@@ -1,0 +1,25 @@
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: immich-restore
+  namespace: selfhosted
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: immich-library-restic
+    destinationPVC: immich-library
+    copyMethod: Direct
+    restoreAsOf: "2026-08-31T20:00:00Z"
+    cacheStorageClassName: k8s-nfs-fast
+    cacheAccessModes:
+      - ReadWriteOnce
+    moverSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      seccompProfile:
+        type: RuntimeDefault
+
+    # if true deletes everything that is not in the snapshot.
+    enableFileDeletion: false

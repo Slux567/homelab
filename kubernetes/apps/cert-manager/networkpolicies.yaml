@@ -1,0 +1,16 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: default-cert-manager-policy
+  namespace: cert-manager
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEntities:
+      - kube-apiserver
+      - host
+    - fromEndpoints:
+        - {}
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: observability

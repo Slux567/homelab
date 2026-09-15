@@ -1,0 +1,122 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: system-health
+  labels:
+    release: kube-prometheus-stack
+spec:
+  groups:
+    - name: system-health.rules
+      rules:
+
+        # Availability
+        - alert: InstanceDown
+          expr: up{job="kube-prometheus-stack-prometheus-node-exporter"} == 0
+          for: 0m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Instance {{ $labels.hostname }} is down"
+
+        - alert: InstanceFlapping
+          expr: changes(up{job="kube-prometheus-stack-prometheus-node-exporter"}[5m]) > 2
+          for: 0m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Instance {{ $labels.hostname }} is flapping (unstable availability)"
+        
+        # CPU
+        - alert: HighCPUUsage
+          expr: 100 - (avg by(hostname) (rate(node_cpu_seconds_total{job="kube-prometheus-stack-prometheus-node-exporter", mode="idle"}[5m])) * 100) > 90
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Instance {{ $labels.hostname }} CPU saturation"
+
+        # RAM
+        - alert: HighMemoryUsage
+          expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) < 0.10
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Instance {{ $labels.hostname }} low memory (<10% available)"
+        - alert: MemoryCritical
+          expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) < 0.05
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Instance {{ $labels.hostname }} critically low on memory (<5% available)"
+
+        - alert: OOMKillDetected
+          expr: increase(node_vmstat_oom_kill[5m]) > 0
+          for: 0m
+          labels:
+            severity: critical
+          annotations:
+            summary: "OOM kill occurred on {{ $labels.hostname }}"
+
+        # Disk
+        - alert: LowDiskSpace
+          expr: (node_filesystem_avail_bytes{fstype!~"tmpfs|fuse.lxcfs"} 
+                / node_filesystem_size_bytes{fstype!~"tmpfs|fuse.lxcfs"}) < 0.10
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Low disk space on {{ $labels.hostname }} ({{ $labels.mountpoint }}) (<10% remaining)"
+        - alert: DiskAlmostFull
+          expr: (node_filesystem_avail_bytes{fstype!~"tmpfs|fuse.lxcfs"} 
+                / node_filesystem_size_bytes{fstype!~"tmpfs|fuse.lxcfs"}) < 0.05
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Disk almost full on {{ $labels.hostname }} ({{ $labels.mountpoint }}) (<5% remaining)"
+
+        # Disk I/O
+        - alert: HighDiskIO
+          expr: rate(node_disk_io_time_seconds_total[5m]) > 0.8
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High disk I/O on {{ $labels.hostname }}"
+
+        # Network
+        - alert: HighNetworkUtilization
+          expr: (rate(node_network_receive_bytes_total[5m]) 
+                + rate(node_network_transmit_bytes_total[5m])) > 1000000000
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High network utilization on {{ $labels.hostname }}"
+
+        # Temperatures
+        - alert: NVMeHighTemperature
+          expr: node_hwmon_temp_celsius{chip=~"nvme_.*"} > 65
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "NVMe temperature high on {{ $labels.hostname }} ({{ $value }}°C)"
+
+        - alert: CPUHighTemperature
+          expr: node_hwmon_temp_celsius{chip=~"platform_coretemp_.*"} > 85
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "CPU temperature high on {{ $labels.hostname }} ({{ $value }}°C)"
+
+        - alert: MotherboardHighTemperature
+          expr: node_hwmon_temp_celsius{chip=~"thermal_.*"} > 70
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Motherboard / ACPI thermal zone overheating on {{ $labels.hostname }}"

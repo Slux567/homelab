@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+configMapGenerator:
+  - files:
+      - resources/config.cfg
+    name: radicale-config
+generatorOptions:
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
+  disableNameSuffixHash: true
+  
+resources:
+  - ocirepository.yaml
+  - external-secret.yaml
+  - storage.yaml
+  - helmrelease.yaml

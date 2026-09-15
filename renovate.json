@@ -1,0 +1,39 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "flux": {
+    "fileMatch": ["kubernetes/.+\\.yaml$"]
+  },
+  "packageRules": [
+    {
+      "description": "Auto-merge patch and digest updates directly to main (no PR)",
+      "matchUpdateTypes": ["patch", "digest"],
+      "automerge": true,
+      "automergeType": "branch"
+    },
+    {
+      "description": "Group all minor version bumps into a single PR, no automerge",
+      "matchUpdateTypes": ["minor"],
+      "groupName": "Minor Patches",
+      "automerge": false
+    },
+    {
+      "description": "Open a separate PR per major version bump, no automerge",
+      "matchUpdateTypes": ["major"],
+      "automerge": false
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Process container image repository+tag pairs in Flux HelmRelease values (bjw-s app-template pattern)",
+      "fileMatch": ["kubernetes/.+\\.yaml$"],
+      "matchStrings": [
+        "repository: (?<depName>[^\\s]+)\\n\\s+tag: (?<currentValue>[^@\\n]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?"
+      ],
+      "datasourceTemplate": "docker"
+    }
+  ]
+}

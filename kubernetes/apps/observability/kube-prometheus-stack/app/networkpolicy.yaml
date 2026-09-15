@@ -1,0 +1,16 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: prometheus-allow-egress-to-truenas-node-exporter
+spec:
+  description: "Allow egress to truenas node exporter"
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus
+  egress:
+    - toCIDR:
+        - 10.0.40.50/32
+      toPorts:
+        - ports:
+            - port: "9100"
+              protocol: TCP

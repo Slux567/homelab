@@ -1,0 +1,18 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-all-egress
+spec:
+  description: "Allow all egress except to home and storage subnets"
+  endpointSelector: {}
+  egress:
+    - toEndpoints:
+        - {}  # matches all pods in the cluster
+    - toCIDRSet:
+        - cidr: "0.0.0.0/0"
+          except:
+            - "192.168.1.0/16"
+            - "10.0.40.0/24"
+    # Allow egress to kube-apiserver (virtual IP, not matchable by CIDR)
+    - toEntities:
+        - kube-apiserver

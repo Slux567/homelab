@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: cluster-config
+    namespace: flux-system
+data:
+    DOMAIN_01: ENC[AES256_GCM,data:t8ziPNCYF8035XJDiA==,iv:UBoqKnvcqWjdhCoDhZc3qvpM61cuUv/k8XvwZNO9zKY=,tag:UWsc1GTQ5bNTgt9MqYTqRA==,type:str]
+    CLOUDFLARE_TUNNEL_ID: ENC[AES256_GCM,data:49UaH853U4GvPLKQ6LMTuCoZRZr4Hnasra6lp71MCS5RUKin,iv:KRq8LPupngxl5CN60nDO21mdjjp3GEz76jin/zrheio=,tag:i/ilzvCTXittAMaFZsiXyg==,type:str]
+    ASGARD_IP: ENC[AES256_GCM,data:mf4uJsrSg1nt6w==,iv:gVb0f33Y0BQyRk0MY3bsIFNOok/xk3KrKpos8KgDwUE=,tag:drg5t//1c0EbkZZjC02DDw==,type:str]
+    MIDGARD_IP: ENC[AES256_GCM,data:sXhjkUC6dutnEg==,iv:PmlPaamtVL7FO7oam6CNJK/VjeUSTGYZxLA9DyjozF4=,tag:TGZsMthE3MAUBOSYyGbxyA==,type:str]
+    MUSPELHEIM_IP: ENC[AES256_GCM,data:ZjobbtAfLxqEyQ==,iv:JoL9QF0I9t/EAkq+plTbHNj5bSS1loU0tROmnG1f92Q=,tag:CZMPOHM1oxu5aM7Irqimzw==,type:str]
+    NAS_IP: ENC[AES256_GCM,data:CqMKRrND2Ia65g==,iv:ajhY7IW4cNtMOhYjfVfKdLhE4YZqcTasGCjLQXo5o88=,tag:yk0wMzS7991I9D2W9SAejg==,type:str]
+    GATEWAY_IP_INTERNAL: ENC[AES256_GCM,data:J+9zgrQXv1cKSs8=,iv:73cnOO8xGFpi7c3PHlecy1ufOTNHpHiZ74rPXmbB5Uo=,tag:HxiwxX+6MtwNfXq/3PBSXQ==,type:str]
+    GATEWAY_IP_EXTERNAL: ENC[AES256_GCM,data:FTpw1Bpiaykggy0=,iv:j7nBC70oBmpiEtr6/RXUKqwZkRhomfuFWsqSEtSgkow=,tag:VWualcj5CY8RflLwiY8bXg==,type:str]
+    QBITTORRENT_IP: ENC[AES256_GCM,data:WsXacOCsht49MCs=,iv:slnmWNzFnycVNH68zOZn5Hhr92KBtPY3MDmaDPfb7tg=,tag:jnps1j/r76ip/Mwy234clA==,type:str]
+    PLEX_IP: ENC[AES256_GCM,data:UryCDp3MIF2jZ7s=,iv:jiz5uhd4aPHlSeZBqT6nnBzmv1xfNOhwnbchg0mYQAU=,tag:a8VZ7JZpuz+jAYH+R9cwbg==,type:str]
+    SYNCTHING_IP: ENC[AES256_GCM,data:fOaWri5AZcqOXlA=,iv:ehWnxxSLGaGrQdhBaiX4gMkieL1t8uKznFlrK2119Tk=,tag:BnpsB78+0+8K5cPSIGWECQ==,type:str]
+    TIMEZONE: ENC[AES256_GCM,data:1fNPiobjRV18K27igqWYqQ==,iv:oVhOaFORxcZZ8yK2tW7DnvRK7rz/Na+cOt4DEu/4V3M=,tag:9YIe+/1pk/h78v1lnM7fOg==,type:str]
+sops:
+    age:
+        - recipient: age1e37dddpcd83kdc45xsle36a9dxc492t0xnpsakyk7478zlga5agsrqjdad
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBaRFprY0pMZFFrN0lLNkdB
+            bklsQ2hycElNWHc0eXdaRDQrNjlxSUtqQUNRCmp5QlY0dXB6YjBrVTl3L0hxTmV1
+            NzF1OFVnem9vWUVGdzBzTjRQNHhZRFkKLS0tIFdtNU41QXpqVUZRVGpWSEZncmZo
+            UExEYkgyTnFEczlpaElpbU1HL1QwUkkKoAs9JVLIpS5koU3oMB6FBt9/7W8fGdIc
+            XkIdLjRERJ0AjlqqYvg9cgkU8534g4ZfEz6KMAfyhHdzAQe7cVAPwg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-07-27T18:00:32Z"
+    mac: ENC[AES256_GCM,data:ENxFwdehLYDooROfk67PFbDShRhxJ8ByWlcH0NmlHNlCyvxMccu86SapKOehSoEudCBz/944KpJHAp8mtLlnWvdk3WUGkl+rzveaBN4KebFEgX7bt/NjS5DkuWbJUssA98CdxN3QwTM+dYsyHVzJZANkT6gVHb1bCWoK3L23goI=,iv:PA7A5TbgqqS38Am2jESn5315ul96jyYrM8l8PqcZgcA=,tag:wVtG4tbmYxVQxgcfHR/NwA==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.11.0

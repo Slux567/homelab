@@ -1,0 +1,72 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: pocket-id
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      main:
+        containers:
+          app:
+            image:
+              # https://github.com/pocket-id/pocket-id/issues/1598
+              # renovate: allowedVersions=<2.10.0
+              repository: ghcr.io/pocket-id/pocket-id
+              tag: v2.14.0
+
+            env:
+              DB_CONNECTION_STRING: file:/app/data/pocket-id.db?_journal_mode=WAL&_busy_timeout=2500&_txlock=immediate
+              ALLOW_DOWNGRADE: true
+              APP_URL: https://id.${DOMAIN_01}
+              TRUST_PROXY: true
+              TZ: ${TIMEZONE}
+              UPLOAD_PATH: /app/data/uploads
+              ENCRYPTION_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: pocket-id
+                    key: ENCRYPTION_KEY
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+
+            resources:
+              requests:
+                memory: 250M
+                cpu: 10m
+              limits:
+                memory: 400M
+
+    service:
+      app:
+        ports:
+          http:
+            port: 1411
+
+    route:
+      app:
+        hostnames: ["id.${DOMAIN_01}"]
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway
+
+    persistence:
+      config:
+        existingClaim: pocket-id
+        globalMounts:
+          - path: /app/data
+      var:
+        type: emptyDir
+        sizeLimit: 1Gi

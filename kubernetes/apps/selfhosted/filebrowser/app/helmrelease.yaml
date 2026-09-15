@@ -1,0 +1,117 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: filebrowser
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  interval: 1h
+  values:
+    controllers:
+      filebrowser:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/gtsteffaniak/filebrowser
+              # renovate: datasource=github-releases depName=gtsteffaniak/filebrowser
+              tag: 1.5.0-stable
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 80
+                  periodSeconds: 30
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 80
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 80
+                  failureThreshold: 30
+                  periodSeconds: 5
+            resources:
+              requests:
+                cpu: 15m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+
+    service:
+      app:
+        controller: filebrowser
+        ports:
+          http:
+            port: &port 80
+
+    route:
+      app:
+        hostnames:
+          - "filebrowser.${DOMAIN_01}"
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+
+    persistence:
+      data:
+        existingClaim: filebrowser
+        advancedMounts:
+          filebrowser:
+            app:
+              - path: /home/filebrowser/data
+      config-secret:
+        type: secret
+        name: filebrowser-config
+        advancedMounts:
+          filebrowser:
+            app:
+              - path: /home/filebrowser/data/config.yaml
+                subPath: config.yaml
+                readOnly: true
+      data-nfs:
+        existingClaim: filebrowser-data
+        advancedMounts:
+          filebrowser:
+            app:
+              - path: /data
+      media-nfs:
+        existingClaim: filebrowser-media
+        advancedMounts:
+          filebrowser:
+            app:
+              - path: /media

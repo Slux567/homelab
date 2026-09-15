@@ -1,0 +1,18 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: label-egress-unifi
+spec:
+  description: "Allow egress to Unifi gateway on 192.168.1.254/32 port 80/443"
+  endpointSelector:
+    matchLabels:
+      networkpolicy.sluxcloud/egress-unifi: "true"
+  egress:
+    - toCIDR:
+        - "192.168.1.254/32"
+      toPorts:
+        - ports:
+            - port: "80"
+              protocol: TCP
+            - port: "443"
+              protocol: TCP

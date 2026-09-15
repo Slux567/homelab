@@ -1,0 +1,208 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: kube-prometheus-stack
+  interval: 10m
+  values:
+    crds:
+      enabled: true
+      upgradeJob:
+        enabled: true
+        forceConflicts: true
+    cleanPrometheusOperatorObjectNames: true
+
+# Alert Manager Config!
+    alertmanager:
+      enabled: true
+      route:
+        main:
+          enabled: true
+          hostnames:
+            - "alertmanager.${DOMAIN_01}"
+          parentRefs:
+            - name: internal
+              namespace: envoy-gateway
+              sectionName: https
+      alertmanagerSpec:
+        alertmanagerConfiguration:
+          name: alertmanager-config
+          global:
+            resolveTimeout: 5m
+      externalUrl: "https://alertmanager.${DOMAIN_01}"
+      volumeClaimTemplate:
+        spec:
+          storageClassName: k8s-nfs
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 2Gi
+
+# Kube-system service monitors
+    kubelet:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          # Drop high cardinality labels
+          - action: labeldrop
+            regex: (uid)
+          - action: labeldrop
+            regex: (id|name)
+          - action: drop
+            sourceLabels: ["__name__"]
+            regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
+    kubeApiServer:
+      enabled: true
+      serviceMonitor:
+        metricRelabelings:
+          # Drop high cardinality labels
+          - action: drop
+            sourceLabels: ["__name__"]
+            regex: (apiserver|etcd|rest_client)_request(|_sli|_slo)_duration_seconds_bucket
+          - action: drop
+            sourceLabels: ["__name__"]
+            regex: (apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket)
+    kubeControllerManager:
+      enabled: true
+      endpoints: &cp
+        - "${ASGARD_IP}"
+        - "${MIDGARD_IP}"
+        - "${MUSPELHEIM_IP}"
+    kubeScheduler:
+      enabled: true
+      endpoints: *cp
+    kubeEtcd:
+      enabled: false
+      endpoints: *cp
+      service:
+        enabled: true
+        port: 2379
+        targetPort: 2379
+      serviceMonitor:
+        scheme: https
+        insecureSkipVerify: false
+        serverName: localhost
+        caFile: /etc/prometheus/secrets/etcd-certs/etcd-ca.crt
+        certFile: /etc/prometheus/secrets/etcd-certs/etcd-client.crt
+        keyFile: /etc/prometheus/secrets/etcd-certs/etcd-client-key.key
+    kubeProxy:
+      enabled: false
+
+# Prometheus Config
+    prometheus:
+      route:
+        main:
+          enabled: true
+          hostnames:
+            - "prometheus.${DOMAIN_01}"
+          parentRefs:
+            - name: internal
+              namespace: envoy-gateway
+              sectionName: https
+      prometheusSpec:
+        additionalScrapeConfigs:
+          - job_name: 'node-exporter'
+            static_configs:
+              - targets: ['10.0.40.50:9100']
+                labels:
+                  hostname: 'truenas'
+        secrets:
+          - etcd-certs
+        externalUrl: "https://prometheus.${DOMAIN_01}"
+        retention: 14d
+        retentionSize: 50GB
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            memory: 3Gi
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: k8s-nfs
+              resources:
+                requests:
+                  storage: 50Gi
+
+# Node Exporter Config
+    nodeExporter:
+      enabled: true
+    prometheus-node-exporter:
+      fullnameOverride: node-exporter
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: hostname
+    kubeStateMetrics:
+      enabled: true
+    kube-state-metrics:
+      fullnameOverride: kube-state-metrics
+      metricLabelsAllowlist:
+        - pods=[*]
+        - nodes=[*]
+        - deployments=[*]
+        - persistentvolumeclaims=[*]
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: hostname
+
+# Grafana config
+    grafana:
+      enabled: true
+      route:
+        main:
+          enabled: true
+          hostnames:
+            - "grafana.${DOMAIN_01}"
+          parentRefs:
+            - name: internal
+              namespace: envoy-gateway
+              sectionName: https
+      env:
+        GF_SERVER_ROOT_URL: "https://grafana.${DOMAIN_01}"
+      envFromSecret: grafana
+      grafana.ini:
+        server:
+          root_url: "https://grafana.${DOMAIN_01}"
+        auth:
+          disable_login_form: true
+        auth.basic:
+          enabled: false
+        auth.generic_oauth:
+          enabled: true
+          name: Pocket ID
+          icon: signin
+          scopes: openid email profile groups
+          auth_url: "https://id.${DOMAIN_01}/authorize"
+          token_url: "https://id.${DOMAIN_01}/api/oidc/token"
+          api_url: "https://id.${DOMAIN_01}/api/oidc/userinfo"
+          use_pkce: true
+          use_refresh_token: true
+          role_attribute_path: "contains(groups[*], 'Admin') && 'Admin' || 'Viewer'"
+      initChownData:
+        enabled: false
+      persistence:
+        enabled: true
+        existingClaim: grafana-data-pvc
+      additionalDataSources:
+        - name: Loki
+          type: loki
+          url: http://loki.observability.svc.cluster.local:3100
+          access: proxy
+          isDefault: false

@@ -1,0 +1,25 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: default-home-automation-policy
+  namespace: home-automation
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEntities:
+      - kube-apiserver
+      - host
+    - fromEndpoints:
+        - {}
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: observability
+    - fromEndpoints:
+        - matchLabels:
+            gateway.networking.k8s.io/gateway-name: internal
+            io.kubernetes.pod.namespace: envoy-gateway
+  egress:
+    # HOME VLAN — subnet allowed, port control delegated to Unifi
+    - toCIDRSet:
+        - cidr: 192.168.10.0/24   # HOME VLAN subnet
+        - cidr: 192.168.20.1/24   # IOT VLAN Subent

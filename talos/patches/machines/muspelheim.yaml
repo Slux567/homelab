@@ -1,0 +1,22 @@
+machine:
+  network:
+    interfaces:
+      - interface: enp2s0
+        dhcp: true
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 10.0.30.1
+            metric: 512
+    nameservers:
+      - 10.0.30.1
+  install:
+    disk: /dev/nvme0n1
+  nodeLabels:
+    node.kubernetes.io/exclude-from-external-load-balancers:
+      $patch: delete
+
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: muspelheim
+auto: off

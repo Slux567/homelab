@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ./namespace.yaml
+  - ./networkpolicies.yaml
+  - ./media-storage.yaml
+  # - ./qbittorrent/ks.yaml
+  - ./nzbget/ks.yaml
+  - ./flaresolverr/ks.yaml
+  - ./prowlarr/ks.yaml
+  - ./radarr/ks.yaml
+  - ./sonarr/ks.yaml
+  - ./bazarr/ks.yaml
+  - ./plex/ks.yaml
+  # - ./jellyfin/ks.yaml
+  - ./seerr/ks.yaml

@@ -1,0 +1,16 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: label-egress-redis
+spec:
+  description: "Allow egress to Redis on 10.0.40.50 port 6379"
+  endpointSelector:
+    matchLabels:
+      networkpolicy.sluxcloud/egress-redis: "true"
+  egress:
+    - toCIDR:
+        - "10.0.40.50/32"
+      toPorts:
+        - ports:
+            - port: "6379"
+              protocol: TCP

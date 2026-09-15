@@ -1,0 +1,12 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: label-ingress-home-vlan
+spec:
+  description: "Allow ingress directly from home VLAN (192.168.10.0/24) for pods with the ingress-home-vlan label"
+  endpointSelector:
+    matchLabels:
+      networkpolicy.sluxcloud/ingress-home-vlan: "true"
+  ingress:
+    - fromCIDR:
+        - "192.168.10.0/24"

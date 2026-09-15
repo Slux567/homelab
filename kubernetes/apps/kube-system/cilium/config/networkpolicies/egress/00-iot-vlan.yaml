@@ -1,0 +1,12 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: label-egress-iot-vlan
+spec:
+  description: "Allow egress to IoT VLAN (192.168.20.0/24)"
+  endpointSelector:
+    matchLabels:
+      networkpolicy.sluxcloud/egress-iot-vlan: "true"
+  egress:
+    - toCIDR:
+        - "192.168.20.0/24"

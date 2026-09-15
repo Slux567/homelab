@@ -1,0 +1,26 @@
+---
+# Allows SecurityPolicy resources in the selected namespaces to reference
+# the tinyauth Service in the security namespace for extAuth.
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: tinyauth-extauth-grant
+  namespace: security
+spec:
+  from:
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: observability
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: media
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: home-automation
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: flux-system
+  to:
+    - group: ""
+      kind: Service
+      name: tinyauth

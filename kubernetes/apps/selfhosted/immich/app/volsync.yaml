@@ -1,0 +1,49 @@
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: immich-library-restic
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-connect
+  target:
+    name: immich-library-restic
+    creationPolicy: Owner
+    template:
+      engineVersion: v2
+      data:
+        RESTIC_REPOSITORY: "s3:{{ .endpoint }}/{{ .bucket }}/immich-library"
+        RESTIC_PASSWORD: "{{ .resticPassword }}"
+        AWS_ACCESS_KEY_ID: "{{ .keyID }}"
+        AWS_SECRET_ACCESS_KEY: "{{ .applicationKey }}"
+  dataFrom:
+    - extract:
+        key: backblaze
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: immich-library-restic
+spec:
+  sourcePVC: immich-library
+  trigger:
+    schedule: "0 6 * * *"
+  restic:
+  # Prune the repository (repack to free space) every week
+    pruneIntervalDays: 7
+    repository: immich-library-restic
+    retain:
+      daily: 14
+      weekly: 4
+      monthly: 3
+    copyMethod: Direct
+    cacheStorageClassName: k8s-nfs-fast
+    cacheAccessModes:
+      - ReadWriteOnce
+    moverSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      seccompProfile:
+        type: RuntimeDefault

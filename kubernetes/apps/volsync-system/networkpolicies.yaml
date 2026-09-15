@@ -1,0 +1,16 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: default-volsync-system-policy
+  namespace: volsync-system
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEntities:
+      - kube-apiserver
+      - host
+    - fromEndpoints:
+        - {}
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: observability

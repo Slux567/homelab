@@ -1,0 +1,19 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: default-external-policy
+  namespace: external
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEntities:
+      - kube-apiserver
+      - host
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: observability
+    - fromEndpoints:
+        - matchLabels:
+            gateway.networking.k8s.io/gateway-name: external
+            io.kubernetes.pod.namespace: envoy-gateway
