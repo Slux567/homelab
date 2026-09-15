@@ -83,11 +83,6 @@ spec:
               port: &port 2283
       route:
         main:
-          annotations:
-            gethomepage.dev/enabled: "true"
-            gethomepage.dev/group: Selfhosted
-            gethomepage.dev/icon: immich.png
-            gethomepage.dev/name: immich
           hostnames:
             - "photos.${DOMAIN_01}"
           parentRefs:

@@ -10,7 +10,7 @@ data:
     mode: cluster
     gateway: true
   services.yaml: |
-    - Media:
+    - media:
         - Plex:
             icon: plex.png
             href: https://plex.${DOMAIN_01}/
@@ -73,7 +73,7 @@ data:
             description: Usenet client
             namespace: media
             app: nzbget
-    - Files & Sync:
+    - selfhosted:
         - Filebrowser:
             icon: filebrowser.png
             href: https://filebrowser.${DOMAIN_01}/
@@ -99,7 +99,13 @@ data:
             description: CalDAV & CardDAV
             namespace: selfhosted
             app: radicale
-    - Automation:
+        - n8n:
+            icon: n8n.png
+            href: https://n8n.${DOMAIN_01}/
+            description: Workflow automation
+            namespace: selfhosted
+            app: n8n
+    - home-automation:
         - Home Assistant:
             icon: home-assistant.png
             href: https://hass.${DOMAIN_01}/
@@ -112,13 +118,10 @@ data:
             description: Device firmware
             namespace: home-automation
             app: esphome
-        - n8n:
-            icon: n8n.png
-            href: https://n8n.${DOMAIN_01}/
-            description: Workflow automation
-            namespace: selfhosted
-            app: n8n
-    - Security:
+            widget:
+              type: esphome
+              url: http://esphome.home-automation.svc.cluster.local:6052
+    - security:
         - Pocket ID:
             icon: pocket-id.png
             href: https://id.${DOMAIN_01}/
@@ -137,7 +140,7 @@ data:
             description: Secrets management
             namespace: security
             app: onepassword-connect
-    - Monitoring:
+    - observability:
         - Grafana:
             icon: grafana.png
             href: https://grafana.${DOMAIN_01}/
@@ -150,6 +153,9 @@ data:
             description: Metrics
             namespace: observability
             app: prometheus
+            widget:
+              type: prometheus
+              url: http://kube-prometheus-stack-prometheus.observability.svc.cluster.local:9090
         - Alertmanager:
             icon: alertmanager.png
             href: https://alertmanager.${DOMAIN_01}/
@@ -160,19 +166,19 @@ data:
     title: sluxcloud
     headerStyle: clean
     layout:
-      Media:
+      media:
         style: columns
         columns: 3
-      Files & Sync:
+      selfhosted:
         style: columns
         columns: 3
-      Automation:
+      home-automation:
+        style: row
+        columns: 2
+      security:
         style: row
         columns: 3
-      Security:
-        style: row
-        columns: 3
-      Monitoring:
+      observability:
         style: row
         columns: 3
   widgets.yaml: |
