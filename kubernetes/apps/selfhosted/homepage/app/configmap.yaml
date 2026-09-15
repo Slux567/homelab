@@ -15,6 +15,8 @@ data:
             icon: plex.png
             href: https://plex.${DOMAIN_01}/
             description: Movies & TV
+            namespace: media
+            app: plex
             widget:
               type: plex
               url: http://plex.media.svc.cluster.local:32400
@@ -23,6 +25,8 @@ data:
             icon: seerr.png
             href: https://requests.${DOMAIN_01}/
             description: Media requests
+            namespace: media
+            app: seerr
             widget:
               type: seerr
               url: http://seerr.media.svc.cluster.local:5055
@@ -31,6 +35,8 @@ data:
             icon: radarr.png
             href: https://radarr.${DOMAIN_01}/
             description: Movie management
+            namespace: media
+            app: radarr
             widget:
               type: radarr
               url: http://radarr.media.svc.cluster.local:7878
@@ -39,6 +45,8 @@ data:
             icon: sonarr.png
             href: https://sonarr.${DOMAIN_01}/
             description: TV management
+            namespace: media
+            app: sonarr
             widget:
               type: sonarr
               url: http://sonarr.media.svc.cluster.local:8989
@@ -47,6 +55,8 @@ data:
             icon: prowlarr.png
             href: https://prowlarr.${DOMAIN_01}/
             description: Indexer management
+            namespace: media
+            app: prowlarr
             widget:
               type: prowlarr
               url: http://prowlarr.media.svc.cluster.local:9696
@@ -55,66 +65,97 @@ data:
             icon: bazarr.png
             href: https://bazarr.${DOMAIN_01}/
             description: Subtitle management
+            namespace: media
+            app: bazarr
         - NZBGet:
             icon: nzbget.png
             href: https://nzbget.${DOMAIN_01}/
             description: Usenet client
+            namespace: media
+            app: nzbget
     - Files & Sync:
         - Filebrowser:
             icon: filebrowser.png
             href: https://filebrowser.${DOMAIN_01}/
             description: File browser
+            namespace: selfhosted
+            app: filebrowser
         - Immich:
             icon: immich.png
             href: https://photos.${DOMAIN_01}/
             description: Photo backup
+            namespace: selfhosted
+            app: immich
+            podSelector: app.kubernetes.io/instance=immich
         - Syncthing:
             icon: syncthing.png
             href: https://sync.${DOMAIN_01}/
             description: File sync
+            namespace: selfhosted
+            app: syncthing
         - Radicale:
             icon: radicale.png
             href: https://radicale.${DOMAIN_01}/
             description: CalDAV & CardDAV
+            namespace: selfhosted
+            app: radicale
     - Automation:
         - Home Assistant:
             icon: home-assistant.png
             href: https://hass.${DOMAIN_01}/
             description: Home automation
+            namespace: home-automation
+            app: home-assistant
         - ESPHome:
             icon: esphome.png
             href: https://esphome.${DOMAIN_01}/
             description: Device firmware
+            namespace: home-automation
+            app: esphome
         - n8n:
             icon: n8n.png
             href: https://n8n.${DOMAIN_01}/
             description: Workflow automation
+            namespace: selfhosted
+            app: n8n
     - Security:
         - Pocket ID:
             icon: pocket-id.png
             href: https://id.${DOMAIN_01}/
             description: Identity provider
+            namespace: security
+            app: pocket-id
         - Tinyauth:
             icon: tinyauth.png
             href: https://auth.${DOMAIN_01}/
             description: Auth proxy
+            namespace: security
+            app: tinyauth
         - 1Password Connect:
             icon: 1password.png
             href: https://onepassword-connect.${DOMAIN_01}/
             description: Secrets management
+            namespace: security
+            app: onepassword-connect
     - Monitoring:
         - Grafana:
             icon: grafana.png
             href: https://grafana.${DOMAIN_01}/
             description: Dashboards
+            namespace: observability
+            app: grafana
         - Prometheus:
             icon: prometheus.png
             href: https://prometheus.${DOMAIN_01}/
             description: Metrics
+            namespace: observability
+            app: prometheus
         - Alertmanager:
             icon: alertmanager.png
             href: https://alertmanager.${DOMAIN_01}/
             description: Alerting
+            namespace: observability
+            app: alertmanager
   settings.yaml: |
     title: sluxcloud
     headerStyle: clean
