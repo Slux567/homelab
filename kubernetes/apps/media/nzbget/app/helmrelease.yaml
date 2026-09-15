@@ -20,7 +20,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
                 custom: true
                 spec:
@@ -31,7 +31,8 @@ spec:
                   periodSeconds: 10
                   timeoutSeconds: 10
                   failureThreshold: 30
-              readiness: *probes
+              readiness:
+                enabled: false
               startup:
                 enabled: true
                 spec:
