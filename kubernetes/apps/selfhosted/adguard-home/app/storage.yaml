@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: adguard-home-config
+spec:
+  storageClassName: "k8s-nfs-fast"
+  accessModes: [ReadWriteOnce]
+  resources: {requests: {storage: 2Gi}}

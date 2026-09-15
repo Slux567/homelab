@@ -11,3 +11,4 @@ resources:
   - ./radicale/ks.yaml
   - ./filebrowser/ks.yaml
   - ./syncthing/ks.yaml
+  - ./adguard-home/ks.yaml

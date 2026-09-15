@@ -1,0 +1,18 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: adguard-home-allow-dns-from-home-vlan
+spec:
+  description: "Allow DNS (53/tcp,udp) ingress from home VLAN (192.168.10.0/24) to AdGuard Home; admin web UI stays reachable only via the internal Gateway"
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: adguard-home
+  ingress:
+    - fromCIDR:
+        - "192.168.10.0/24"
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: TCP
+            - port: "53"
+              protocol: UDP

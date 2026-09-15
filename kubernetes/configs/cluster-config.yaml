@@ -16,6 +16,7 @@ data:
     PLEX_IP: ENC[AES256_GCM,data:UryCDp3MIF2jZ7s=,iv:jiz5uhd4aPHlSeZBqT6nnBzmv1xfNOhwnbchg0mYQAU=,tag:a8VZ7JZpuz+jAYH+R9cwbg==,type:str]
     SYNCTHING_IP: ENC[AES256_GCM,data:fOaWri5AZcqOXlA=,iv:ehWnxxSLGaGrQdhBaiX4gMkieL1t8uKznFlrK2119Tk=,tag:BnpsB78+0+8K5cPSIGWECQ==,type:str]
     TIMEZONE: ENC[AES256_GCM,data:1fNPiobjRV18K27igqWYqQ==,iv:oVhOaFORxcZZ8yK2tW7DnvRK7rz/Na+cOt4DEu/4V3M=,tag:9YIe+/1pk/h78v1lnM7fOg==,type:str]
+    ADGUARD_IP: ENC[AES256_GCM,data:QXQaAXBWWznOgmc=,iv:9GRzLcWY4dsgfaeaemrm7n5oBY5BUGQpqPRN3mgtjA8=,tag:yaxYixI3sRhniMEug9lLrw==,type:str]
 sops:
     age:
         - recipient: age1e37dddpcd83kdc45xsle36a9dxc492t0xnpsakyk7478zlga5agsrqjdad
@@ -27,7 +28,7 @@ sops:
             UExEYkgyTnFEczlpaElpbU1HL1QwUkkKoAs9JVLIpS5koU3oMB6FBt9/7W8fGdIc
             XkIdLjRERJ0AjlqqYvg9cgkU8534g4ZfEz6KMAfyhHdzAQe7cVAPwg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-07-27T18:00:32Z"
-    mac: ENC[AES256_GCM,data:ENxFwdehLYDooROfk67PFbDShRhxJ8ByWlcH0NmlHNlCyvxMccu86SapKOehSoEudCBz/944KpJHAp8mtLlnWvdk3WUGkl+rzveaBN4KebFEgX7bt/NjS5DkuWbJUssA98CdxN3QwTM+dYsyHVzJZANkT6gVHb1bCWoK3L23goI=,iv:PA7A5TbgqqS38Am2jESn5315ul96jyYrM8l8PqcZgcA=,tag:wVtG4tbmYxVQxgcfHR/NwA==,type:str]
+    lastmodified: "2026-09-15T18:03:36Z"
+    mac: ENC[AES256_GCM,data:SER6RI5rigg7saP1sJspbR3ENjN4/RCGz7oWFXQ3wwTQVCu0YVE/5YT6x2ckuXrgOnmA6jvS86lS3by4O5ecjeYEGyQJq0hptWCdT5a/dMl2sQ6mbrLdJk+me7AN/yISmi2cGTkCFe512AT75Hbrrowv+ejVZ5dTe0anPGNMrUY=,iv:onoeV50s9QYk3b/YfvBD/9cRRh2GhvoxJ6uAtmJeV00=,tag:osQavTHEwKWBlp6iGi6t6w==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.11.0

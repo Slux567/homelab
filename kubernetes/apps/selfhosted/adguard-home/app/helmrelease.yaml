@@ -1,0 +1,97 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: adguard-home
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  interval: 1h
+  values:
+    controllers:
+      adguard-home:
+        containers:
+          app:
+            image:
+              repository: adguard/adguardhome
+              # renovate: datasource=docker depName=adguard/adguardhome
+              tag: v0.107.79
+            env:
+              TZ: "${TIMEZONE}"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: &webport 3000
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 6
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 50m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+                add:
+                  - NET_BIND_SERVICE
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile:
+              type: RuntimeDefault
+
+    service:
+      app:
+        controller: adguard-home
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: "${ADGUARD_IP}"
+        ports:
+          dns-tcp:
+            port: 53
+            protocol: TCP
+          dns-udp:
+            port: 53
+            protocol: UDP
+          http:
+            port: *webport
+
+    route:
+      app:
+        hostnames:
+          - "adguard.${DOMAIN_01}"
+        parentRefs:
+          - name: internal
+            namespace: envoy-gateway
+        rules:
+          - backendRefs:
+              - name: adguard-home
+                port: *webport
+
+    persistence:
+      config:
+        existingClaim: adguard-home-config
+        advancedMounts:
+          adguard-home:
+            app:
+              - path: /opt/adguardhome/conf
+                subPath: conf
+              - path: /opt/adguardhome/work
+                subPath: work
