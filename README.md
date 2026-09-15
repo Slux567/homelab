@@ -1,27 +1,55 @@
 # sluxcloud homelab
 
-A GitOps-managed homelab running on a 3-node [Talos](https://www.talos.dev/) Kubernetes cluster (`sluxcloud`), reconciled continuously by [Flux](https://fluxcd.io/).
+![Talos](https://img.shields.io/badge/OS-Talos%20Linux-FF6E00?logo=linuxcontainers&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Orchestration-Kubernetes-326CE5?logo=kubernetes&logoColor=white)
+![Flux](https://img.shields.io/badge/GitOps-Flux-5468FF?logo=flux&logoColor=white)
+![Cilium](https://img.shields.io/badge/CNI-Cilium-F8C517?logo=cilium&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-## Overview
+A GitOps-managed homelab running on a 3-node [Talos](https://www.talos.dev/) Kubernetes cluster (`sluxcloud`), reconciled continuously by [Flux](https://fluxcd.io/). Every change merged to `main` is applied to the cluster automatically. So no manual `kubectl apply` is needed.
 
-- **OS / Nodes:** Talos Linux across 3 bare-metal/VM nodes (`asgard`, `midgard`, `muspelheim`)
-- **GitOps:** Flux watches this repo's `main` branch and applies changes automatically — no manual `kubectl apply`
-- **CNI:** Cilium, with BGP for advertising LoadBalancer IPs
-- **Ingress:** Envoy Gateway (Kubernetes Gateway API), split into an `internal` gateway (LAN-only) and an `external` gateway (via a Cloudflare Tunnel), with TLS certs issued by cert-manager through Let's Encrypt
-- **DNS:** ExternalDNS keeps Cloudflare (external) and Unifi (internal) DNS records in sync with Gateway routes
-- **Secrets:** [SOPS](https://github.com/getsops/sops) + age for secrets committed to the repo, and 1Password + External Secrets Operator for everything injected at runtime — no plaintext secrets ever touch git
-- **Storage:** NFS-backed persistent volumes via `csi-driver-nfs`
-- **Network Policy:** Deny-by-default, opt-in via CiliumNetworkPolicy. A clusterwide baseline blocks egress to home/storage VLANs while still allowing pod-to-pod and internet traffic; specific destinations (e.g. Postgres, Unifi, TrueNAS) and ingress sources (the internal/external Gateways, home/VPN VLANs) are then re-opened per-workload through reusable label-based policies (`networkpolicy.sluxcloud/...`), so an app only gets the exact access it declares
-- **Observability:** kube-prometheus-stack (Prometheus/Grafana/Alertmanager) + Loki/Promtail for logs
+![sluxcloud cluster hardware](docs/images/cluster-and-nas.jpeg)
+
+## Stack
+
+| Layer | Technology |
+|---|---|
+| OS | [Talos Linux](https://www.talos.dev/) — immutable, API-managed Kubernetes OS |
+| GitOps | [Flux](https://fluxcd.io/) |
+| CNI | [Cilium](https://cilium.io/), with BGP for advertising LoadBalancer IPs |
+| Ingress | [Envoy Gateway](https://gateway.envoyproxy.io/) (Kubernetes Gateway API) — an `internal` gateway (LAN-only) and an `external` gateway (via Cloudflare Tunnel), TLS via cert-manager + Let's Encrypt |
+| DNS | Split DNS via ExternalDNS: the same domain resolves differently depending on where you are — Unifi (internal DNS) answers with the `internal` Gateway's LAN IP for on-network/VPN clients, while Cloudflare (external DNS) answers with the `external` Gateway's Cloudflare Tunnel address for everyone else |
+| Secrets | [SOPS](https://github.com/getsops/sops) + age for secrets committed to the repo, [1Password](https://1password.com/) + External Secrets Operator for everything injected at runtime — no plaintext secrets ever touch git |
+| Storage | NFS-backed persistent volumes via `csi-driver-nfs` |
+| Network Policy | Deny-by-default via CiliumNetworkPolicy. A clusterwide baseline blocks egress to home/storage VLANs while allowing pod-to-pod and internet traffic; specific destinations and ingress sources are re-opened per-workload through reusable label-based policies (`networkpolicy.sluxcloud/...`), so an app only gets the exact access it declares |
+| Observability | kube-prometheus-stack (Prometheus/Grafana/Alertmanager) + Loki/Promtail |
+
+## Cluster
+
+| Node | Hostname | Role |
+|---|---|---|
+| 1 | `asgard` | control-plane + worker |
+| 2 | `midgard` | control-plane + worker |
+| 3 | `muspelheim` | control-plane + worker |
+
+## Apps
+
+Self-hosted applications deployed on top of the platform layer above:
+
+| Category | Apps |
+|---|---|
+| Files & Sync | Immich, Syncthing, Filebrowser, Radicale |
+| Automation | Home Assistant, ESPHome, n8n |
+| Identity & Auth | Pocket ID, Tinyauth, 1Password Connect |
 
 ## Repository Layout
 
 ```
 kubernetes/
-  clusters/homelab/    # Flux entry point: root Kustomizations (configs -> apps)
-  configs/              # Cluster-wide config (SOPS-encrypted), substituted into every app
-  apps/<namespace>/     # One directory per app, each a self-contained Flux Kustomization
-  components/           # Shared chart sources (e.g. bjw-s/app-template)
+  clusters/homelab/     # Flux entry point: root Kustomizations (configs -> apps)
+  configs/               # Cluster-wide config (SOPS-encrypted), substituted into every app
+  apps/<namespace>/      # One directory per app, each a self-contained Flux Kustomization
+  components/            # Shared chart sources (e.g. bjw-s/app-template)
 talos/
   patches/               # Per-node and cluster-wide Talos machine config patches
 scripts/cluster-lifecycle/  # Bootstrap and config-generation tooling
@@ -41,3 +69,7 @@ Each app lives in its own `kubernetes/apps/<namespace>/<appname>/` directory wit
 4. Bootstrap Flux and point it at this repository
 
 From there, Flux takes over — every change merged to `main` is reconciled onto the cluster automatically.
+
+## License
+
+[MIT](LICENSE)
