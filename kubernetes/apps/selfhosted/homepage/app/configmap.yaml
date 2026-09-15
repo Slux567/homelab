@@ -67,12 +67,21 @@ data:
             description: Subtitle management
             namespace: media
             app: bazarr
+            widget:
+              type: bazarr
+              url: http://bazarr.media.svc.cluster.local:6767
+              key: "{{HOMEPAGE_VAR_BAZARR_API_KEY}}"
         - NZBGet:
             icon: nzbget.png
             href: https://nzbget.${DOMAIN_01}/
             description: Usenet client
             namespace: media
             app: nzbget
+            widget:
+              type: nzbget
+              url: http://nzbget.media.svc.cluster.local:6789
+              username: "{{HOMEPAGE_VAR_NZBGET_USERNAME}}"
+              password: "{{HOMEPAGE_VAR_NZBGET_PASSWORD}}"
     - selfhosted:
         - Filebrowser:
             icon: filebrowser.png
@@ -93,6 +102,10 @@ data:
             description: File sync
             namespace: selfhosted
             app: syncthing
+            widget:
+              type: syncthing
+              url: http://syncthing.selfhosted.svc.cluster.local:8384
+              key: "{{HOMEPAGE_VAR_SYNCTHING_API_KEY}}"
         - Radicale:
             icon: radicale.png
             href: https://radicale.${DOMAIN_01}/
@@ -112,6 +125,10 @@ data:
             description: Home automation
             namespace: home-automation
             app: home-assistant
+            widget:
+              type: homeassistant
+              url: http://home-assistant.home-automation.svc.cluster.local:8123
+              key: "{{HOMEPAGE_VAR_HASS_TOKEN}}"
         - ESPHome:
             icon: esphome.png
             href: https://esphome.${DOMAIN_01}/
