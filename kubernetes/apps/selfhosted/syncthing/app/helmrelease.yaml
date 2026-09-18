@@ -17,7 +17,7 @@ spec:
             image:
               repository: syncthing/syncthing
               # renovate: datasource=docker depName=syncthing/syncthing
-              tag: 2.1.2
+              tag: 2.1.5
             env:
               PUID: "1000"
               PGID: "1000"
