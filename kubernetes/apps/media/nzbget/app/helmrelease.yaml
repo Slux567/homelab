@@ -24,8 +24,7 @@ spec:
                 enabled: true
                 custom: true
                 spec:
-                  httpGet:
-                    path: /jsonrpc/status
+                  tcpSocket:
                     port: &port 6789
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -35,12 +34,12 @@ spec:
                 enabled: false
               startup:
                 enabled: true
+                custom: true
                 spec:
-                  httpGet:
-                    path: /jsonrpc/status
+                  tcpSocket:
                     port: *port
-                  failureThreshold: 30
                   periodSeconds: 10
+                  failureThreshold: 30
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
