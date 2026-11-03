@@ -17,7 +17,7 @@ spec:
             image:
               repository: adguard/adguardhome
               # renovate: datasource=docker depName=adguard/adguardhome
-              tag: v0.107.79
+              tag: v0.107.80
             env:
               TZ: "${TIMEZONE}"
             probes:
