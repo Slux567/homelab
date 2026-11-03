@@ -1,10 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
+  "extends": ["config:recommended"],
+  "dependencyDashboardTitle": "Renovate Dashboard",
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 0,
   "flux": {
-    "fileMatch": ["kubernetes/.+\\.yaml$"]
+    "managerFilePatterns": ["/kubernetes/.+\\.yaml$/"]
   },
   "packageRules": [
     {
@@ -12,7 +13,7 @@
       "matchUpdateTypes": ["patch", "digest"],
       "automerge": true,
       "automergeType": "branch",
-      "requiredStatusChecks": null
+      "ignoreTests": true
     },
     {
       "description": "Group all minor version bumps into a single PR, no automerge",
@@ -24,6 +25,17 @@
       "description": "Open a separate PR per major version bump, no automerge",
       "matchUpdateTypes": ["major"],
       "automerge": false
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Container image repository+tag pairs in app-template HelmRelease values",
+      "managerFilePatterns": ["/kubernetes/.+\\.yaml$/"],
+      "matchStrings": [
+        "repository: (?<depName>[^\\s]+)\\n\\s+tag: \"?(?<currentValue>[^@\"\\s]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?"
+      ],
+      "datasourceTemplate": "docker"
     }
   ]
 }
