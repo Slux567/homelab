@@ -37,6 +37,9 @@ spec:
                   httpGet:
                     path: /ping
                     port: *port
+                    httpHeaders:
+                    - name: Host
+                      value: sonarr
                   initialDelaySeconds: 0
                   periodSeconds: 30
                   timeoutSeconds: 15
@@ -48,6 +51,9 @@ spec:
                   httpGet:
                     path: /ping
                     port: *port
+                    httpHeaders:
+                    - name: Host
+                      value: sonarr
                   failureThreshold: 30
                   periodSeconds: 10
             securityContext:
