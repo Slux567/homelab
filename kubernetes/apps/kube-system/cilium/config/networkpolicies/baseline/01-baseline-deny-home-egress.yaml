@@ -3,16 +3,25 @@ kind: CiliumClusterwideNetworkPolicy
 metadata:
   name: allow-all-egress
 spec:
-  description: "Allow all egress except to home and storage subnets"
+  description: "Allow egress to all pods and the internet, but not to private (RFC1918) networks"
   endpointSelector: {}
   egress:
+    # Pod-to-pod egress is open by default; access is controlled by the
+    # destination's ingress policy. Matches by identity, not CIDR, so pod and
+    # service IPs (10.42.0.0/16, 10.96.0.0/12) are unaffected by the CIDR
+    # exceptions below.
     - toEndpoints:
         - {}  # matches all pods in the cluster
+    # Internet only. Private networks (server/home/storage/IoT VLANs) are
+    # blocked by default; open specific targets with the opt-in label
+    # policies in ../egress/. Node IPs use host/remote-node identities and are
+    # not matched by CIDR rules either way.
     - toCIDRSet:
         - cidr: "0.0.0.0/0"
           except:
-            - "192.168.1.0/16"
-            - "10.0.40.0/24"
+            - "10.0.0.0/8"
+            - "172.16.0.0/12"
+            - "192.168.0.0/16"
     # Allow egress to kube-apiserver (virtual IP, not matchable by CIDR)
     - toEntities:
         - kube-apiserver
