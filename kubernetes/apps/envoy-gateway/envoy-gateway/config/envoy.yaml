@@ -76,7 +76,10 @@ spec:
       port: 443
       allowedRoutes:
         namespaces:
-          from: All
+          from: Selector
+          selector:
+            matchLabels:
+              kubernetes.io/metadata.name: external
       tls:
         certificateRefs:
           - kind: Secret
