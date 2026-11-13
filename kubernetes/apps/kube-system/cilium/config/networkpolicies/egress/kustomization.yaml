@@ -6,3 +6,4 @@ resources:
   - 02-postgres.yaml
   - 03-redis.yaml
   - 04-truenas-api.yaml
+  - 05-kube-apiserver.yaml

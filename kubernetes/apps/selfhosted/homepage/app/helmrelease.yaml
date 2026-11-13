@@ -62,6 +62,7 @@ spec:
       automountServiceAccountToken: true
       labels:
             networkpolicy.sluxcloud/ingress-internal-gateway: "true"
+            networkpolicy.sluxcloud/egress-kube-apiserver: "true"
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000

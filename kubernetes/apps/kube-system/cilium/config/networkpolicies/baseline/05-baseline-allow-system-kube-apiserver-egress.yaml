@@ -1,0 +1,28 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: allow-system-kube-apiserver-egress
+spec:
+  description: "Allow system namespaces to reach the kube-apiserver and control-plane node ports"
+  # All nodes run the control plane, so node IPs carry the kube-apiserver
+  # identity. No port restriction: prometheus/metrics-server also scrape
+  # kubelet (10250), controller-manager (10257), scheduler (10259) and
+  # node-exporter (9100) on the nodes.
+  # App namespaces should NOT be added here; use the
+  # networkpolicy.sluxcloud/egress-kube-apiserver label instead.
+  endpointSelector:
+    matchExpressions:
+      - key: io.kubernetes.pod.namespace
+        operator: In
+        values:
+          - cert-manager
+          - envoy-gateway
+          - flux-system
+          - kube-system
+          - networking
+          - observability
+          - security
+          - volsync-system
+  egress:
+    - toEntities:
+        - kube-apiserver

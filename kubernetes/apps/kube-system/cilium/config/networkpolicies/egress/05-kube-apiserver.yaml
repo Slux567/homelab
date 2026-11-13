@@ -1,0 +1,18 @@
+apiVersion: cilium.io/v2
+kind: CiliumClusterwideNetworkPolicy
+metadata:
+  name: label-egress-kube-apiserver
+spec:
+  description: "Allow egress to the kube-apiserver (port 6443 only) for pods with the egress-kube-apiserver label"
+  endpointSelector:
+    matchLabels:
+      networkpolicy.sluxcloud/egress-kube-apiserver: "true"
+  egress:
+    # The kubernetes.default Service (443) is translated to 6443 before policy
+    # is evaluated, so only 6443 is needed. Other node ports stay blocked.
+    - toEntities:
+        - kube-apiserver
+      toPorts:
+        - ports:
+            - port: "6443"
+              protocol: TCP

@@ -5,3 +5,4 @@ resources:
   - 02-baseline-allow-coredns-ingress.yaml
   - 03-baseline-allow-prometheus-ingress.yaml
   - 04-baseline-allow-host-and-kubeapiserver-ingress.yaml
+  - 05-baseline-allow-system-kube-apiserver-egress.yaml
