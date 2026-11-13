@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: portfolio
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: portfolio
+  values:
+    image:
+      repository: ghcr.io/slux567/portfolio
+      tag: 0.1.0
+    replicas: 1
+    # visitor -> Cloudflare -> cloudflared -> Envoy -> app
+    trustedProxyCount: 2
+    route:
+      hostname: portfolio.${DOMAIN_01}
+      gateway:
+        name: external
+        namespace: envoy-gateway
+        sectionName: https
