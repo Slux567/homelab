@@ -37,6 +37,6 @@ spec:
     sources: ["crd", "gateway-httproute"]
     txtPrefix: k8s.
     txtOwnerId: default
-    domainFilters: ["${DOMAIN_01}"]
+    domainFilters: ["${DOMAIN_01}", "${DOMAIN_02}"]
     serviceMonitor:
       enabled: true

@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-cert-02
+spec:
+  secretName: wildcard-cert-02
+  issuerRef:
+    name: letsencrypt-prod-cloudflare
+    kind: ClusterIssuer
+  dnsNames:
+  - "${DOMAIN_02}"
+  - "*.${DOMAIN_02}"

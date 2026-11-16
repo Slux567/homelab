@@ -81,6 +81,20 @@ spec:
                   keepAliveTimeout: 3600s
                   tcpKeepAlive: 7200s
                 service: https://external.envoy-gateway.svc.cluster.local:443
+              - hostname: "${DOMAIN_02}"
+                originRequest:
+                  http2Origin: true
+                  originServerName: external.${DOMAIN_02}
+                  keepAliveTimeout: 3600s
+                  tcpKeepAlive: 7200s
+                service: https://external.envoy-gateway.svc.cluster.local:443
+              - hostname: "*.${DOMAIN_02}"
+                originRequest:
+                  http2Origin: true
+                  originServerName: external.${DOMAIN_02}
+                  keepAliveTimeout: 3600s
+                  tcpKeepAlive: 7200s
+                service: https://external.envoy-gateway.svc.cluster.local:443
               - service: http_status:404
     persistence:
       config-file:

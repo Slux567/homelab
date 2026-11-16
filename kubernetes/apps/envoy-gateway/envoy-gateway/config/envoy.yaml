@@ -84,6 +84,8 @@ spec:
         certificateRefs:
           - kind: Secret
             name: wildcard-cert
+          - kind: Secret
+            name: wildcard-cert-02
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy

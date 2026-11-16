@@ -17,7 +17,7 @@ spec:
     # visitor -> Cloudflare -> cloudflared -> Envoy -> app
     trustedProxyCount: 2
     route:
-      hostname: portfolio.${DOMAIN_01}
+      hostname: ${DOMAIN_02}
       gateway:
         name: external
         namespace: envoy-gateway

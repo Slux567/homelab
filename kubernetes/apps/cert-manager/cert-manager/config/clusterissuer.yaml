@@ -16,3 +16,4 @@ spec:
       selector:
         dnsZones:
         - "${DOMAIN_01}"
+        - "${DOMAIN_02}"
