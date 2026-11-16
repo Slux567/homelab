@@ -10,14 +10,13 @@ spec:
     kind: OCIRepository
     name: portfolio
   values:
-    image:
-      repository: ghcr.io/slux567/portfolio
-      tag: 0.2.0
     replicas: 3
     # visitor -> Cloudflare -> cloudflared -> Envoy -> app
     trustedProxyCount: 2
     route:
-      hostname: ${DOMAIN_02}
+      hostnames:
+        - "${DOMAIN_02}"
+        - "www.${DOMAIN_02}"
       gateway:
         name: external
         namespace: envoy-gateway
